@@ -287,55 +287,143 @@ nav {
     text-transform: uppercase;
 }
 
-/* === HORIZONTAL SCROLL (CREATIVE WALL) === */
-.horizontal-section {
-    height: 100vh;
+/* === MASONRY CREATIVE WALL === */
+.creative-wall-section {
+    padding: 8vw 4vw;
     position: relative;
-    overflow: hidden;
-    background: #000;
+    background: var(--bg);
 }
-.horizontal-wrapper {
-    display: flex;
-    height: 100%;
-    width: fit-content;
-    align-items: center;
-    padding: 0 10vw;
-    gap: 4vw;
+.masonry-grid {
+    column-count: 4;
+    column-gap: 2vw;
+    width: 100%;
 }
-.wall-header {
-    width: 30vw;
-    flex-shrink: 0;
-}
-.wall-header h2 {
-    font-family: var(--ff-display);
-    font-size: var(--fluid-h1);
-    line-height: 1;
-}
-.video-item {
-    width: 45vw;
-    aspect-ratio: 16/9;
-    flex-shrink: 0;
-    position: relative;
+.social-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--glass-border);
     border-radius: 12px;
     overflow: hidden;
-    background: var(--glass-bg);
-}
-.video-item iframe {
+    margin-bottom: 2vw;
+    break-inside: avoid;
+    display: inline-block;
     width: 100%;
-    height: 100%;
-    border: none;
-    pointer-events: none; /* Let cursor hover work seamlessly */
-    transform: scale(1.2); /* Hide youtube edges */
+    transition: transform 0.4s var(--ease-out-expo), background 0.4s, box-shadow 0.4s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
-.video-caption {
+.social-card:hover {
+    background: rgba(255,255,255,0.06);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+.social-header {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    gap: 12px;
+}
+.social-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--fg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--bg);
+}
+.brand-mg .social-avatar { background: var(--accent); color: white; }
+.brand-samsung .social-avatar { background: var(--accent-blue); color: white; }
+
+.social-user {
+    font-family: var(--ff-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    flex: 1;
+}
+.social-more {
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: var(--fg-muted);
+}
+.social-media {
+    position: relative;
+    width: 100%;
+    background: #000;
+}
+.social-media img, .social-media video {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+}
+.video-icon {
     position: absolute;
-    bottom: 0; left: 0; width: 100%;
-    padding: 2rem;
-    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-    font-family: var(--ff-mono);
-    font-size: var(--fluid-small);
-    text-transform: uppercase;
+    top: 15px;
+    right: 15px;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    border-radius: 50%;
+    width: 32px; height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
 }
+.video-icon svg {
+    width: 14px; height: 14px;
+    fill: white;
+    margin-left: 2px;
+}
+.social-footer {
+    padding: 16px;
+}
+.social-actions {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+.social-actions svg {
+    width: 24px; height: 24px;
+    fill: none;
+    stroke: var(--fg);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke 0.3s;
+}
+.social-actions svg:hover { stroke: var(--accent); }
+.social-likes {
+    font-family: var(--ff-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.social-caption {
+    font-family: var(--ff-sans);
+    font-size: 0.85rem;
+    color: var(--fg-muted);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.social-caption b { color: var(--fg); font-weight: 600; }
+
+/* Masonry Responsiveness */
+@media (max-width: 1024px) {
+    .masonry-grid { column-count: 3; }
+}
+@media (max-width: 768px) {
+    .masonry-grid { column-count: 2; column-gap: 4vw; }
+    .social-card { margin-bottom: 4vw; }
+}
+@media (max-width: 480px) {
+    .masonry-grid { column-count: 1; }
+    .social-card { margin-bottom: 6vw; }
+}
+
 
 /* === TIMELINE === */
 .timeline-section {
@@ -445,7 +533,6 @@ footer {
     .bento-grid { grid-template-columns: repeat(2, 1fr); }
     .broken-grid { display: flex; flex-direction: column; gap: 15vw; }
     .case-card:nth-child(n) { margin: 0; }
-    .video-item { width: 85vw; }
     .footer-top { flex-direction: column; align-items: flex-start; gap: 2rem; }
     nav { display: none; } /* Simplified for mobile purity */
 }
@@ -469,9 +556,8 @@ footer {
 <!-- Hero Section -->
 <section class="hero" id="home">
     <div class="hero-video-wrap" data-speed="0.8">
-        <!-- High-end abstract/tech video placeholder (autoplay, muted, loop) -->
         <video autoplay muted loop playsinline>
-            <source src="https://cdn.pixabay.com/video/2021/08/04/83866-584742516_large.mp4" type="video/mp4">
+            <source src="assets/video_1.mp4" type="video/mp4">
         </video>
     </div>
     <div class="hero-content reveal">
@@ -519,12 +605,12 @@ footer {
         <!-- Case 1 -->
         <a href="#" class="case-card hover-target reveal">
             <div class="case-img-wrap" data-speed="0.9">
-                <img src="assets/ev-sahi-hai-hero.png" alt="EV Sahi Hai Campaign" onerror="this.src='https://images.unsplash.com/photo-1560958089-b8a1929cea89?q=80&w=2071&auto=format&fit=crop'">
+                <img src="assets/image_11.jpg" alt="Windsor EV Campaign">
             </div>
             <div class="case-info">
                 <div>
-                    <h3 class="case-title">EV Sahi Hai — Category Creation</h3>
-                    <div class="case-meta">MG Motor India · 2025 · Multi-Phase Campaign</div>
+                    <h3 class="case-title">Windsor EV — Inspire Edition</h3>
+                    <div class="case-meta">MG Motor India · Limited Edition Launch</div>
                 </div>
             </div>
         </a>
@@ -532,12 +618,12 @@ footer {
         <!-- Case 2 -->
         <a href="#" class="case-card hover-target reveal">
             <div class="case-img-wrap" data-speed="1.1">
-                <img src="assets/filtercopy-award.jpg" alt="Samsung x FilterCopy" onerror="this.src='https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1974&auto=format&fit=crop'">
+                <img src="assets/image_5.jpg" alt="Samsung x FilterCopy">
             </div>
             <div class="case-info">
                 <div>
                     <h3 class="case-title">#FunKeFundae | Galaxy F16 5G</h3>
-                    <div class="case-meta">Samsung × FilterCopy · 8 Short Films Produced</div>
+                    <div class="case-meta">Samsung × FilterCopy · SCREENXX Winner</div>
                 </div>
             </div>
         </a>
@@ -545,12 +631,12 @@ footer {
         <!-- Case 3 -->
         <a href="#" class="case-card hover-target reveal">
             <div class="case-img-wrap" data-speed="0.95">
-                <img src="assets/mg-linkedin-600k.jpg" alt="MG Motor LinkedIn" onerror="this.src='https://images.unsplash.com/photo-1616469829581-73993eb86b02?q=80&w=2070&auto=format&fit=crop'">
+                <img src="assets/image_14.jpg" alt="Comet EV">
             </div>
             <div class="case-info">
                 <div>
-                    <h3 class="case-title">50K Organic Growth Engine</h3>
-                    <div class="case-meta">LinkedIn Community Building · #LifeAtMG</div>
+                    <h3 class="case-title">Comet EV — Easy on the Drive</h3>
+                    <div class="case-meta">Urban Mobility · Brand Amplification</div>
                 </div>
             </div>
         </a>
@@ -558,12 +644,12 @@ footer {
         <!-- Case 4 -->
         <a href="#" class="case-card hover-target reveal">
             <div class="case-img-wrap" data-speed="1.05">
-                <img src="assets/f-series-festive.jpg" alt="Galaxy F-Series" onerror="this.src='https://images.unsplash.com/photo-1542393545-10f5cde2c810?q=80&w=1965&auto=format&fit=crop'">
+                <img src="assets/image_21.jpg" alt="MG Astor">
             </div>
             <div class="case-info">
                 <div>
-                    <h3 class="case-title">Galaxy F-Series Integrated GTM</h3>
-                    <div class="case-meta">5 Products Launched · E-commerce & Retail POSM</div>
+                    <h3 class="case-title">The Blockbuster SUV</h3>
+                    <div class="case-meta">MG Astor · Full-Funnel Product Launch</div>
                 </div>
             </div>
         </a>
@@ -571,7 +657,7 @@ footer {
         <!-- Case 5 -->
         <a href="#" class="case-card hover-target reveal">
             <div class="case-img-wrap" data-speed="0.9">
-                <img src="assets/galaxy-s23-lime.jpg" alt="Galaxy S23 Lime" onerror="this.src='https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?q=80&w=2071&auto=format&fit=crop'">
+                <img src="assets/image_26.jpg" alt="Galaxy S23 Lime">
             </div>
             <div class="case-info">
                 <div>
@@ -584,7 +670,7 @@ footer {
         <!-- Case 6 -->
         <a href="#" class="case-card hover-target reveal">
             <div class="case-img-wrap" data-speed="1.15">
-                <img src="assets/grid-s24-delhi.png" alt="Hyperlocal Retail" onerror="this.src='https://images.unsplash.com/photo-1555529771-835f59bfc50c?q=80&w=1974&auto=format&fit=crop'">
+                <img src="assets/image_8.jpg" alt="Comet EV Views">
             </div>
             <div class="case-info">
                 <div>
@@ -597,36 +683,203 @@ footer {
     </div>
 </section>
 
-<!-- Horizontal Scroll: Creative Wall -->
-<section class="horizontal-section" id="creative-wall">
-    <div class="horizontal-wrapper">
-        <div class="wall-header">
-            <div class="section-header" style="border:none; margin-bottom: 2rem; padding:0;">
-                <span>02 / Creative Wall</span>
+<!-- Masonry Creative Wall -->
+<section class="creative-wall-section" id="creative-wall">
+    <div class="section-header reveal">
+        <span>02 / Creative Wall</span>
+        <span>Social Media & Campaigns</span>
+    </div>
+
+    <div class="masonry-grid">
+        
+        <!-- Post 1 (Video) -->
+        <div class="social-card hover-target brand-mg reveal">
+            <div class="social-header">
+                <div class="social-avatar">MG</div>
+                <div class="social-user">mgmotorin</div>
+                <div class="social-more">...</div>
             </div>
-            <h2>Video<br>Campaigns &<br><em>Embeds</em></h2>
+            <div class="social-media">
+                <video autoplay muted loop playsinline>
+                    <source src="assets/video_0.mp4" type="video/mp4">
+                </video>
+                <div class="video-icon">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+            </div>
+            <div class="social-footer">
+                <div class="social-actions">
+                    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                    <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </div>
+                <div class="social-likes">18.2K likes</div>
+                <div class="social-caption"><b>mgmotorin</b> Experiencing the thrill. Check out the latest Hector launch! 🚙💨 #MGHector #ItsAHumanThing</div>
+            </div>
         </div>
-        
-        <!-- Videos configured for autoplay, loop, muted, no controls -->
-        <div class="video-item hover-video">
-            <iframe src="https://www.youtube.com/embed/8vw0COlZ7NI?autoplay=1&mute=1&loop=1&playlist=8vw0COlZ7NI&controls=0&modestbranding=1"></iframe>
-            <div class="video-caption">#FunKeFundae — Influencer Reel 1</div>
+
+        <!-- Post 2 (Image) -->
+        <div class="social-card hover-target brand-samsung reveal">
+            <div class="social-header">
+                <div class="social-avatar">S</div>
+                <div class="social-user">samsungindia</div>
+                <div class="social-more">...</div>
+            </div>
+            <div class="social-media">
+                <img src="assets/image_26.jpg" alt="Galaxy Lime">
+            </div>
+            <div class="social-footer">
+                <div class="social-actions">
+                    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                    <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </div>
+                <div class="social-likes">25.4K likes</div>
+                <div class="social-caption"><b>samsungindia</b> Epic has a new shade. Unleashing the Galaxy S23 in striking Lime. 🟢✨ #ShareTheEpic</div>
+            </div>
         </div>
-        <div class="video-item hover-video">
-            <iframe src="https://www.youtube.com/embed/cQabpYrMO1M?autoplay=1&mute=1&loop=1&playlist=cQabpYrMO1M&controls=0&modestbranding=1"></iframe>
-            <div class="video-caption">EV Sahi Hai — Charging Everywhere</div>
+
+        <!-- Post 3 (Video) -->
+        <div class="social-card hover-target brand-mg reveal">
+            <div class="social-header">
+                <div class="social-avatar">MG</div>
+                <div class="social-user">mgmotorin</div>
+                <div class="social-more">...</div>
+            </div>
+            <div class="social-media">
+                <video autoplay muted loop playsinline>
+                    <source src="assets/video_1.mp4" type="video/mp4">
+                </video>
+                <div class="video-icon">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+            </div>
+            <div class="social-footer">
+                <div class="social-actions">
+                    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                    <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </div>
+                <div class="social-likes">10.1K likes</div>
+                <div class="social-caption"><b>mgmotorin</b> The Windsor Inspire is here. A limited edition built to turn heads everywhere.</div>
+            </div>
         </div>
-        <div class="video-item hover-video">
-            <iframe src="https://www.youtube.com/embed/3TeBUeFkx5s?autoplay=1&mute=1&loop=1&playlist=3TeBUeFkx5s&controls=0&modestbranding=1"></iframe>
-            <div class="video-caption">Galaxy F-Series — Product Film</div>
+
+        <!-- Post 4 (Image) -->
+        <div class="social-card hover-target brand-mg reveal">
+            <div class="social-header">
+                <div class="social-avatar">MG</div>
+                <div class="social-user">mgmotorin</div>
+                <div class="social-more">...</div>
+            </div>
+            <div class="social-media">
+                <img src="assets/image_21.jpg" alt="Astor Blockbuster">
+            </div>
+            <div class="social-footer">
+                <div class="social-actions">
+                    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                    <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </div>
+                <div class="social-likes">8.4K likes</div>
+                <div class="social-caption"><b>mgmotorin</b> Meet the blockbuster SUV. The AI-powered MG Astor steals the show. 🎬🚗</div>
+            </div>
         </div>
-        <div class="video-item hover-video">
-            <iframe src="https://www.youtube.com/embed/3JCPGAnYzkA?autoplay=1&mute=1&loop=1&playlist=3JCPGAnYzkA&controls=0&modestbranding=1"></iframe>
-            <div class="video-caption">EV Sahi Hai — The Long Drive</div>
+
+        <!-- Post 5 (Video) -->
+        <div class="social-card hover-target brand-samsung reveal">
+            <div class="social-header">
+                <div class="social-avatar">S</div>
+                <div class="social-user">samsungindia</div>
+                <div class="social-more">...</div>
+            </div>
+            <div class="social-media">
+                <video autoplay muted loop playsinline>
+                    <source src="assets/video_3.mp4" type="video/mp4">
+                </video>
+                <div class="video-icon">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+            </div>
+            <div class="social-footer">
+                <div class="social-actions">
+                    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                    <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </div>
+                <div class="social-likes">112K likes</div>
+                <div class="social-caption"><b>samsungindia</b> Flex every angle. Get ready to Unfold your world with the Galaxy Z Flip4. 📱✨</div>
+            </div>
         </div>
-        
-        <!-- Buffer space at end -->
-        <div style="width: 10vw; flex-shrink: 0;"></div>
+
+        <!-- Post 6 (Image) -->
+        <div class="social-card hover-target brand-mg reveal">
+            <div class="social-header">
+                <div class="social-avatar">MG</div>
+                <div class="social-user">mgmotorin</div>
+                <div class="social-more">...</div>
+            </div>
+            <div class="social-media">
+                <img src="assets/image_8.jpg" alt="Comet EV">
+            </div>
+            <div class="social-footer">
+                <div class="social-actions">
+                    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                    <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </div>
+                <div class="social-likes">15.3K likes</div>
+                <div class="social-caption"><b>mgmotorin</b> The Comet EV. Easy on the eye, even easier on the drive. Zap through the city lights. ⚡🌆</div>
+            </div>
+        </div>
+
+        <!-- Post 7 (Video) -->
+        <div class="social-card hover-target brand-mg reveal">
+            <div class="social-header">
+                <div class="social-avatar">MG</div>
+                <div class="social-user">mgmotorin</div>
+                <div class="social-more">...</div>
+            </div>
+            <div class="social-media">
+                <video autoplay muted loop playsinline>
+                    <source src="assets/video_2.mp4" type="video/mp4">
+                </video>
+                <div class="video-icon">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+            </div>
+            <div class="social-footer">
+                <div class="social-actions">
+                    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                    <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </div>
+                <div class="social-likes">22.8K likes</div>
+                <div class="social-caption"><b>mgmotorin</b> Watt's in the Wild. Catching the true electric essence across diverse landscapes. 🌿🔋</div>
+            </div>
+        </div>
+
+        <!-- Post 8 (Image) -->
+        <div class="social-card hover-target brand-samsung reveal">
+            <div class="social-header">
+                <div class="social-avatar">S</div>
+                <div class="social-user">samsungindia</div>
+                <div class="social-more">...</div>
+            </div>
+            <div class="social-media">
+                <img src="assets/image_5.jpg" alt="Screenxx Award">
+            </div>
+            <div class="social-footer">
+                <div class="social-actions">
+                    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                    <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </div>
+                <div class="social-likes">3.4K likes</div>
+                <div class="social-caption"><b>samsungindia</b> We won big! SCREENXX Best Influencer Collaboration for #FunKeFundae with FilterCopy. 🏆🎊</div>
+            </div>
+        </div>
+
     </div>
 </section>
 
@@ -690,7 +943,7 @@ footer {
         <div class="footer-links">
             <a href="mailto:er.mahlawat@gmail.com" class="hover-target">Email Me</a>
             <a href="https://linkedin.com/in/pradeepmahlawat/" target="_blank" class="hover-target">LinkedIn</a>
-            <a href="assets/Pradeep_Mahlawat_Resume_2025.pdf" target="_blank" class="hover-target">Resume</a>
+            <a href="assets/Pradeep_Mahlawat_Resume_2026.pdf" target="_blank" class="hover-target">Resume</a>
         </div>
     </div>
 </footer>
@@ -747,10 +1000,6 @@ footer {
         el.addEventListener('mouseenter', () => cursor.classList.add('hover-expand'));
         el.addEventListener('mouseleave', () => cursor.classList.remove('hover-expand'));
     });
-    document.querySelectorAll('.hover-video').forEach(el => {
-        el.addEventListener('mouseenter', () => cursor.classList.add('hover-play'));
-        el.addEventListener('mouseleave', () => cursor.classList.remove('hover-play'));
-    });
 
     // Simple Reveal Animations
     const revealElements = document.querySelectorAll('.reveal');
@@ -783,30 +1032,6 @@ footer {
                 scrub: true
             }
         });
-    });
-
-    // Horizontal Scroll for Creative Wall
-    const horizontalSection = document.querySelector('.horizontal-section');
-    const horizontalWrapper = document.querySelector('.horizontal-wrapper');
-    
-    function getScrollAmount() {
-        let wrapperWidth = horizontalWrapper.scrollWidth;
-        return -(wrapperWidth - window.innerWidth);
-    }
-    
-    const tween = gsap.to(horizontalWrapper, {
-        x: getScrollAmount,
-        ease: "none"
-    });
-
-    ScrollTrigger.create({
-        trigger: horizontalSection,
-        start: "top top",
-        end: () => `+=${getScrollAmount() * -1}`,
-        pin: true,
-        animation: tween,
-        scrub: 1,
-        invalidateOnRefresh: true
     });
 
     // Timeline Scroll Reveal & Line Drawing
