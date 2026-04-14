@@ -12,14 +12,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
 
 <style>
-/* === DESIGN SYSTEM === */
+/* === DESIGN SYSTEM & THEME VARIABLES === */
 :root {
+    /* Default Dark Mode */
     --bg: #070707;
     --fg: #e2e2e2;
     --fg-muted: #888888;
     --accent: #c7653e; /* Warm accent */
     --accent-blue: #2d5be3;
     
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-hover: rgba(255, 255, 255, 0.06);
+    --noise-opacity: 0.035;
+
+    /* Typography */
     --ff-display: 'Instrument Serif', serif;
     --ff-sans: 'Inter', sans-serif;
     --ff-mono: 'JetBrains Mono', monospace;
@@ -30,10 +37,19 @@
     --fluid-p: clamp(1rem, 1.2vw, 1.25rem);
     --fluid-small: clamp(0.75rem, 0.9vw, 1rem);
     
-    --glass-bg: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(255, 255, 255, 0.08);
-    
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Light Mode Overrides */
+[data-theme="light"] {
+    --bg: #f4f4f0;
+    --fg: #111111;
+    --fg-muted: #666666;
+    
+    --glass-bg: rgba(0, 0, 0, 0.03);
+    --glass-border: rgba(0, 0, 0, 0.08);
+    --glass-hover: rgba(0, 0, 0, 0.06);
+    --noise-opacity: 0.06;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -45,6 +61,7 @@ body {
     line-height: 1.5;
     overflow-x: hidden;
     cursor: none; /* Custom cursor */
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 a { color: inherit; text-decoration: none; cursor: none; }
@@ -56,8 +73,9 @@ img { display: block; max-width: 100%; height: auto; }
     top: 0; left: 0; width: 100vw; height: 100vh;
     pointer-events: none;
     z-index: 9999;
-    opacity: 0.035;
+    opacity: var(--noise-opacity);
     background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+    transition: opacity 0.5s ease;
 }
 
 /* === CUSTOM CURSOR === */
@@ -65,7 +83,7 @@ img { display: block; max-width: 100%; height: auto; }
     position: fixed;
     top: 0; left: 0;
     width: 20px; height: 20px;
-    background: var(--fg);
+    background: #fff; /* Always white so difference blend mode works on both themes */
     border-radius: 50%;
     pointer-events: none;
     z-index: 10000;
@@ -75,8 +93,6 @@ img { display: block; max-width: 100%; height: auto; }
 }
 .cursor.hover-expand {
     width: 80px; height: 80px;
-    background: var(--fg);
-    mix-blend-mode: difference;
 }
 .cursor.hover-play {
     width: 80px; height: 80px;
@@ -90,9 +106,75 @@ img { display: block; max-width: 100%; height: auto; }
     transform: translate(-50%, -50%);
     font-family: var(--ff-mono);
     font-size: 10px;
-    color: var(--bg);
+    color: #fff;
     font-weight: bold;
     letter-spacing: 1px;
+}
+
+/* === THEME TOGGLE (VERTICAL CLEAN) === */
+.theme-toggle {
+    position: fixed;
+    top: 50%;
+    left: 2vw;
+    transform: translateY(-50%) rotate(180deg);
+    writing-mode: vertical-rl;
+    z-index: 100;
+    font-family: var(--ff-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    color: var(--fg-muted);
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+    padding: 1rem;
+}
+.theme-toggle:hover {
+    color: var(--fg);
+}
+.theme-toggle-text::after {
+    content: ' [ LIGHT ]';
+}
+[data-theme="light"] .theme-toggle-text::after {
+    content: ' [ DARK ]';
+}
+
+/* === SCROLL PROGRESS CIRCLE === */
+.scroll-progress-container {
+    position: fixed;
+    bottom: 2vw;
+    right: 2vw;
+    width: 50px;
+    height: 50px;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.scroll-progress-svg {
+    transform: rotate(-90deg);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+.progress-bg-ring {
+    fill: none;
+    stroke: var(--glass-border);
+    stroke-width: 2;
+    transition: stroke 0.5s ease;
+}
+.progress-fill-ring {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2;
+    stroke-dasharray: 138; /* 2 * pi * 22 ≈ 138 */
+    stroke-dashoffset: 138;
+    transition: stroke-dashoffset 0.1s linear;
+}
+.progress-arrow {
+    color: var(--fg);
+    font-family: var(--ff-sans);
+    font-size: 1rem;
+    font-weight: 300;
+    transition: color 0.5s ease;
 }
 
 /* === NAV === */
@@ -103,10 +185,11 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 100;
+    z-index: 90;
     mix-blend-mode: difference;
     font-family: var(--ff-mono);
     font-size: var(--fluid-small);
+    color: #fff;
     text-transform: uppercase;
     letter-spacing: 0.1em;
 }
@@ -118,7 +201,7 @@ nav {
     width: 100vw;
     display: flex;
     align-items: flex-end;
-    padding: 4vw;
+    padding: 4vw 8vw; /* Added left padding to avoid overlap with toggle */
     overflow: hidden;
 }
 .hero-video-wrap {
@@ -131,12 +214,13 @@ nav {
     content: '';
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(7,7,7,1) 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, var(--bg) 100%);
+    transition: background 0.5s ease;
 }
 .hero-video-wrap video {
     width: 100%; height: 100%;
     object-fit: cover;
-    transform: scale(1.05); /* Pre-scale for parallax */
+    transform: scale(1.05);
 }
 .hero-content {
     position: relative;
@@ -174,7 +258,7 @@ nav {
 
 /* === BENTO PROOF BAR === */
 .bento-section {
-    padding: 8vw 4vw;
+    padding: 8vw;
     position: relative;
     z-index: 10;
 }
@@ -182,14 +266,14 @@ nav {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1vw;
-    background: rgba(255,255,255,0.02);
+    background: var(--glass-bg);
     padding: 1vw;
     border-radius: 24px;
     backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
 }
 .bento-item {
-    background: rgba(255,255,255,0.03);
+    background: var(--glass-bg);
     border-radius: 16px;
     padding: 3vw 2vw;
     display: flex;
@@ -199,7 +283,7 @@ nav {
     transition: transform 0.4s var(--ease-out-expo), background 0.4s;
 }
 .bento-item:hover {
-    background: rgba(255,255,255,0.06);
+    background: var(--glass-hover);
     transform: translateY(-5px);
 }
 .bento-val {
@@ -218,7 +302,7 @@ nav {
 
 /* === CASE STUDIES (BROKEN GRID) === */
 .work-section {
-    padding: 8vw 4vw;
+    padding: 2vw 8vw 8vw;
 }
 .section-header {
     font-family: var(--ff-mono);
@@ -231,6 +315,7 @@ nav {
     padding-bottom: 2rem;
     display: flex;
     justify-content: space-between;
+    transition: border-color 0.5s;
 }
 .broken-grid {
     display: grid;
@@ -242,7 +327,6 @@ nav {
     overflow: hidden;
     border-radius: 12px;
 }
-/* Grid positioning for broken layout */
 .case-card:nth-child(1) { grid-column: 1 / 8; margin-bottom: 4vw; }
 .case-card:nth-child(2) { grid-column: 6 / 13; margin-top: -8vw; margin-bottom: 12vw;}
 .case-card:nth-child(3) { grid-column: 2 / 7; margin-bottom: 4vw; }
@@ -289,9 +373,10 @@ nav {
 
 /* === MASONRY CREATIVE WALL === */
 .creative-wall-section {
-    padding: 8vw 4vw;
+    padding: 8vw;
     position: relative;
     background: var(--bg);
+    transition: background 0.5s ease;
 }
 .masonry-grid {
     column-count: 4;
@@ -299,7 +384,7 @@ nav {
     width: 100%;
 }
 .social-card {
-    background: rgba(255,255,255,0.03);
+    background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     border-radius: 12px;
     overflow: hidden;
@@ -307,13 +392,11 @@ nav {
     break-inside: avoid;
     display: inline-block;
     width: 100%;
-    transition: transform 0.4s var(--ease-out-expo), background 0.4s, box-shadow 0.4s;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    transition: transform 0.4s var(--ease-out-expo), background 0.4s, border-color 0.5s;
 }
 .social-card:hover {
-    background: rgba(255,255,255,0.06);
+    background: var(--glass-hover);
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 .social-header {
     display: flex;
@@ -325,13 +408,11 @@ nav {
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background: var(--fg);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 12px;
     font-weight: 700;
-    color: var(--bg);
 }
 .brand-mg .social-avatar { background: var(--accent); color: white; }
 .brand-samsung .social-avatar { background: var(--accent-blue); color: white; }
@@ -368,7 +449,6 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
-    pointer-events: none;
 }
 .video-icon svg {
     width: 14px; height: 14px;
@@ -390,7 +470,7 @@ nav {
     stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
-    transition: stroke 0.3s;
+    transition: stroke 0.5s;
 }
 .social-actions svg:hover { stroke: var(--accent); }
 .social-likes {
@@ -404,17 +484,11 @@ nav {
     font-size: 0.85rem;
     color: var(--fg-muted);
     line-height: 1.4;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
 }
 .social-caption b { color: var(--fg); font-weight: 600; }
 
 /* Masonry Responsiveness */
-@media (max-width: 1024px) {
-    .masonry-grid { column-count: 3; }
-}
+@media (max-width: 1024px) { .masonry-grid { column-count: 3; } }
 @media (max-width: 768px) {
     .masonry-grid { column-count: 2; column-gap: 4vw; }
     .social-card { margin-bottom: 4vw; }
@@ -424,10 +498,9 @@ nav {
     .social-card { margin-bottom: 6vw; }
 }
 
-
 /* === TIMELINE === */
 .timeline-section {
-    padding: 12vw 4vw;
+    padding: 12vw 8vw;
     max-width: 1000px;
     margin: 0 auto;
 }
@@ -441,6 +514,7 @@ nav {
     width: 1px;
     height: 100%;
     background: var(--glass-border);
+    transition: background 0.5s;
 }
 .timeline-progress {
     position: absolute;
@@ -470,7 +544,7 @@ nav {
     border: 1px solid var(--glass-border);
     border-radius: 50%;
     transform: translateX(-4.5px);
-    transition: background 0.4s, border-color 0.4s;
+    transition: background 0.5s, border-color 0.5s;
 }
 .tl-node.active .tl-dot {
     background: var(--accent);
@@ -502,11 +576,12 @@ nav {
 
 /* === FOOTER === */
 footer {
-    padding: 8vw 4vw;
+    padding: 8vw;
     border-top: 1px solid var(--glass-border);
     display: flex;
     flex-direction: column;
     gap: 4vw;
+    transition: border-color 0.5s;
 }
 .footer-top {
     display: flex;
@@ -534,17 +609,32 @@ footer {
     .broken-grid { display: flex; flex-direction: column; gap: 15vw; }
     .case-card:nth-child(n) { margin: 0; }
     .footer-top { flex-direction: column; align-items: flex-start; gap: 2rem; }
-    nav { display: none; } /* Simplified for mobile purity */
+    nav { display: none; }
+    .theme-toggle { left: 4vw; }
 }
 </style>
 </head>
-<body>
+<body data-theme="dark">
 
 <!-- Noise Overlay -->
 <div class="noise-overlay"></div>
 
 <!-- Custom Cursor -->
 <div class="cursor"></div>
+
+<!-- Vertical Theme Toggle -->
+<div class="theme-toggle hover-target" id="theme-toggle" onclick="toggleTheme()">
+    <span class="theme-toggle-text">MODE</span>
+</div>
+
+<!-- Scroll Progress Circle -->
+<div class="scroll-progress-container">
+    <svg class="scroll-progress-svg" viewBox="0 0 50 50">
+        <circle class="progress-bg-ring" cx="25" cy="25" r="22"></circle>
+        <circle class="progress-fill-ring" id="progress-fill" cx="25" cy="25" r="22"></circle>
+    </svg>
+    <div class="progress-arrow">↓</div>
+</div>
 
 <!-- Navigation -->
 <nav>
@@ -556,8 +646,9 @@ footer {
 <!-- Hero Section -->
 <section class="hero" id="home">
     <div class="hero-video-wrap" data-speed="0.8">
+        <!-- Generic abstract high-res video for immediate preview loading -->
         <video autoplay muted loop playsinline>
-            <source src="assets/video_1.mp4" type="video/mp4">
+            <source src="https://cdn.pixabay.com/video/2021/08/04/83866-584742516_large.mp4" type="video/mp4">
         </video>
     </div>
     <div class="hero-content reveal">
@@ -602,10 +693,10 @@ footer {
     
     <div class="broken-grid">
         
-        <!-- Case 1 -->
+        <!-- Case 1: Replaced with Unsplash Car Image -->
         <a href="#" class="case-card hover-target reveal">
             <div class="case-img-wrap" data-speed="0.9">
-                <img src="assets/image_11.jpg" alt="Windsor EV Campaign">
+                <img src="https://images.unsplash.com/photo-1555529771-835f59bfc50c?auto=format&fit=crop&w=1200&q=80" alt="Windsor EV Campaign">
             </div>
             <div class="case-info">
                 <div>
@@ -615,10 +706,10 @@ footer {
             </div>
         </a>
 
-        <!-- Case 2 -->
+        <!-- Case 2: Replaced with Unsplash Tech Image -->
         <a href="#" class="case-card hover-target reveal">
             <div class="case-img-wrap" data-speed="1.1">
-                <img src="assets/image_5.jpg" alt="Samsung x FilterCopy">
+                <img src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=1200&q=80" alt="Samsung x FilterCopy">
             </div>
             <div class="case-info">
                 <div>
@@ -628,10 +719,10 @@ footer {
             </div>
         </a>
 
-        <!-- Case 3 -->
+        <!-- Case 3: Replaced with Unsplash EV Image -->
         <a href="#" class="case-card hover-target reveal">
             <div class="case-img-wrap" data-speed="0.95">
-                <img src="assets/image_14.jpg" alt="Comet EV">
+                <img src="https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=1200&q=80" alt="Comet EV">
             </div>
             <div class="case-info">
                 <div>
@@ -641,10 +732,10 @@ footer {
             </div>
         </a>
 
-        <!-- Case 4 -->
+        <!-- Case 4: Replaced with Unsplash SUV Image -->
         <a href="#" class="case-card hover-target reveal">
             <div class="case-img-wrap" data-speed="1.05">
-                <img src="assets/image_21.jpg" alt="MG Astor">
+                <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80" alt="MG Astor">
             </div>
             <div class="case-info">
                 <div>
@@ -654,10 +745,10 @@ footer {
             </div>
         </a>
         
-        <!-- Case 5 -->
+        <!-- Case 5: Replaced with Unsplash Phone Image -->
         <a href="#" class="case-card hover-target reveal">
             <div class="case-img-wrap" data-speed="0.9">
-                <img src="assets/image_26.jpg" alt="Galaxy S23 Lime">
+                <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1200&q=80" alt="Galaxy S23 Lime">
             </div>
             <div class="case-info">
                 <div>
@@ -667,10 +758,10 @@ footer {
             </div>
         </a>
 
-        <!-- Case 6 -->
+        <!-- Case 6: Replaced with Unsplash City/Retail Image -->
         <a href="#" class="case-card hover-target reveal">
             <div class="case-img-wrap" data-speed="1.15">
-                <img src="assets/image_8.jpg" alt="Comet EV Views">
+                <img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=1200&q=80" alt="Retail Engine">
             </div>
             <div class="case-info">
                 <div>
@@ -699,9 +790,10 @@ footer {
                 <div class="social-user">mgmotorin</div>
                 <div class="social-more">...</div>
             </div>
-            <div class="social-media">
+            <div class="social-media hover-play">
+                <!-- Fallback live video link for immediate preview -->
                 <video autoplay muted loop playsinline>
-                    <source src="assets/video_0.mp4" type="video/mp4">
+                    <source src="https://cdn.pixabay.com/video/2020/05/25/40140-424754593_large.mp4" type="video/mp4">
                 </video>
                 <div class="video-icon">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -726,7 +818,7 @@ footer {
                 <div class="social-more">...</div>
             </div>
             <div class="social-media">
-                <img src="assets/image_26.jpg" alt="Galaxy Lime">
+                <img src="https://images.unsplash.com/photo-1541560052-5e137f229371?auto=format&fit=crop&w=800&q=80" alt="Galaxy Lime">
             </div>
             <div class="social-footer">
                 <div class="social-actions">
@@ -739,7 +831,7 @@ footer {
             </div>
         </div>
 
-        <!-- Post 3 (Video) -->
+        <!-- Post 3 (Image) -->
         <div class="social-card hover-target brand-mg reveal">
             <div class="social-header">
                 <div class="social-avatar">MG</div>
@@ -747,33 +839,7 @@ footer {
                 <div class="social-more">...</div>
             </div>
             <div class="social-media">
-                <video autoplay muted loop playsinline>
-                    <source src="assets/video_1.mp4" type="video/mp4">
-                </video>
-                <div class="video-icon">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                </div>
-            </div>
-            <div class="social-footer">
-                <div class="social-actions">
-                    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                    <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                    <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                </div>
-                <div class="social-likes">10.1K likes</div>
-                <div class="social-caption"><b>mgmotorin</b> The Windsor Inspire is here. A limited edition built to turn heads everywhere.</div>
-            </div>
-        </div>
-
-        <!-- Post 4 (Image) -->
-        <div class="social-card hover-target brand-mg reveal">
-            <div class="social-header">
-                <div class="social-avatar">MG</div>
-                <div class="social-user">mgmotorin</div>
-                <div class="social-more">...</div>
-            </div>
-            <div class="social-media">
-                <img src="assets/image_21.jpg" alt="Astor Blockbuster">
+                <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80" alt="Astor Blockbuster">
             </div>
             <div class="social-footer">
                 <div class="social-actions">
@@ -786,33 +852,7 @@ footer {
             </div>
         </div>
 
-        <!-- Post 5 (Video) -->
-        <div class="social-card hover-target brand-samsung reveal">
-            <div class="social-header">
-                <div class="social-avatar">S</div>
-                <div class="social-user">samsungindia</div>
-                <div class="social-more">...</div>
-            </div>
-            <div class="social-media">
-                <video autoplay muted loop playsinline>
-                    <source src="assets/video_3.mp4" type="video/mp4">
-                </video>
-                <div class="video-icon">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                </div>
-            </div>
-            <div class="social-footer">
-                <div class="social-actions">
-                    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                    <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                    <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                </div>
-                <div class="social-likes">112K likes</div>
-                <div class="social-caption"><b>samsungindia</b> Flex every angle. Get ready to Unfold your world with the Galaxy Z Flip4. 📱✨</div>
-            </div>
-        </div>
-
-        <!-- Post 6 (Image) -->
+        <!-- Post 4 (Image) -->
         <div class="social-card hover-target brand-mg reveal">
             <div class="social-header">
                 <div class="social-avatar">MG</div>
@@ -820,7 +860,7 @@ footer {
                 <div class="social-more">...</div>
             </div>
             <div class="social-media">
-                <img src="assets/image_8.jpg" alt="Comet EV">
+                <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=800&q=80" alt="Comet EV">
             </div>
             <div class="social-footer">
                 <div class="social-actions">
@@ -833,33 +873,7 @@ footer {
             </div>
         </div>
 
-        <!-- Post 7 (Video) -->
-        <div class="social-card hover-target brand-mg reveal">
-            <div class="social-header">
-                <div class="social-avatar">MG</div>
-                <div class="social-user">mgmotorin</div>
-                <div class="social-more">...</div>
-            </div>
-            <div class="social-media">
-                <video autoplay muted loop playsinline>
-                    <source src="assets/video_2.mp4" type="video/mp4">
-                </video>
-                <div class="video-icon">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                </div>
-            </div>
-            <div class="social-footer">
-                <div class="social-actions">
-                    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                    <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                    <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                </div>
-                <div class="social-likes">22.8K likes</div>
-                <div class="social-caption"><b>mgmotorin</b> Watt's in the Wild. Catching the true electric essence across diverse landscapes. 🌿🔋</div>
-            </div>
-        </div>
-
-        <!-- Post 8 (Image) -->
+        <!-- Post 5 (Image) -->
         <div class="social-card hover-target brand-samsung reveal">
             <div class="social-header">
                 <div class="social-avatar">S</div>
@@ -867,7 +881,7 @@ footer {
                 <div class="social-more">...</div>
             </div>
             <div class="social-media">
-                <img src="assets/image_5.jpg" alt="Screenxx Award">
+                <img src="https://images.unsplash.com/photo-1598327105666-5b89351cb315?auto=format&fit=crop&w=800&q=80" alt="Screenxx Award">
             </div>
             <div class="social-footer">
                 <div class="social-actions">
@@ -943,7 +957,7 @@ footer {
         <div class="footer-links">
             <a href="mailto:er.mahlawat@gmail.com" class="hover-target">Email Me</a>
             <a href="https://linkedin.com/in/pradeepmahlawat/" target="_blank" class="hover-target">LinkedIn</a>
-            <a href="assets/Pradeep_Mahlawat_Resume_2026.pdf" target="_blank" class="hover-target">Resume</a>
+            <a href="#" class="hover-target">Resume</a>
         </div>
     </div>
 </footer>
@@ -954,6 +968,16 @@ footer {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
 <script>
+    // Theme Toggle Functionality
+    function toggleTheme() {
+        const body = document.body;
+        if (body.getAttribute('data-theme') === 'dark') {
+            body.setAttribute('data-theme', 'light');
+        } else {
+            body.setAttribute('data-theme', 'dark');
+        }
+    }
+
     // Register GSAP Plugin
     gsap.registerPlugin(ScrollTrigger);
 
@@ -983,10 +1007,16 @@ footer {
     });
     gsap.ticker.lagSmoothing(0);
 
+    // Scroll Progress Circle Logic
+    const progressFill = document.getElementById('progress-fill');
+    lenis.on('scroll', (e) => {
+        // e.progress gives a value from 0 (top) to 1 (bottom)
+        const offset = 138 - (e.progress * 138);
+        progressFill.style.strokeDashoffset = offset;
+    });
+
     // Custom Cursor Logic
     const cursor = document.querySelector('.cursor');
-    
-    // Move cursor with quickSetter for high performance
     const xTo = gsap.quickTo(cursor, "x", {duration: 0.2, ease: "power3"});
     const yTo = gsap.quickTo(cursor, "y", {duration: 0.2, ease: "power3"});
 
@@ -999,6 +1029,10 @@ footer {
     document.querySelectorAll('.hover-target').forEach(el => {
         el.addEventListener('mouseenter', () => cursor.classList.add('hover-expand'));
         el.addEventListener('mouseleave', () => cursor.classList.remove('hover-expand'));
+    });
+    document.querySelectorAll('.hover-play').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover-play'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover-play'));
     });
 
     // Simple Reveal Animations
@@ -1060,7 +1094,6 @@ footer {
             onLeaveBack: () => node.classList.remove('active')
         });
     });
-
 </script>
 </body>
 </html>
