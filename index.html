@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en" class="lenis lenis-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Pradeep Mahlawat — Award-Winning Integrated Marketing Professional.">
+<title>Pradeep Mahlawat | High-Contrast Minimalist Portfolio</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+
+<style>
+/* === DESIGN SYSTEM === */
+:root {
+    --bg: #070707;
+    --fg: #e2e2e2;
+    --fg-muted: #888888;
+    --accent: #c7653e; /* Warm accent */
+    --accent-blue: #2d5be3;
+    
+    --ff-display: 'Instrument Serif', serif;
+    --ff-sans: 'Inter', sans-serif;
+    --ff-mono: 'JetBrains Mono', monospace;
+    
+    --fluid-huge: clamp(4rem, 12vw, 12rem);
+    --fluid-h1: clamp(2.5rem, 6vw, 6rem);
+    --fluid-h2: clamp(1.5rem, 3.5vw, 3.5rem);
+    --fluid-p: clamp(1rem, 1.2vw, 1.25rem);
+    --fluid-small: clamp(0.75rem, 0.9vw, 1rem);
+    
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: var(--ff-sans);
+    line-height: 1.5;
+    overflow-x: hidden;
+    cursor: none; /* Custom cursor */
+}
+
+a { color: inherit; text-decoration: none; cursor: none; }
+img { display: block; max-width: 100%; height: auto; }
+
+/* === NOISE TEXTURE === */
+.noise-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.035;
+    background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+}
+
+/* === CUSTOM CURSOR === */
+.cursor {
+    position: fixed;
+    top: 0; left: 0;
+    width: 20px; height: 20px;
+    background: var(--fg);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s var(--ease-out-expo), height 0.3s var(--ease-out-expo), background-color 0.3s var(--ease-out-expo), mix-blend-mode 0.3s;
+    mix-blend-mode: difference;
+}
+.cursor.hover-expand {
+    width: 80px; height: 80px;
+    background: var(--fg);
+    mix-blend-mode: difference;
+}
+.cursor.hover-play {
+    width: 80px; height: 80px;
+    background: var(--accent);
+    mix-blend-mode: normal;
+}
+.cursor.hover-play::after {
+    content: "PLAY";
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    color: var(--bg);
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* === NAV === */
+nav {
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    padding: 2rem 4vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    mix-blend-mode: difference;
+    font-family: var(--ff-mono);
+    font-size: var(--fluid-small);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* === HERO VIDEO SECTION === */
+.hero {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: flex-end;
+    padding: 4vw;
+    overflow: hidden;
+}
+.hero-video-wrap {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 0;
+    overflow: hidden;
+}
+.hero-video-wrap::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(7,7,7,1) 100%);
+}
+.hero-video-wrap video {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transform: scale(1.05); /* Pre-scale for parallax */
+}
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    width: 100%;
+}
+.hero-title {
+    font-family: var(--ff-display);
+    font-size: var(--fluid-huge);
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+    text-transform: lowercase;
+}
+.hero-title em {
+    font-style: italic;
+    color: var(--accent);
+}
+.hero-meta {
+    display: flex;
+    gap: 4rem;
+    font-family: var(--ff-mono);
+    font-size: var(--fluid-small);
+    color: var(--fg-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.hero-desc {
+    max-width: 50ch;
+    font-size: var(--fluid-p);
+    color: var(--fg-muted);
+    margin-top: 2rem;
+}
+
+/* === BENTO PROOF BAR === */
+.bento-section {
+    padding: 8vw 4vw;
+    position: relative;
+    z-index: 10;
+}
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1vw;
+    background: rgba(255,255,255,0.02);
+    padding: 1vw;
+    border-radius: 24px;
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+}
+.bento-item {
+    background: rgba(255,255,255,0.03);
+    border-radius: 16px;
+    padding: 3vw 2vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid var(--glass-border);
+    transition: transform 0.4s var(--ease-out-expo), background 0.4s;
+}
+.bento-item:hover {
+    background: rgba(255,255,255,0.06);
+    transform: translateY(-5px);
+}
+.bento-val {
+    font-family: var(--ff-display);
+    font-size: var(--fluid-h1);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+.bento-lbl {
+    font-family: var(--ff-mono);
+    font-size: var(--fluid-small);
+    color: var(--fg-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* === CASE STUDIES (BROKEN GRID) === */
+.work-section {
+    padding: 8vw 4vw;
+}
+.section-header {
+    font-family: var(--ff-mono);
+    font-size: var(--fluid-small);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--fg-muted);
+    margin-bottom: 8vw;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+.broken-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 2vw;
+}
+.case-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+}
+/* Grid positioning for broken layout */
+.case-card:nth-child(1) { grid-column: 1 / 8; margin-bottom: 4vw; }
+.case-card:nth-child(2) { grid-column: 6 / 13; margin-top: -8vw; margin-bottom: 12vw;}
+.case-card:nth-child(3) { grid-column: 2 / 7; margin-bottom: 4vw; }
+.case-card:nth-child(4) { grid-column: 8 / 13; margin-top: 6vw; margin-bottom: 8vw; }
+.case-card:nth-child(5) { grid-column: 1 / 9; }
+.case-card:nth-child(6) { grid-column: 5 / 12; margin-top: 10vw;}
+
+.case-img-wrap {
+    width: 100%;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #111;
+}
+.case-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1s var(--ease-out-expo);
+    transform-origin: center;
+}
+.case-card:hover .case-img-wrap img {
+    transform: scale(1.15);
+}
+.case-info {
+    padding-top: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 2rem;
+}
+.case-title {
+    font-family: var(--ff-display);
+    font-size: var(--fluid-h2);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+}
+.case-meta {
+    font-family: var(--ff-mono);
+    font-size: var(--fluid-small);
+    color: var(--fg-muted);
+    text-transform: uppercase;
+}
+
+/* === HORIZONTAL SCROLL (CREATIVE WALL) === */
+.horizontal-section {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background: #000;
+}
+.horizontal-wrapper {
+    display: flex;
+    height: 100%;
+    width: fit-content;
+    align-items: center;
+    padding: 0 10vw;
+    gap: 4vw;
+}
+.wall-header {
+    width: 30vw;
+    flex-shrink: 0;
+}
+.wall-header h2 {
+    font-family: var(--ff-display);
+    font-size: var(--fluid-h1);
+    line-height: 1;
+}
+.video-item {
+    width: 45vw;
+    aspect-ratio: 16/9;
+    flex-shrink: 0;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--glass-bg);
+}
+.video-item iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    pointer-events: none; /* Let cursor hover work seamlessly */
+    transform: scale(1.2); /* Hide youtube edges */
+}
+.video-caption {
+    position: absolute;
+    bottom: 0; left: 0; width: 100%;
+    padding: 2rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+    font-family: var(--ff-mono);
+    font-size: var(--fluid-small);
+    text-transform: uppercase;
+}
+
+/* === TIMELINE === */
+.timeline-section {
+    padding: 12vw 4vw;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.timeline-wrapper {
+    position: relative;
+    padding-left: 4vw;
+}
+.timeline-line {
+    position: absolute;
+    top: 0; left: 0;
+    width: 1px;
+    height: 100%;
+    background: var(--glass-border);
+}
+.timeline-progress {
+    position: absolute;
+    top: 0; left: 0;
+    width: 2px;
+    height: 0%;
+    background: var(--accent);
+    box-shadow: 0 0 15px var(--accent);
+}
+.tl-node {
+    position: relative;
+    margin-bottom: 6vw;
+    opacity: 0.3;
+    transform: translateY(30px);
+    transition: opacity 0.6s, transform 0.6s;
+}
+.tl-node.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+.tl-dot {
+    position: absolute;
+    left: -4vw;
+    top: 10px;
+    width: 10px; height: 10px;
+    background: var(--bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    transform: translateX(-4.5px);
+    transition: background 0.4s, border-color 0.4s;
+}
+.tl-node.active .tl-dot {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+}
+.tl-year {
+    font-family: var(--ff-mono);
+    font-size: var(--fluid-small);
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+}
+.tl-role {
+    font-family: var(--ff-display);
+    font-size: var(--fluid-h2);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+}
+.tl-company {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--fg);
+}
+.tl-desc {
+    color: var(--fg-muted);
+    font-size: var(--fluid-p);
+    max-width: 600px;
+}
+
+/* === FOOTER === */
+footer {
+    padding: 8vw 4vw;
+    border-top: 1px solid var(--glass-border);
+    display: flex;
+    flex-direction: column;
+    gap: 4vw;
+}
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.footer-title {
+    font-family: var(--ff-display);
+    font-size: clamp(3rem, 8vw, 8rem);
+    line-height: 0.9;
+}
+.footer-links {
+    display: flex;
+    gap: 2rem;
+    font-family: var(--ff-mono);
+    font-size: var(--fluid-small);
+    text-transform: uppercase;
+}
+.footer-links a:hover {
+    color: var(--accent);
+}
+
+@media (max-width: 768px) {
+    .bento-grid { grid-template-columns: repeat(2, 1fr); }
+    .broken-grid { display: flex; flex-direction: column; gap: 15vw; }
+    .case-card:nth-child(n) { margin: 0; }
+    .video-item { width: 85vw; }
+    .footer-top { flex-direction: column; align-items: flex-start; gap: 2rem; }
+    nav { display: none; } /* Simplified for mobile purity */
+}
+</style>
+</head>
+<body>
+
+<!-- Noise Overlay -->
+<div class="noise-overlay"></div>
+
+<!-- Custom Cursor -->
+<div class="cursor"></div>
+
+<!-- Navigation -->
+<nav>
+    <div>PRADEEP MAHAWALAT</div>
+    <div>INTEGRATED MARKETING & GTM STRATEGY</div>
+    <div>+91 8901255012</div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero" id="home">
+    <div class="hero-video-wrap" data-speed="0.8">
+        <!-- High-end abstract/tech video placeholder (autoplay, muted, loop) -->
+        <video autoplay muted loop playsinline>
+            <source src="https://cdn.pixabay.com/video/2021/08/04/83866-584742516_large.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="hero-content reveal">
+        <h1 class="hero-title">I build campaigns <br>that <em>move</em> numbers.</h1>
+        <div class="hero-meta">
+            <span>SAMSUNG INDIA</span>
+            <span>JSW MG MOTOR</span>
+            <span>10+ YEARS EXP.</span>
+        </div>
+        <p class="hero-desc">Account management professional leading GTM strategy, multi-channel launches, and brand campaigns for high-value consumer brands — from flagship Samsung Galaxy to MG Motor's EV category creation.</p>
+    </div>
+</section>
+
+<!-- Bento Proof Section -->
+<section class="bento-section">
+    <div class="bento-grid reveal">
+        <div class="bento-item">
+            <div class="bento-val">65M+</div>
+            <div class="bento-lbl">Campaign Views</div>
+        </div>
+        <div class="bento-item">
+            <div class="bento-val">450+</div>
+            <div class="bento-lbl">Retail Pages Scaled</div>
+        </div>
+        <div class="bento-item">
+            <div class="bento-val">50K</div>
+            <div class="bento-lbl">LI Followers Added</div>
+        </div>
+        <div class="bento-item">
+            <div class="bento-val">5</div>
+            <div class="bento-lbl">Industry Awards</div>
+        </div>
+    </div>
+</section>
+
+<!-- Case Studies (Broken Grid) -->
+<section class="work-section" id="work">
+    <div class="section-header reveal">
+        <span>01 / Selected Works</span>
+        <span>2019 — 2025</span>
+    </div>
+    
+    <div class="broken-grid">
+        
+        <!-- Case 1 -->
+        <a href="#" class="case-card hover-target reveal">
+            <div class="case-img-wrap" data-speed="0.9">
+                <img src="assets/ev-sahi-hai-hero.png" alt="EV Sahi Hai Campaign" onerror="this.src='https://images.unsplash.com/photo-1560958089-b8a1929cea89?q=80&w=2071&auto=format&fit=crop'">
+            </div>
+            <div class="case-info">
+                <div>
+                    <h3 class="case-title">EV Sahi Hai — Category Creation</h3>
+                    <div class="case-meta">MG Motor India · 2025 · Multi-Phase Campaign</div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Case 2 -->
+        <a href="#" class="case-card hover-target reveal">
+            <div class="case-img-wrap" data-speed="1.1">
+                <img src="assets/filtercopy-award.jpg" alt="Samsung x FilterCopy" onerror="this.src='https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1974&auto=format&fit=crop'">
+            </div>
+            <div class="case-info">
+                <div>
+                    <h3 class="case-title">#FunKeFundae | Galaxy F16 5G</h3>
+                    <div class="case-meta">Samsung × FilterCopy · 8 Short Films Produced</div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Case 3 -->
+        <a href="#" class="case-card hover-target reveal">
+            <div class="case-img-wrap" data-speed="0.95">
+                <img src="assets/mg-linkedin-600k.jpg" alt="MG Motor LinkedIn" onerror="this.src='https://images.unsplash.com/photo-1616469829581-73993eb86b02?q=80&w=2070&auto=format&fit=crop'">
+            </div>
+            <div class="case-info">
+                <div>
+                    <h3 class="case-title">50K Organic Growth Engine</h3>
+                    <div class="case-meta">LinkedIn Community Building · #LifeAtMG</div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Case 4 -->
+        <a href="#" class="case-card hover-target reveal">
+            <div class="case-img-wrap" data-speed="1.05">
+                <img src="assets/f-series-festive.jpg" alt="Galaxy F-Series" onerror="this.src='https://images.unsplash.com/photo-1542393545-10f5cde2c810?q=80&w=1965&auto=format&fit=crop'">
+            </div>
+            <div class="case-info">
+                <div>
+                    <h3 class="case-title">Galaxy F-Series Integrated GTM</h3>
+                    <div class="case-meta">5 Products Launched · E-commerce & Retail POSM</div>
+                </div>
+            </div>
+        </a>
+        
+        <!-- Case 5 -->
+        <a href="#" class="case-card hover-target reveal">
+            <div class="case-img-wrap" data-speed="0.9">
+                <img src="assets/galaxy-s23-lime.jpg" alt="Galaxy S23 Lime" onerror="this.src='https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?q=80&w=2071&auto=format&fit=crop'">
+            </div>
+            <div class="case-info">
+                <div>
+                    <h3 class="case-title">Galaxy S23 "Lime" Launch</h3>
+                    <div class="case-meta">Zero-Spend Viral Campaign · Organic Social Takeover</div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Case 6 -->
+        <a href="#" class="case-card hover-target reveal">
+            <div class="case-img-wrap" data-speed="1.15">
+                <img src="assets/grid-s24-delhi.png" alt="Hyperlocal Retail" onerror="this.src='https://images.unsplash.com/photo-1555529771-835f59bfc50c?q=80&w=1974&auto=format&fit=crop'">
+            </div>
+            <div class="case-info">
+                <div>
+                    <h3 class="case-title">Hyperlocal Retail Engine</h3>
+                    <div class="case-meta">Scaled 450+ Pages · Pan-India Coverage</div>
+                </div>
+            </div>
+        </a>
+
+    </div>
+</section>
+
+<!-- Horizontal Scroll: Creative Wall -->
+<section class="horizontal-section" id="creative-wall">
+    <div class="horizontal-wrapper">
+        <div class="wall-header">
+            <div class="section-header" style="border:none; margin-bottom: 2rem; padding:0;">
+                <span>02 / Creative Wall</span>
+            </div>
+            <h2>Video<br>Campaigns &<br><em>Embeds</em></h2>
+        </div>
+        
+        <!-- Videos configured for autoplay, loop, muted, no controls -->
+        <div class="video-item hover-video">
+            <iframe src="https://www.youtube.com/embed/8vw0COlZ7NI?autoplay=1&mute=1&loop=1&playlist=8vw0COlZ7NI&controls=0&modestbranding=1"></iframe>
+            <div class="video-caption">#FunKeFundae — Influencer Reel 1</div>
+        </div>
+        <div class="video-item hover-video">
+            <iframe src="https://www.youtube.com/embed/cQabpYrMO1M?autoplay=1&mute=1&loop=1&playlist=cQabpYrMO1M&controls=0&modestbranding=1"></iframe>
+            <div class="video-caption">EV Sahi Hai — Charging Everywhere</div>
+        </div>
+        <div class="video-item hover-video">
+            <iframe src="https://www.youtube.com/embed/3TeBUeFkx5s?autoplay=1&mute=1&loop=1&playlist=3TeBUeFkx5s&controls=0&modestbranding=1"></iframe>
+            <div class="video-caption">Galaxy F-Series — Product Film</div>
+        </div>
+        <div class="video-item hover-video">
+            <iframe src="https://www.youtube.com/embed/3JCPGAnYzkA?autoplay=1&mute=1&loop=1&playlist=3JCPGAnYzkA&controls=0&modestbranding=1"></iframe>
+            <div class="video-caption">EV Sahi Hai — The Long Drive</div>
+        </div>
+        
+        <!-- Buffer space at end -->
+        <div style="width: 10vw; flex-shrink: 0;"></div>
+    </div>
+</section>
+
+<!-- Career Timeline -->
+<section class="timeline-section" id="timeline">
+    <div class="section-header reveal">
+        <span>03 / Career Timeline</span>
+        <span>A Decade of Growth</span>
+    </div>
+    
+    <div class="timeline-wrapper">
+        <div class="timeline-line"></div>
+        <div class="timeline-progress" id="tl-progress"></div>
+        
+        <div class="tl-node node-trigger">
+            <div class="tl-dot"></div>
+            <div class="tl-year">Jun 2025 — Present</div>
+            <div class="tl-role">Key Account Manager</div>
+            <div class="tl-company">CheilX · JSW MG Motor India</div>
+            <p class="tl-desc">Leading social content strategy across LinkedIn, Meta, X, and YouTube. Achieved EV Sahi Hai (E4M Award), CarKalam (Asia Book of Records), and 50K LinkedIn organic growth.</p>
+        </div>
+        
+        <div class="tl-node node-trigger">
+            <div class="tl-dot"></div>
+            <div class="tl-year">Apr 2019 — May 2025</div>
+            <div class="tl-role">Key Account Manager</div>
+            <div class="tl-company">Cheil India · Samsung India</div>
+            <p class="tl-desc">6-year tenure managing Galaxy S/Z/F flagship launches. Achieved Guinness World Record for S22 Ultra, scaled hyperlocal program to 450+ pages. Influencer frameworks recognized as Global Best Practice.</p>
+        </div>
+        
+        <div class="tl-node node-trigger">
+            <div class="tl-dot"></div>
+            <div class="tl-year">Nov 2017 — Apr 2019</div>
+            <div class="tl-role">Content Operations Lead</div>
+            <div class="tl-company">GlobalLogic Technologies · Client: Google</div>
+            <p class="tl-desc">Led publisher relations for Google Magazines and Google News. Managed premium publishers including The Times and Condé Nast.</p>
+        </div>
+        
+        <div class="tl-node node-trigger">
+            <div class="tl-dot"></div>
+            <div class="tl-year">Sep 2015 — Aug 2017</div>
+            <div class="tl-role">Account Executive</div>
+            <div class="tl-company">HH Global</div>
+            <p class="tl-desc">Managed procurement and print lifecycle for global accounts (Lendlease, Audi, Skoda). Reduced costs by 20% and delivery times by 50%.</p>
+        </div>
+        
+        <div class="tl-node node-trigger">
+            <div class="tl-dot"></div>
+            <div class="tl-year">Jun 2013 — Aug 2015</div>
+            <div class="tl-role">Client Servicing Executive</div>
+            <div class="tl-company">Lustra Print Process</div>
+            <p class="tl-desc">Managed end-to-end retail POSM execution and print production for Samsung, Sony, LG, and ITC.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-top">
+        <div class="footer-title">Let's build<br><em>something epic.</em></div>
+        <div class="footer-links">
+            <a href="mailto:er.mahlawat@gmail.com" class="hover-target">Email Me</a>
+            <a href="https://linkedin.com/in/pradeepmahlawat/" target="_blank" class="hover-target">LinkedIn</a>
+            <a href="assets/Pradeep_Mahlawat_Resume_2025.pdf" target="_blank" class="hover-target">Resume</a>
+        </div>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<script>
+    // Register GSAP Plugin
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Initialize Smooth Scroll (Lenis)
+    const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        direction: 'vertical',
+        gestureDirection: 'vertical',
+        smooth: true,
+        mouseMultiplier: 1,
+        smoothTouch: false,
+        touchMultiplier: 2,
+        infinite: false,
+    });
+    
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+    
+    // Sync GSAP with Lenis
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+    gsap.ticker.lagSmoothing(0);
+
+    // Custom Cursor Logic
+    const cursor = document.querySelector('.cursor');
+    
+    // Move cursor with quickSetter for high performance
+    const xTo = gsap.quickTo(cursor, "x", {duration: 0.2, ease: "power3"});
+    const yTo = gsap.quickTo(cursor, "y", {duration: 0.2, ease: "power3"});
+
+    window.addEventListener("mousemove", e => {
+        xTo(e.clientX);
+        yTo(e.clientY);
+    });
+
+    // Hover states for cursor
+    document.querySelectorAll('.hover-target').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover-expand'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover-expand'));
+    });
+    document.querySelectorAll('.hover-video').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover-play'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover-play'));
+    });
+
+    // Simple Reveal Animations
+    const revealElements = document.querySelectorAll('.reveal');
+    revealElements.forEach((el) => {
+        gsap.fromTo(el, 
+            { y: 50, opacity: 0 },
+            {
+                y: 0, 
+                opacity: 1, 
+                duration: 1, 
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 85%",
+                }
+            }
+        );
+    });
+
+    // Parallax on Images & Hero Video
+    document.querySelectorAll('[data-speed]').forEach(el => {
+        const speed = el.getAttribute('data-speed');
+        gsap.to(el, {
+            y: (i, target) => -ScrollTrigger.maxScroll(window) * (1 - speed),
+            ease: "none",
+            scrollTrigger: {
+                trigger: el,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+    });
+
+    // Horizontal Scroll for Creative Wall
+    const horizontalSection = document.querySelector('.horizontal-section');
+    const horizontalWrapper = document.querySelector('.horizontal-wrapper');
+    
+    function getScrollAmount() {
+        let wrapperWidth = horizontalWrapper.scrollWidth;
+        return -(wrapperWidth - window.innerWidth);
+    }
+    
+    const tween = gsap.to(horizontalWrapper, {
+        x: getScrollAmount,
+        ease: "none"
+    });
+
+    ScrollTrigger.create({
+        trigger: horizontalSection,
+        start: "top top",
+        end: () => `+=${getScrollAmount() * -1}`,
+        pin: true,
+        animation: tween,
+        scrub: 1,
+        invalidateOnRefresh: true
+    });
+
+    // Timeline Scroll Reveal & Line Drawing
+    const tlNodes = document.querySelectorAll('.node-trigger');
+    const tlProgress = document.getElementById('tl-progress');
+    const timelineWrapper = document.querySelector('.timeline-wrapper');
+
+    // Draw the vertical line
+    gsap.to(tlProgress, {
+        height: "100%",
+        ease: "none",
+        scrollTrigger: {
+            trigger: timelineWrapper,
+            start: "top 50%",
+            end: "bottom 50%",
+            scrub: true
+        }
+    });
+
+    // Activate individual nodes
+    tlNodes.forEach((node) => {
+        ScrollTrigger.create({
+            trigger: node,
+            start: "top 60%",
+            onEnter: () => node.classList.add('active'),
+            onLeaveBack: () => node.classList.remove('active')
+        });
+    });
+
+</script>
+</body>
+</html>
