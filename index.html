@@ -3,53 +3,61 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Pradeep Mahlawat — Award-Winning Integrated Marketing Professional.">
-<title>Pradeep Mahlawat | High-Contrast Minimalist Portfolio</title>
+<meta name="description" content="Pradeep Mahlawat — Account Director & Integrated Marketing Professional.">
+<title>Pradeep Mahlawat | Integrated Marketing Executive</title>
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
-/* === DESIGN SYSTEM & THEME VARIABLES === */
+/* === EXECUTIVE DESIGN SYSTEM === */
 :root {
-    /* Default Dark Mode */
-    --bg: #070707;
-    --fg: #e2e2e2;
-    --fg-muted: #888888;
-    --accent: #c7653e; /* Warm accent */
-    --accent-blue: #2d5be3;
+    /* Pristine Light Mode (Default) */
+    --bg: #F8F9FA;
+    --bg-card: #FFFFFF;
+    --fg: #111111;
+    --fg-muted: #6B7280;
+    --border: #E5E7EB;
+    --accent: #0047FF; /* Corporate Tech Blue */
     
-    --glass-bg: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --glass-hover: rgba(255, 255, 255, 0.06);
-    --noise-opacity: 0.035;
-
+    /* Skeuomorphic/Emboss Shadows for Toggle */
+    --shadow-out: 4px 4px 10px rgba(0,0,0,0.06), -4px -4px 10px rgba(255,255,255,0.8);
+    --shadow-in: inset 3px 3px 6px rgba(0,0,0,0.06), inset -3px -3px 6px rgba(255,255,255,0.9);
+    --switch-bg: #E5E7EB;
+    
     /* Typography */
-    --ff-display: 'Instrument Serif', serif;
-    --ff-sans: 'Inter', sans-serif;
+    --ff-display: 'Instrument Serif', Georgia, serif;
+    --ff-sans: 'Inter', system-ui, -apple-system, sans-serif;
     --ff-mono: 'JetBrains Mono', monospace;
     
-    --fluid-huge: clamp(4rem, 12vw, 12rem);
-    --fluid-h1: clamp(2.5rem, 6vw, 6rem);
-    --fluid-h2: clamp(1.5rem, 3.5vw, 3.5rem);
-    --fluid-p: clamp(1rem, 1.2vw, 1.25rem);
-    --fluid-small: clamp(0.75rem, 0.9vw, 1rem);
+    --fluid-huge: clamp(3rem, 6vw, 5.5rem);
+    --fluid-h1: clamp(2.5rem, 5vw, 4rem);
+    --fluid-h2: clamp(1.75rem, 3vw, 2.5rem);
+    --fluid-h3: clamp(1.2rem, 2vw, 1.5rem);
+    --fluid-p: clamp(1rem, 1.1vw, 1.125rem);
+    --fluid-small: clamp(0.75rem, 0.9vw, 0.875rem);
     
-    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --shadow-sm: 0 4px 12px rgba(0,0,0,0.04);
+    --shadow-md: 0 12px 32px rgba(0,0,0,0.08);
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
 }
 
-/* Light Mode Overrides */
-[data-theme="light"] {
-    --bg: #f4f4f0;
-    --fg: #111111;
-    --fg-muted: #666666;
+/* Deep Executive Dark Mode */
+[data-theme="dark"] {
+    --bg: #0A0A0A;
+    --bg-card: #141414;
+    --fg: #F5F5F5;
+    --fg-muted: #9CA3AF;
+    --border: #262626;
+    --accent: #3370FF;
     
-    --glass-bg: rgba(0, 0, 0, 0.03);
-    --glass-border: rgba(0, 0, 0, 0.08);
-    --glass-hover: rgba(0, 0, 0, 0.06);
-    --noise-opacity: 0.06;
+    --shadow-out: 4px 4px 10px rgba(0,0,0,0.5), -4px -4px 10px rgba(255,255,255,0.03);
+    --shadow-in: inset 3px 3px 6px rgba(0,0,0,0.6), inset -3px -3px 6px rgba(255,255,255,0.03);
+    --switch-bg: #1A1A1A;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -58,97 +66,89 @@ body {
     background-color: var(--bg);
     color: var(--fg);
     font-family: var(--ff-sans);
-    line-height: 1.5;
+    line-height: 1.6;
     overflow-x: hidden;
-    cursor: none; /* Custom cursor */
-    transition: background-color 0.5s ease, color 0.5s ease;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    -webkit-font-smoothing: antialiased;
 }
 
-a { color: inherit; text-decoration: none; cursor: none; }
-img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; transition: color 0.2s; }
+img, video { display: block; max-width: 100%; height: auto; }
 
-/* === NOISE TEXTURE === */
-.noise-overlay {
+/* === NAVIGATION === */
+nav {
     position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
-    pointer-events: none;
-    z-index: 9999;
-    opacity: var(--noise-opacity);
-    background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
-    transition: opacity 0.5s ease;
+    top: 0; left: 0; width: 100%;
+    padding: 1.25rem 5vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(var(--bg), 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    z-index: 900;
+    transition: background-color 0.4s, border-color 0.4s;
 }
+.nav-brand { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; }
+.nav-links { display: flex; gap: 2.5rem; align-items: center; font-size: var(--fluid-small); font-weight: 500; }
+.nav-links a:hover { color: var(--accent); }
+.nav-cta {
+    background: var(--fg);
+    color: var(--bg) !important;
+    padding: 0.5rem 1.25rem;
+    border-radius: 100px;
+    transition: transform 0.2s, background 0.2s;
+}
+.nav-cta:hover { background: var(--accent); color: #fff !important; transform: translateY(-2px); }
 
-/* === CUSTOM CURSOR === */
-.cursor {
-    position: fixed;
-    top: 0; left: 0;
-    width: 20px; height: 20px;
-    background: #fff; /* Always white so difference blend mode works on both themes */
+/* === EMBOSSED ON/OFF THEME TOGGLE === */
+.theme-switch {
+    width: 64px;
+    height: 32px;
+    border-radius: 32px;
+    background: var(--switch-bg);
+    box-shadow: var(--shadow-in);
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    transition: background 0.4s, box-shadow 0.4s;
+}
+.theme-knob {
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
-    pointer-events: none;
-    z-index: 10000;
-    transform: translate(-50%, -50%);
-    transition: width 0.3s var(--ease-out-expo), height 0.3s var(--ease-out-expo), background-color 0.3s var(--ease-out-expo), mix-blend-mode 0.3s;
-    mix-blend-mode: difference;
-}
-.cursor.hover-expand {
-    width: 80px; height: 80px;
-}
-.cursor.hover-play {
-    width: 80px; height: 80px;
-    background: var(--accent);
-    mix-blend-mode: normal;
-}
-.cursor.hover-play::after {
-    content: "PLAY";
+    background: var(--bg-card);
+    box-shadow: var(--shadow-out);
     position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: var(--ff-mono);
-    font-size: 10px;
-    color: #fff;
-    font-weight: bold;
-    letter-spacing: 1px;
-}
-
-/* === THEME TOGGLE (VERTICAL CLEAN) === */
-.theme-toggle {
-    position: fixed;
-    top: 50%;
-    left: 2vw;
-    transform: translateY(-50%) rotate(180deg);
-    writing-mode: vertical-rl;
-    z-index: 100;
-    font-family: var(--ff-mono);
-    font-size: 0.8rem;
-    letter-spacing: 0.2em;
-    color: var(--fg-muted);
-    text-transform: uppercase;
-    transition: color 0.3s ease;
-    padding: 1rem;
-}
-.theme-toggle:hover {
-    color: var(--fg);
-}
-.theme-toggle-text::after {
-    content: ' [ LIGHT ]';
-}
-[data-theme="light"] .theme-toggle-text::after {
-    content: ' [ DARK ]';
-}
+    left: 4px;
+    transition: transform 0.4s cubic-bezier(0.4, 0.0, 0.2, 1), background 0.4s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}[data-theme="dark"] .theme-knob { transform: translateX(32px); }
+.theme-knob svg { width: 12px; height: 12px; fill: var(--fg); transition: fill 0.4s; }
 
 /* === SCROLL PROGRESS CIRCLE === */
 .scroll-progress-container {
     position: fixed;
     bottom: 2vw;
     right: 2vw;
-    width: 50px;
-    height: 50px;
-    z-index: 100;
+    width: 54px;
+    height: 54px;
+    z-index: 1000;
     display: flex;
     justify-content: center;
     align-items: center;
+    background: var(--bg-card);
+    border-radius: 50%;
+    box-shadow: var(--shadow-out);
+    cursor: pointer;
+    transition: box-shadow 0.4s, background 0.4s, transform 0.2s;
 }
+.scroll-progress-container:hover { transform: translateY(-3px); }
 .scroll-progress-svg {
     transform: rotate(-90deg);
     width: 100%;
@@ -157,808 +157,586 @@ img { display: block; max-width: 100%; height: auto; }
 }
 .progress-bg-ring {
     fill: none;
-    stroke: var(--glass-border);
-    stroke-width: 2;
-    transition: stroke 0.5s ease;
+    stroke: var(--border);
+    stroke-width: 3;
+    transition: stroke 0.4s;
 }
 .progress-fill-ring {
     fill: none;
     stroke: var(--accent);
-    stroke-width: 2;
-    stroke-dasharray: 138; /* 2 * pi * 22 ≈ 138 */
-    stroke-dashoffset: 138;
-    transition: stroke-dashoffset 0.1s linear;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 138; /* 2 * PI * 22 ≈ 138.2 */
+    stroke-dashoffset: 138; 
 }
 .progress-arrow {
     color: var(--fg);
-    font-family: var(--ff-sans);
-    font-size: 1rem;
-    font-weight: 300;
-    transition: color 0.5s ease;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: color 0.4s;
 }
 
-/* === NAV === */
-nav {
-    position: fixed;
-    top: 0; left: 0; width: 100%;
-    padding: 2rem 4vw;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 90;
-    mix-blend-mode: difference;
-    font-family: var(--ff-mono);
-    font-size: var(--fluid-small);
-    color: #fff;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-}
-
-/* === HERO VIDEO SECTION === */
-.hero {
-    position: relative;
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    align-items: flex-end;
-    padding: 4vw 8vw; /* Added left padding to avoid overlap with toggle */
-    overflow: hidden;
-}
-.hero-video-wrap {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    z-index: 0;
-    overflow: hidden;
-}
-.hero-video-wrap::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, var(--bg) 100%);
-    transition: background 0.5s ease;
-}
-.hero-video-wrap video {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    transform: scale(1.05);
-}
-.hero-content {
-    position: relative;
-    z-index: 1;
+/* === EDITORIAL HERO SECTION === */
+.hero-split {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 4vw;
+    padding: 12vw 5vw 6vw 5vw;
     max-width: 1400px;
-    width: 100%;
+    margin: 0 auto;
+    align-items: center;
+    min-height: 90vh;
 }
-.hero-title {
-    font-family: var(--ff-display);
-    font-size: var(--fluid-huge);
-    line-height: 0.9;
-    letter-spacing: -0.02em;
-    margin-bottom: 2rem;
-    text-transform: lowercase;
-}
-.hero-title em {
-    font-style: italic;
-    color: var(--accent);
-}
-.hero-meta {
-    display: flex;
-    gap: 4rem;
+.hero-content { display: flex; flex-direction: column; justify-content: center; }
+.hero-meta-tag {
+    display: inline-block;
     font-family: var(--ff-mono);
     font-size: var(--fluid-small);
     color: var(--fg-muted);
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+    border-left: 2px solid var(--accent);
+    padding-left: 1rem;
 }
+.hero-title {
+    font-family: var(--ff-display);
+    font-size: var(--fluid-huge);
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+    max-width: 16ch;
+}
+.hero-title em { font-style: italic; color: var(--fg-muted); }
 .hero-desc {
-    max-width: 50ch;
     font-size: var(--fluid-p);
     color: var(--fg-muted);
-    margin-top: 2rem;
+    max-width: 550px;
+    margin-bottom: 3rem;
 }
+.hero-actions { display: flex; gap: 1.5rem; align-items: center; }
+.btn-primary {
+    background: var(--fg);
+    color: var(--bg);
+    padding: 1rem 2rem;
+    border-radius: 100px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: background 0.3s, transform 0.3s;
+}
+.btn-primary:hover { background: var(--accent); color: white; transform: translateY(-3px); }
+.btn-secondary {
+    color: var(--fg);
+    font-weight: 500;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2px;
+    transition: border-color 0.3s;
+}
+.btn-secondary:hover { border-color: var(--fg); }
 
-/* === BENTO PROOF BAR === */
-.bento-section {
-    padding: 8vw;
+/* Portrait Image */
+.hero-portrait-wrapper {
     position: relative;
-    z-index: 10;
+    width: 100%;
+    aspect-ratio: 4/5;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-card);
+    box-shadow: var(--shadow-out);
+    border: 1px solid var(--border);
+    transition: transform 0.5s, box-shadow 0.5s;
 }
-.bento-grid {
+.hero-portrait-wrapper:hover { transform: translateY(-10px); box-shadow: var(--shadow-md); }
+.hero-portrait-wrapper img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hero-portrait-wrapper:hover img { transform: scale(1.03); }
+
+/* Client Strip */
+.client-strip {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4rem;
+    padding-top: 3rem;
+    margin-top: 2rem;
+    border-top: 1px solid var(--border);
+    font-family: var(--ff-mono);
+    font-size: 0.85rem;
+    color: var(--fg-muted);
+    text-transform: uppercase;
+    font-weight: 500;
+}
+.client-strip span { transition: color 0.3s; }
+.client-strip span:hover { color: var(--fg); }
+
+/* === EXECUTIVE DASHBOARD (METRICS) === */
+.metrics-section { padding: 0 5vw 8vw 5vw; max-width: 1400px; margin: 0 auto; }
+.metrics-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1vw;
-    background: var(--glass-bg);
-    padding: 1vw;
-    border-radius: 24px;
-    backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
 }
-.bento-item {
-    background: var(--glass-bg);
-    border-radius: 16px;
-    padding: 3vw 2vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border: 1px solid var(--glass-border);
-    transition: transform 0.4s var(--ease-out-expo), background 0.4s;
+.metric-card {
+    background: var(--bg-card);
+    padding: 3rem 2rem;
+    text-align: center;
+    transition: background 0.4s;
 }
-.bento-item:hover {
-    background: var(--glass-hover);
-    transform: translateY(-5px);
-}
-.bento-val {
-    font-family: var(--ff-display);
+.metric-val {
+    font-family: var(--ff-sans);
+    font-weight: 700;
     font-size: var(--fluid-h1);
     line-height: 1;
     margin-bottom: 0.5rem;
-}
-.bento-lbl {
-    font-family: var(--ff-mono);
-    font-size: var(--fluid-small);
-    color: var(--fg-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-}
-
-/* === CASE STUDIES (BROKEN GRID) === */
-.work-section {
-    padding: 2vw 8vw 8vw;
-}
-.section-header {
-    font-family: var(--ff-mono);
-    font-size: var(--fluid-small);
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--fg-muted);
-    margin-bottom: 8vw;
-    border-bottom: 1px solid var(--glass-border);
-    padding-bottom: 2rem;
-    display: flex;
-    justify-content: space-between;
-    transition: border-color 0.5s;
-}
-.broken-grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 2vw;
-}
-.case-card {
-    position: relative;
-    overflow: hidden;
-    border-radius: 12px;
-}
-.case-card:nth-child(1) { grid-column: 1 / 8; margin-bottom: 4vw; }
-.case-card:nth-child(2) { grid-column: 6 / 13; margin-top: -8vw; margin-bottom: 12vw;}
-.case-card:nth-child(3) { grid-column: 2 / 7; margin-bottom: 4vw; }
-.case-card:nth-child(4) { grid-column: 8 / 13; margin-top: 6vw; margin-bottom: 8vw; }
-.case-card:nth-child(5) { grid-column: 1 / 9; }
-.case-card:nth-child(6) { grid-column: 5 / 12; margin-top: 10vw;}
-
-.case-img-wrap {
-    width: 100%;
-    aspect-ratio: 16/10;
-    overflow: hidden;
-    border-radius: 8px;
-    background: #111;
-}
-.case-img-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 1s var(--ease-out-expo);
-    transform-origin: center;
-}
-.case-card:hover .case-img-wrap img {
-    transform: scale(1.15);
-}
-.case-info {
-    padding-top: 1.5rem;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: start;
-    gap: 2rem;
-}
-.case-title {
-    font-family: var(--ff-display);
-    font-size: var(--fluid-h2);
-    line-height: 1.1;
-    margin-bottom: 0.5rem;
-}
-.case-meta {
-    font-family: var(--ff-mono);
-    font-size: var(--fluid-small);
-    color: var(--fg-muted);
-    text-transform: uppercase;
-}
-
-/* === MASONRY CREATIVE WALL === */
-.creative-wall-section {
-    padding: 8vw;
-    position: relative;
-    background: var(--bg);
-    transition: background 0.5s ease;
-}
-.masonry-grid {
-    column-count: 4;
-    column-gap: 2vw;
-    width: 100%;
-}
-.social-card {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 2vw;
-    break-inside: avoid;
-    display: inline-block;
-    width: 100%;
-    transition: transform 0.4s var(--ease-out-expo), background 0.4s, border-color 0.5s;
-}
-.social-card:hover {
-    background: var(--glass-hover);
-    transform: translateY(-5px);
-}
-.social-header {
-    display: flex;
-    align-items: center;
-    padding: 12px 16px;
-    gap: 12px;
-}
-.social-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: 700;
-}
-.brand-mg .social-avatar { background: var(--accent); color: white; }
-.brand-samsung .social-avatar { background: var(--accent-blue); color: white; }
-
-.social-user {
-    font-family: var(--ff-sans);
-    font-size: 0.85rem;
-    font-weight: 600;
-    flex: 1;
-}
-.social-more {
-    font-weight: bold;
-    letter-spacing: 2px;
-    color: var(--fg-muted);
-}
-.social-media {
-    position: relative;
-    width: 100%;
-    background: #000;
-}
-.social-media img, .social-media video {
-    width: 100%;
-    display: block;
-    object-fit: cover;
-}
-.video-icon {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(4px);
-    border-radius: 50%;
-    width: 32px; height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.video-icon svg {
-    width: 14px; height: 14px;
-    fill: white;
-    margin-left: 2px;
-}
-.social-footer {
-    padding: 16px;
-}
-.social-actions {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 12px;
-}
-.social-actions svg {
-    width: 24px; height: 24px;
-    fill: none;
-    stroke: var(--fg);
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    transition: stroke 0.5s;
-}
-.social-actions svg:hover { stroke: var(--accent); }
-.social-likes {
-    font-family: var(--ff-sans);
-    font-size: 0.85rem;
-    font-weight: 600;
-    margin-bottom: 4px;
-}
-.social-caption {
-    font-family: var(--ff-sans);
-    font-size: 0.85rem;
-    color: var(--fg-muted);
-    line-height: 1.4;
-}
-.social-caption b { color: var(--fg); font-weight: 600; }
-
-/* Masonry Responsiveness */
-@media (max-width: 1024px) { .masonry-grid { column-count: 3; } }
-@media (max-width: 768px) {
-    .masonry-grid { column-count: 2; column-gap: 4vw; }
-    .social-card { margin-bottom: 4vw; }
-}
-@media (max-width: 480px) {
-    .masonry-grid { column-count: 1; }
-    .social-card { margin-bottom: 6vw; }
-}
-
-/* === TIMELINE === */
-.timeline-section {
-    padding: 12vw 8vw;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-.timeline-wrapper {
-    position: relative;
-    padding-left: 4vw;
-}
-.timeline-line {
-    position: absolute;
-    top: 0; left: 0;
-    width: 1px;
-    height: 100%;
-    background: var(--glass-border);
-    transition: background 0.5s;
-}
-.timeline-progress {
-    position: absolute;
-    top: 0; left: 0;
-    width: 2px;
-    height: 0%;
-    background: var(--accent);
-    box-shadow: 0 0 15px var(--accent);
-}
-.tl-node {
-    position: relative;
-    margin-bottom: 6vw;
-    opacity: 0.3;
-    transform: translateY(30px);
-    transition: opacity 0.6s, transform 0.6s;
-}
-.tl-node.active {
-    opacity: 1;
-    transform: translateY(0);
-}
-.tl-dot {
-    position: absolute;
-    left: -4vw;
-    top: 10px;
-    width: 10px; height: 10px;
-    background: var(--bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 50%;
-    transform: translateX(-4.5px);
-    transition: background 0.5s, border-color 0.5s;
-}
-.tl-node.active .tl-dot {
-    background: var(--accent);
-    border-color: var(--accent);
-    box-shadow: 0 0 10px var(--accent);
-}
-.tl-year {
-    font-family: var(--ff-mono);
-    font-size: var(--fluid-small);
-    color: var(--accent);
-    margin-bottom: 0.5rem;
-}
-.tl-role {
-    font-family: var(--ff-display);
-    font-size: var(--fluid-h2);
-    line-height: 1.1;
-    margin-bottom: 0.5rem;
-}
-.tl-company {
-    font-weight: 600;
-    margin-bottom: 1rem;
+    letter-spacing: -0.03em;
     color: var(--fg);
 }
-.tl-desc {
+.metric-lbl {
+    font-size: var(--fluid-small);
     color: var(--fg-muted);
-    font-size: var(--fluid-p);
-    max-width: 600px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
-/* === FOOTER === */
-footer {
-    padding: 8vw;
-    border-top: 1px solid var(--glass-border);
-    display: flex;
-    flex-direction: column;
-    gap: 4vw;
-    transition: border-color 0.5s;
-}
-.footer-top {
+/* === CASE STUDIES === */
+.section-wrapper { padding: 6vw 5vw; max-width: 1400px; margin: 0 auto; }
+.section-header {
+    margin-bottom: 4rem;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1.5rem;
 }
-.footer-title {
-    font-family: var(--ff-display);
-    font-size: clamp(3rem, 8vw, 8rem);
-    line-height: 0.9;
-}
-.footer-links {
+.section-title { font-family: var(--ff-display); font-size: var(--fluid-h2); }
+.section-meta { font-family: var(--ff-mono); font-size: var(--fluid-small); color: var(--fg-muted); text-transform: uppercase; }
+
+.case-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem; }
+.case-card {
     display: flex;
-    gap: 2rem;
-    font-family: var(--ff-mono);
-    font-size: var(--fluid-small);
-    text-transform: uppercase;
+    flex-direction: column;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.4s, box-shadow 0.4s;
 }
-.footer-links a:hover {
-    color: var(--accent);
+.case-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.case-img-wrap {
+    width: 100%; aspect-ratio: 16/10;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    margin-bottom: 1.5rem;
+    background: #111;
+}
+.case-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s; }
+.case-card:hover .case-img-wrap img { transform: scale(1.05); }
+.case-tags { display: flex; gap: 0.5rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+.case-tag {
+    font-size: 0.7rem; font-family: var(--ff-mono);
+    padding: 0.3rem 0.7rem;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 100px; color: var(--fg); text-transform: uppercase;
+}
+.case-title { font-size: var(--fluid-h3); font-weight: 600; margin-bottom: 0.75rem; line-height: 1.3; }
+.case-desc { color: var(--fg-muted); font-size: var(--fluid-small); margin-bottom: 2rem; flex-grow: 1; }
+.case-kpi {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+    padding-top: 1.25rem; border-top: 1px solid var(--border);
+}
+.kpi-val { font-weight: 700; font-size: 1.25rem; color: var(--fg); display: block; margin-bottom: 0.1rem; }
+.kpi-lbl { font-size: 0.75rem; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* === CAMPAIGN GALLERY (MASONRY) === */
+.masonry-grid { column-count: 3; column-gap: 2rem; width: 100%; }
+.gallery-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden; margin-bottom: 2rem;
+    break-inside: avoid; display: inline-block; width: 100%;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.4s, box-shadow 0.4s;
+}
+.gallery-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.gallery-media { position: relative; width: 100%; border-bottom: 1px solid var(--border); }
+.gallery-info { padding: 1.25rem; }
+.g-brand { font-family: var(--ff-mono); font-size: 0.7rem; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; display: block; letter-spacing: 0.05em; }
+.g-title { font-size: 0.95rem; font-weight: 600; line-height: 1.4; margin-bottom: 0.5rem; }
+.g-desc { font-size: 0.85rem; color: var(--fg-muted); }
+
+/* === TIMELINE WITH CLIMBING BEAR === */
+.timeline-wrapper { position: relative; padding-left: 2rem; max-width: 900px; margin-top: 2rem; }
+.timeline-line {
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--border);
+    border-radius: 3px;
 }
 
+/* Elevated Bear Badge */
+.timeline-bear-wrapper {
+    position: absolute;
+    left: -23.5px; /* Centers 50px badge on 3px line */
+    top: 0;
+    width: 50px; height: 50px;
+    background: var(--bg-card);
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    z-index: 20;
+    box-shadow: var(--shadow-out);
+    transform-origin: center center;
+}
+.bear-icon {
+    width: 28px; height: 28px;
+    fill: var(--accent);
+}
+
+.timeline-item { position: relative; display: flex; gap: 3rem; margin-bottom: 4rem; padding-left: 3rem; }
+.tl-node {
+    position: absolute;
+    left: -2rem; top: 0.5rem;
+    width: 12px; height: 12px;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    transform: translateX(-4.5px);
+}
+.tl-year { font-family: var(--ff-mono); font-size: var(--fluid-small); color: var(--fg-muted); width: 140px; flex-shrink: 0; padding-top: 0.2rem; }
+.tl-content { flex: 1; padding-bottom: 3rem; border-bottom: 1px solid var(--border); }
+.timeline-item:last-child .tl-content { border-bottom: none; padding-bottom: 0; }
+.tl-role { font-size: var(--fluid-h3); font-weight: 600; margin-bottom: 0.25rem; }
+.tl-company { font-size: 0.95rem; color: var(--accent); margin-bottom: 1rem; font-weight: 500; }
+.tl-desc { font-size: var(--fluid-p); color: var(--fg-muted); }
+
+/* === FOOTER === */
+footer { background: var(--bg-card); border-top: 1px solid var(--border); padding: 6vw 5vw 4vw 5vw; }
+.footer-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; }
+.footer-title { font-family: var(--ff-display); font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; }
+.footer-heading { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1.5rem; color: var(--fg-muted); }
+.footer-links { display: flex; flex-direction: column; gap: 1rem; font-size: var(--fluid-small); font-weight: 500; }
+.footer-links a:hover { color: var(--accent); }
+.footer-bottom { max-width: 1400px; margin: 4rem auto 0; padding-top: 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--fg-muted); }
+
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+    .hero-split { grid-template-columns: 1fr; padding-top: 18vw; gap: 8vw; }
+    .hero-portrait-wrapper { aspect-ratio: 16/10; max-width: 800px; }
+    .case-grid { grid-template-columns: 1fr; }
+    .masonry-grid { column-count: 2; }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+}
 @media (max-width: 768px) {
-    .bento-grid { grid-template-columns: repeat(2, 1fr); }
-    .broken-grid { display: flex; flex-direction: column; gap: 15vw; }
-    .case-card:nth-child(n) { margin: 0; }
-    .footer-top { flex-direction: column; align-items: flex-start; gap: 2rem; }
-    nav { display: none; }
-    .theme-toggle { left: 4vw; }
+    .nav-links { display: none; }
+    .hero-portrait-wrapper { aspect-ratio: 1/1; }
+    .client-strip { gap: 2rem; }
+    .metrics-grid { grid-template-columns: 1fr; }
+    .timeline-item { flex-direction: column; gap: 0.5rem; padding-left: 2rem; }
+    .tl-node { left: -1rem; }
+    .timeline-bear-wrapper { left: -24px; transform: scale(0.8); }
+    .scroll-progress-container { width: 44px; height: 44px; right: 4vw; bottom: 4vw;}
+    .footer-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .masonry-grid { column-count: 1; }
 }
 </style>
 </head>
-<body data-theme="dark">
+<body data-theme="light">
 
-<!-- Noise Overlay -->
-<div class="noise-overlay"></div>
-
-<!-- Custom Cursor -->
-<div class="cursor"></div>
-
-<!-- Vertical Theme Toggle -->
-<div class="theme-toggle hover-target" id="theme-toggle" onclick="toggleTheme()">
-    <span class="theme-toggle-text">MODE</span>
-</div>
-
-<!-- Scroll Progress Circle -->
-<div class="scroll-progress-container">
+<!-- Scroll Progress Circle (GSAP Powered) -->
+<div class="scroll-progress-container" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
     <svg class="scroll-progress-svg" viewBox="0 0 50 50">
         <circle class="progress-bg-ring" cx="25" cy="25" r="22"></circle>
         <circle class="progress-fill-ring" id="progress-fill" cx="25" cy="25" r="22"></circle>
     </svg>
-    <div class="progress-arrow">↓</div>
+    <div class="progress-arrow" id="progress-arrow">↓</div>
 </div>
 
-<!-- Navigation -->
+<!-- Navigation & Embossed Theme Switch -->
 <nav>
-    <div>PRADEEP MAHAWALAT</div>
-    <div>INTEGRATED MARKETING & GTM STRATEGY</div>
-    <div>+91 8901255012</div>
+    <div class="nav-brand">Pradeep Mahlawat</div>
+    <div style="display: flex; gap: 2.5rem; align-items: center;">
+        <div class="nav-links">
+            <a href="#work">Work</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#experience">Experience</a>
+        </div>
+        
+        <!-- Embossed Switch -->
+        <div class="theme-switch" onclick="toggleTheme()" aria-label="Toggle Theme">
+            <div class="theme-knob">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="5" />
+                    <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </div>
+        
+        <a href="assets/Pradeep_Mahlawat_Resume_2026.pdf" target="_blank" class="nav-cta">Download CV</a>
+    </div>
 </nav>
 
-<!-- Hero Section -->
-<section class="hero" id="home">
-    <div class="hero-video-wrap" data-speed="0.8">
-        <!-- Generic abstract high-res video for immediate preview loading -->
-        <video autoplay muted loop playsinline>
-            <source src="https://cdn.pixabay.com/video/2021/08/04/83866-584742516_large.mp4" type="video/mp4">
-        </video>
-    </div>
-    <div class="hero-content reveal">
-        <h1 class="hero-title">I build campaigns <br>that <em>move</em> numbers.</h1>
-        <div class="hero-meta">
-            <span>SAMSUNG INDIA</span>
-            <span>JSW MG MOTOR</span>
-            <span>10+ YEARS EXP.</span>
+<!-- Editorial Hero Section -->
+<section class="hero-split">
+    <!-- Content Left -->
+    <div class="hero-content reveal-hero">
+        <span class="hero-meta-tag">Account Director & Strategist</span>
+        <h1 class="hero-title">Orchestrating campaigns that <em>scale ROI.</em></h1>
+        <p class="hero-desc">Over a decade of experience driving Go-To-Market strategy, multi-channel product launches, and high-value client relationships. Specializing in scaling global brands—from Samsung Galaxy’s retail dominance to architecting MG Motor's EV category creation.</p>
+        
+        <div class="hero-actions">
+            <a href="#work" class="btn-primary">View Case Studies</a>
+            <a href="mailto:er.mahlawat@gmail.com" class="btn-secondary">Let's Connect</a>
         </div>
-        <p class="hero-desc">Account management professional leading GTM strategy, multi-channel launches, and brand campaigns for high-value consumer brands — from flagship Samsung Galaxy to MG Motor's EV category creation.</p>
     </div>
-</section>
 
-<!-- Bento Proof Section -->
-<section class="bento-section">
-    <div class="bento-grid reveal">
-        <div class="bento-item">
-            <div class="bento-val">65M+</div>
-            <div class="bento-lbl">Campaign Views</div>
+    <!-- Portrait Right -->
+    <div class="hero-portrait reveal-hero-img">
+        <div class="hero-portrait-wrapper">
+            <!-- Explicit relative path. Onerror falls back to a clean placeholder if the image path is incorrect -->
+            <img src="./assets/profile.jpg" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80'" alt="Pradeep Mahlawat">
         </div>
-        <div class="bento-item">
-            <div class="bento-val">450+</div>
-            <div class="bento-lbl">Retail Pages Scaled</div>
-        </div>
-        <div class="bento-item">
-            <div class="bento-val">50K</div>
-            <div class="bento-lbl">LI Followers Added</div>
-        </div>
-        <div class="bento-item">
-            <div class="bento-val">5</div>
-            <div class="bento-lbl">Industry Awards</div>
-        </div>
-    </div>
-</section>
-
-<!-- Case Studies (Broken Grid) -->
-<section class="work-section" id="work">
-    <div class="section-header reveal">
-        <span>01 / Selected Works</span>
-        <span>2019 — 2025</span>
     </div>
     
-    <div class="broken-grid">
-        
-        <!-- Case 1: Replaced with Unsplash Car Image -->
-        <a href="#" class="case-card hover-target reveal">
-            <div class="case-img-wrap" data-speed="0.9">
-                <img src="https://images.unsplash.com/photo-1555529771-835f59bfc50c?auto=format&fit=crop&w=1200&q=80" alt="Windsor EV Campaign">
-            </div>
-            <div class="case-info">
-                <div>
-                    <h3 class="case-title">Windsor EV — Inspire Edition</h3>
-                    <div class="case-meta">MG Motor India · Limited Edition Launch</div>
-                </div>
-            </div>
-        </a>
-
-        <!-- Case 2: Replaced with Unsplash Tech Image -->
-        <a href="#" class="case-card hover-target reveal">
-            <div class="case-img-wrap" data-speed="1.1">
-                <img src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=1200&q=80" alt="Samsung x FilterCopy">
-            </div>
-            <div class="case-info">
-                <div>
-                    <h3 class="case-title">#FunKeFundae | Galaxy F16 5G</h3>
-                    <div class="case-meta">Samsung × FilterCopy · SCREENXX Winner</div>
-                </div>
-            </div>
-        </a>
-
-        <!-- Case 3: Replaced with Unsplash EV Image -->
-        <a href="#" class="case-card hover-target reveal">
-            <div class="case-img-wrap" data-speed="0.95">
-                <img src="https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=1200&q=80" alt="Comet EV">
-            </div>
-            <div class="case-info">
-                <div>
-                    <h3 class="case-title">Comet EV — Easy on the Drive</h3>
-                    <div class="case-meta">Urban Mobility · Brand Amplification</div>
-                </div>
-            </div>
-        </a>
-
-        <!-- Case 4: Replaced with Unsplash SUV Image -->
-        <a href="#" class="case-card hover-target reveal">
-            <div class="case-img-wrap" data-speed="1.05">
-                <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80" alt="MG Astor">
-            </div>
-            <div class="case-info">
-                <div>
-                    <h3 class="case-title">The Blockbuster SUV</h3>
-                    <div class="case-meta">MG Astor · Full-Funnel Product Launch</div>
-                </div>
-            </div>
-        </a>
-        
-        <!-- Case 5: Replaced with Unsplash Phone Image -->
-        <a href="#" class="case-card hover-target reveal">
-            <div class="case-img-wrap" data-speed="0.9">
-                <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1200&q=80" alt="Galaxy S23 Lime">
-            </div>
-            <div class="case-info">
-                <div>
-                    <h3 class="case-title">Galaxy S23 "Lime" Launch</h3>
-                    <div class="case-meta">Zero-Spend Viral Campaign · Organic Social Takeover</div>
-                </div>
-            </div>
-        </a>
-
-        <!-- Case 6: Replaced with Unsplash City/Retail Image -->
-        <a href="#" class="case-card hover-target reveal">
-            <div class="case-img-wrap" data-speed="1.15">
-                <img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=1200&q=80" alt="Retail Engine">
-            </div>
-            <div class="case-info">
-                <div>
-                    <h3 class="case-title">Hyperlocal Retail Engine</h3>
-                    <div class="case-meta">Scaled 450+ Pages · Pan-India Coverage</div>
-                </div>
-            </div>
-        </a>
-
+    <!-- Client Strip -->
+    <div class="client-strip reveal-bottom">
+        <span>Samsung India</span>
+        <span>JSW MG Motor</span>
+        <span>GlobalLogic</span>
+        <span>Lendlease</span>
+        <span>Audi</span>
     </div>
 </section>
 
-<!-- Masonry Creative Wall -->
-<section class="creative-wall-section" id="creative-wall">
+<!-- Executive Dashboard / Metrics -->
+<section class="metrics-section">
+    <div class="metrics-grid reveal-stagger">
+        <div class="metric-card">
+            <div class="metric-val">65M+</div>
+            <div class="metric-lbl">Total Campaign Views</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-val">450+</div>
+            <div class="metric-lbl">Retail Nodes Scaled</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-val">50K</div>
+            <div class="metric-lbl">Organic Community Growth</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-val">5</div>
+            <div class="metric-lbl">Major Industry Awards</div>
+        </div>
+    </div>
+</section>
+
+<!-- Case Studies -->
+<section class="section-wrapper" id="work">
     <div class="section-header reveal">
-        <span>02 / Creative Wall</span>
-        <span>Social Media & Campaigns</span>
+        <h2 class="section-title">Strategic Case Studies</h2>
+        <span class="section-meta">Selected Works 2019–2025</span>
+    </div>
+    
+    <div class="case-grid">
+        <article class="case-card reveal-stagger">
+            <div class="case-img-wrap">
+                <img src="assets/image_11.jpg" onerror="this.src='https://images.unsplash.com/photo-1555529771-835f59bfc50c?auto=format&fit=crop&w=1200&q=80'" alt="MG Motor Campaign">
+            </div>
+            <div class="case-tags"><span class="case-tag">GTM Strategy</span><span class="case-tag">Automotive EV</span></div>
+            <h3 class="case-title">Category Creation: "EV Sahi Hai"</h3>
+            <p class="case-desc">Architected a multi-phase awareness campaign addressing core EV barriers. Managed cross-functional delivery including celebrity integration, securing the 2025 E4M Automotive Category Award.</p>
+            <div class="case-kpi">
+                <div><span class="kpi-val">65M+</span><span class="kpi-lbl">Total Views</span></div>
+                <div><span class="kpi-val">52M</span><span class="kpi-lbl">Audience Reach</span></div>
+            </div>
+        </article>
+
+        <article class="case-card reveal-stagger">
+            <div class="case-img-wrap">
+                <img src="assets/image_5.jpg" onerror="this.src='https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=1200&q=80'" alt="Samsung Galaxy Launch">
+            </div>
+            <div class="case-tags"><span class="case-tag">Influencer Marketing</span><span class="case-tag">Production Mgmt</span></div>
+            <h3 class="case-title">Samsung × FilterCopy: #FunKeFundae</h3>
+            <p class="case-desc">End-to-end production management and budget oversight for 8 short films supporting the Galaxy F16 5G launch. Winner of the SCREENXX Best Influencer Collaboration.</p>
+            <div class="case-kpi">
+                <div><span class="kpi-val">~20M</span><span class="kpi-lbl">Video Views</span></div>
+                <div><span class="kpi-val">8</span><span class="kpi-lbl">Films Produced</span></div>
+            </div>
+        </article>
+
+        <article class="case-card reveal-stagger">
+            <div class="case-img-wrap">
+                <img src="assets/image_8.jpg" onerror="this.src='https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=1200&q=80'" alt="Retail Scaling">
+            </div>
+            <div class="case-tags"><span class="case-tag">Operations Scale</span><span class="case-tag">Retail Marketing</span></div>
+            <h3 class="case-title">Pan-India Hyperlocal Scaling</h3>
+            <p class="case-desc">Transformed a pilot hyperlocal program into a nationwide marketing engine across 450+ retail touchpoints. Recognized globally as a Best Practice by Samsung Leadership.</p>
+            <div class="case-kpi">
+                <div><span class="kpi-val">450+</span><span class="kpi-lbl">Retail Pages Active</span></div>
+                <div><span class="kpi-val">2.5x</span><span class="kpi-lbl">Lift in SOV</span></div>
+            </div>
+        </article>
+
+        <article class="case-card reveal-stagger">
+            <div class="case-img-wrap">
+                <img src="assets/image_21.jpg" onerror="this.src='https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=1200&q=80'" alt="Social Growth">
+            </div>
+            <div class="case-tags"><span class="case-tag">Community Building</span><span class="case-tag">B2B Strategy</span></div>
+            <h3 class="case-title">Organic LinkedIn Growth Engine</h3>
+            <p class="case-desc">Redefined MG Motor's corporate communications by establishing clear content pillars (#LifeAtMG). Delivered massive organic growth without incremental media spend.</p>
+            <div class="case-kpi">
+                <div><span class="kpi-val">50K</span><span class="kpi-lbl">New Followers</span></div>
+                <div><span class="kpi-val">10.5%</span><span class="kpi-lbl">Avg. Engagement Rate</span></div>
+            </div>
+        </article>
+    </div>
+</section>
+
+<!-- Campaign Gallery -->
+<section class="section-wrapper" id="gallery">
+    <div class="section-header reveal">
+        <h2 class="section-title">Campaign Deliverables</h2>
+        <span class="section-meta">Selected Assets & Visuals</span>
     </div>
 
     <div class="masonry-grid">
-        
-        <!-- Post 1 (Video) -->
-        <div class="social-card hover-target brand-mg reveal">
-            <div class="social-header">
-                <div class="social-avatar">MG</div>
-                <div class="social-user">mgmotorin</div>
-                <div class="social-more">...</div>
-            </div>
-            <div class="social-media hover-play">
-                <!-- Fallback live video link for immediate preview -->
+        <div class="gallery-card reveal-stagger">
+            <div class="gallery-media">
                 <video autoplay muted loop playsinline>
-                    <source src="https://cdn.pixabay.com/video/2020/05/25/40140-424754593_large.mp4" type="video/mp4">
+                    <source src="assets/video_1.mp4" onerror="this.src='https://cdn.pixabay.com/video/2020/05/25/40140-424754593_large.mp4'" type="video/mp4">
                 </video>
-                <div class="video-icon">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                </div>
             </div>
-            <div class="social-footer">
-                <div class="social-actions">
-                    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                    <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                    <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                </div>
-                <div class="social-likes">18.2K likes</div>
-                <div class="social-caption"><b>mgmotorin</b> Experiencing the thrill. Check out the latest Hector launch! 🚙💨 #MGHector #ItsAHumanThing</div>
+            <div class="gallery-info">
+                <span class="g-brand">MG Motor India</span>
+                <h4 class="g-title">Hector Product Launch</h4>
+                <p class="g-desc">Hero asset delivery for social and digital display.</p>
             </div>
         </div>
 
-        <!-- Post 2 (Image) -->
-        <div class="social-card hover-target brand-samsung reveal">
-            <div class="social-header">
-                <div class="social-avatar">S</div>
-                <div class="social-user">samsungindia</div>
-                <div class="social-more">...</div>
+        <div class="gallery-card reveal-stagger">
+            <div class="gallery-media">
+                <img src="assets/image_26.jpg" onerror="this.src='https://images.unsplash.com/photo-1541560052-5e137f229371?auto=format&fit=crop&w=800&q=80'" alt="Samsung">
             </div>
-            <div class="social-media">
-                <img src="https://images.unsplash.com/photo-1541560052-5e137f229371?auto=format&fit=crop&w=800&q=80" alt="Galaxy Lime">
-            </div>
-            <div class="social-footer">
-                <div class="social-actions">
-                    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                    <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                    <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                </div>
-                <div class="social-likes">25.4K likes</div>
-                <div class="social-caption"><b>samsungindia</b> Epic has a new shade. Unleashing the Galaxy S23 in striking Lime. 🟢✨ #ShareTheEpic</div>
+            <div class="gallery-info">
+                <span class="g-brand">Samsung India</span>
+                <h4 class="g-title">Galaxy S23 Lime</h4>
+                <p class="g-desc">"Epic has a new shade" digital key visual for social takeover.</p>
             </div>
         </div>
 
-        <!-- Post 3 (Image) -->
-        <div class="social-card hover-target brand-mg reveal">
-            <div class="social-header">
-                <div class="social-avatar">MG</div>
-                <div class="social-user">mgmotorin</div>
-                <div class="social-more">...</div>
+        <div class="gallery-card reveal-stagger">
+            <div class="gallery-media">
+                <img src="assets/image_14.jpg" onerror="this.src='https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80'" alt="MG Astor">
             </div>
-            <div class="social-media">
-                <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80" alt="Astor Blockbuster">
-            </div>
-            <div class="social-footer">
-                <div class="social-actions">
-                    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                    <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                    <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                </div>
-                <div class="social-likes">8.4K likes</div>
-                <div class="social-caption"><b>mgmotorin</b> Meet the blockbuster SUV. The AI-powered MG Astor steals the show. 🎬🚗</div>
+            <div class="gallery-info">
+                <span class="g-brand">MG Motor India</span>
+                <h4 class="g-title">Astor Blockbuster</h4>
+                <p class="g-desc">Awareness phase creative focusing on AI features.</p>
             </div>
         </div>
-
-        <!-- Post 4 (Image) -->
-        <div class="social-card hover-target brand-mg reveal">
-            <div class="social-header">
-                <div class="social-avatar">MG</div>
-                <div class="social-user">mgmotorin</div>
-                <div class="social-more">...</div>
-            </div>
-            <div class="social-media">
-                <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=800&q=80" alt="Comet EV">
-            </div>
-            <div class="social-footer">
-                <div class="social-actions">
-                    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                    <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                    <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                </div>
-                <div class="social-likes">15.3K likes</div>
-                <div class="social-caption"><b>mgmotorin</b> The Comet EV. Easy on the eye, even easier on the drive. Zap through the city lights. ⚡🌆</div>
-            </div>
-        </div>
-
-        <!-- Post 5 (Image) -->
-        <div class="social-card hover-target brand-samsung reveal">
-            <div class="social-header">
-                <div class="social-avatar">S</div>
-                <div class="social-user">samsungindia</div>
-                <div class="social-more">...</div>
-            </div>
-            <div class="social-media">
-                <img src="https://images.unsplash.com/photo-1598327105666-5b89351cb315?auto=format&fit=crop&w=800&q=80" alt="Screenxx Award">
-            </div>
-            <div class="social-footer">
-                <div class="social-actions">
-                    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                    <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                    <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                </div>
-                <div class="social-likes">3.4K likes</div>
-                <div class="social-caption"><b>samsungindia</b> We won big! SCREENXX Best Influencer Collaboration for #FunKeFundae with FilterCopy. 🏆🎊</div>
-            </div>
-        </div>
-
     </div>
 </section>
 
-<!-- Career Timeline -->
-<section class="timeline-section" id="timeline">
+<!-- Experience Timeline with Climbing Bear -->
+<section class="section-wrapper" id="experience">
     <div class="section-header reveal">
-        <span>03 / Career Timeline</span>
-        <span>A Decade of Growth</span>
+        <h2 class="section-title">Professional Experience</h2>
+        <span class="section-meta">10+ Years of Growth</span>
     </div>
     
-    <div class="timeline-wrapper">
-        <div class="timeline-line"></div>
-        <div class="timeline-progress" id="tl-progress"></div>
+    <div class="timeline-wrapper" id="timeline-container">
         
-        <div class="tl-node node-trigger">
-            <div class="tl-dot"></div>
-            <div class="tl-year">Jun 2025 — Present</div>
-            <div class="tl-role">Key Account Manager</div>
-            <div class="tl-company">CheilX · JSW MG Motor India</div>
-            <p class="tl-desc">Leading social content strategy across LinkedIn, Meta, X, and YouTube. Achieved EV Sahi Hai (E4M Award), CarKalam (Asia Book of Records), and 50K LinkedIn organic growth.</p>
+        <!-- The Track / Line -->
+        <div class="timeline-line" id="timeline-line"></div>
+        
+        <!-- The Elevated Climbing Bear Badge -->
+        <div class="timeline-bear-wrapper" id="bear-badge">
+            <svg class="bear-icon" id="bear-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <!-- Cool Geometric Bear Silhouette -->
+                <path d="M17.5 5A2.5 2.5 0 0 0 15 7.5c0 .3.1.5.2.7-1 .5-2.2.8-3.2.8s-2.2-.3-3.2-.8A2.5 2.5 0 0 0 6.5 5 2.5 2.5 0 0 0 4 7.5c0 1.2.9 2.2 2 2.4V14a5 5 0 0 0 1 3v2a2 2 0 0 0 2 2h1v-2h4v2h1a2 2 0 0 0 2-2v-2a5 5 0 0 0 1-3V9.9c1.1-.2 2-1.2 2-2.4A2.5 2.5 0 0 0 17.5 5Z"/>
+            </svg>
         </div>
         
-        <div class="tl-node node-trigger">
-            <div class="tl-dot"></div>
-            <div class="tl-year">Apr 2019 — May 2025</div>
-            <div class="tl-role">Key Account Manager</div>
-            <div class="tl-company">Cheil India · Samsung India</div>
-            <p class="tl-desc">6-year tenure managing Galaxy S/Z/F flagship launches. Achieved Guinness World Record for S22 Ultra, scaled hyperlocal program to 450+ pages. Influencer frameworks recognized as Global Best Practice.</p>
+        <!-- Job Entries -->
+        <div class="timeline-item reveal">
+            <div class="tl-node"></div>
+            <div class="tl-year">2025 — Present</div>
+            <div class="tl-content">
+                <h3 class="tl-role">Key Account Manager (Asst. Manager)</h3>
+                <div class="tl-company">CheilX · JSW MG Motor India</div>
+                <p class="tl-desc">Directing integrated social and digital strategy across EV and ICE portfolios. Spearheaded the award-winning EV Sahi Hai campaign and grew corporate LinkedIn by 50K organic followers through executive thought leadership.</p>
+            </div>
         </div>
-        
-        <div class="tl-node node-trigger">
-            <div class="tl-dot"></div>
-            <div class="tl-year">Nov 2017 — Apr 2019</div>
-            <div class="tl-role">Content Operations Lead</div>
-            <div class="tl-company">GlobalLogic Technologies · Client: Google</div>
-            <p class="tl-desc">Led publisher relations for Google Magazines and Google News. Managed premium publishers including The Times and Condé Nast.</p>
+
+        <div class="timeline-item reveal">
+            <div class="tl-node"></div>
+            <div class="tl-year">2019 — 2025</div>
+            <div class="tl-content">
+                <h3 class="tl-role">Key Account Manager</h3>
+                <div class="tl-company">Cheil India · Samsung India</div>
+                <p class="tl-desc">Managed a 6-year tenure orchestrating GTM strategies for flagship Galaxy S/Z/F devices. Secured a Guinness World Record activation for S22 Ultra, managed E2E video productions, and scaled a national hyperlocal marketing program.</p>
+            </div>
         </div>
-        
-        <div class="tl-node node-trigger">
-            <div class="tl-dot"></div>
-            <div class="tl-year">Sep 2015 — Aug 2017</div>
-            <div class="tl-role">Account Executive</div>
-            <div class="tl-company">HH Global</div>
-            <p class="tl-desc">Managed procurement and print lifecycle for global accounts (Lendlease, Audi, Skoda). Reduced costs by 20% and delivery times by 50%.</p>
+
+        <div class="timeline-item reveal">
+            <div class="tl-node"></div>
+            <div class="tl-year">2017 — 2019</div>
+            <div class="tl-content">
+                <h3 class="tl-role">Content Operations Lead</h3>
+                <div class="tl-company">GlobalLogic · Client: Google</div>
+                <p class="tl-desc">Led global publisher relations for Google Magazines/News. Acted as primary escalation point, maintaining exceptionally high CSAT scores for premium accounts like Condé Nast.</p>
+            </div>
         </div>
-        
-        <div class="tl-node node-trigger">
-            <div class="tl-dot"></div>
-            <div class="tl-year">Jun 2013 — Aug 2015</div>
-            <div class="tl-role">Client Servicing Executive</div>
-            <div class="tl-company">Lustra Print Process</div>
-            <p class="tl-desc">Managed end-to-end retail POSM execution and print production for Samsung, Sony, LG, and ITC.</p>
+
+        <div class="timeline-item reveal" style="margin-bottom: 0;">
+            <div class="tl-node"></div>
+            <div class="tl-year">2015 — 2017</div>
+            <div class="tl-content" style="border: none; padding-bottom: 0;">
+                <h3 class="tl-role">Account Executive</h3>
+                <div class="tl-company">HH Global</div>
+                <p class="tl-desc">Managed procurement and operations for Lendlease, Audi, and Skoda. Streamlined vendor models to reduce client costs by 20%.</p>
+            </div>
         </div>
+
     </div>
 </section>
 
 <!-- Footer -->
 <footer>
-    <div class="footer-top">
-        <div class="footer-title">Let's build<br><em>something epic.</em></div>
-        <div class="footer-links">
-            <a href="mailto:er.mahlawat@gmail.com" class="hover-target">Email Me</a>
-            <a href="https://linkedin.com/in/pradeepmahlawat/" target="_blank" class="hover-target">LinkedIn</a>
-            <a href="#" class="hover-target">Resume</a>
+    <div class="footer-grid">
+        <div>
+            <h2 class="footer-title">Driving results,<br>not just impressions.</h2>
+            <p style="color: var(--fg-muted); max-width: 320px; font-size: var(--fluid-p);">Account management professional partnering with high-value consumer brands. Based in Gurugram, India.</p>
         </div>
+        <div>
+            <div class="footer-heading">Connect</div>
+            <div class="footer-links">
+                <a href="mailto:er.mahlawat@gmail.com">er.mahlawat@gmail.com</a>
+                <a href="tel:+918901255012">+91 89012 55012</a>
+                <a href="https://linkedin.com/in/pradeepmahlawat/" target="_blank">LinkedIn Profile ↗</a>
+            </div>
+        </div>
+        <div>
+            <div class="footer-heading">Resources</div>
+            <div class="footer-links">
+                <a href="assets/Pradeep_Mahlawat_Resume_2026.pdf" target="_blank">Download Resume / CV</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>© 2026 Pradeep Mahlawat</span>
+        <span>Built for Scalability.</span>
     </div>
 </footer>
 
@@ -985,13 +763,7 @@ footer {
     const lenis = new Lenis({
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        direction: 'vertical',
-        gestureDirection: 'vertical',
         smooth: true,
-        mouseMultiplier: 1,
-        smoothTouch: false,
-        touchMultiplier: 2,
-        infinite: false,
     });
     
     function raf(time) {
@@ -1000,100 +772,95 @@ footer {
     }
     requestAnimationFrame(raf);
     
-    // Sync GSAP with Lenis
     lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
+    gsap.ticker.add((time) => { lenis.raf(time * 1000); });
     gsap.ticker.lagSmoothing(0);
 
-    // Scroll Progress Circle Logic
+    // === ROBUST SCROLL PROGRESS CIRCLE (USING GSAP) ===
     const progressFill = document.getElementById('progress-fill');
-    lenis.on('scroll', (e) => {
-        // e.progress gives a value from 0 (top) to 1 (bottom)
-        const offset = 138 - (e.progress * 138);
-        progressFill.style.strokeDashoffset = offset;
-    });
-
-    // Custom Cursor Logic
-    const cursor = document.querySelector('.cursor');
-    const xTo = gsap.quickTo(cursor, "x", {duration: 0.2, ease: "power3"});
-    const yTo = gsap.quickTo(cursor, "y", {duration: 0.2, ease: "power3"});
-
-    window.addEventListener("mousemove", e => {
-        xTo(e.clientX);
-        yTo(e.clientY);
-    });
-
-    // Hover states for cursor
-    document.querySelectorAll('.hover-target').forEach(el => {
-        el.addEventListener('mouseenter', () => cursor.classList.add('hover-expand'));
-        el.addEventListener('mouseleave', () => cursor.classList.remove('hover-expand'));
-    });
-    document.querySelectorAll('.hover-play').forEach(el => {
-        el.addEventListener('mouseenter', () => cursor.classList.add('hover-play'));
-        el.addEventListener('mouseleave', () => cursor.classList.remove('hover-play'));
-    });
-
-    // Simple Reveal Animations
-    const revealElements = document.querySelectorAll('.reveal');
-    revealElements.forEach((el) => {
-        gsap.fromTo(el, 
-            { y: 50, opacity: 0 },
-            {
-                y: 0, 
-                opacity: 1, 
-                duration: 1, 
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: el,
-                    start: "top 85%",
-                }
-            }
-        );
-    });
-
-    // Parallax on Images & Hero Video
-    document.querySelectorAll('[data-speed]').forEach(el => {
-        const speed = el.getAttribute('data-speed');
-        gsap.to(el, {
-            y: (i, target) => -ScrollTrigger.maxScroll(window) * (1 - speed),
-            ease: "none",
-            scrollTrigger: {
-                trigger: el,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: true
-            }
-        });
-    });
-
-    // Timeline Scroll Reveal & Line Drawing
-    const tlNodes = document.querySelectorAll('.node-trigger');
-    const tlProgress = document.getElementById('tl-progress');
-    const timelineWrapper = document.querySelector('.timeline-wrapper');
-
-    // Draw the vertical line
-    gsap.to(tlProgress, {
-        height: "100%",
+    const arrow = document.getElementById('progress-arrow');
+    
+    gsap.to(progressFill, {
+        strokeDashoffset: 0, // Animate stroke from 138 (empty) down to 0 (full)
         ease: "none",
         scrollTrigger: {
-            trigger: timelineWrapper,
-            start: "top 50%",
-            end: "bottom 50%",
-            scrub: true
+            trigger: document.body,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: true,
+            onUpdate: (self) => {
+                if (self.progress > 0.98) {
+                    arrow.innerHTML = '↑';
+                } else {
+                    arrow.innerHTML = '↓';
+                }
+            }
         }
     });
 
-    // Activate individual nodes
-    tlNodes.forEach((node) => {
-        ScrollTrigger.create({
-            trigger: node,
-            start: "top 60%",
-            onEnter: () => node.classList.add('active'),
-            onLeaveBack: () => node.classList.remove('active')
-        });
+    // === THE UPGRADED CLIMBING BEAR ANIMATION ===
+    const bearBadge = document.getElementById("bear-badge");
+    const bearSvg = document.getElementById("bear-svg");
+    const timelineContainer = document.getElementById("timeline-container");
+    const timelineLine = document.getElementById("timeline-line");
+
+    ScrollTrigger.create({
+        trigger: timelineContainer,
+        start: "top center", // Animation starts when top of timeline hits center of screen
+        end: "bottom center", // Stops at the bottom of the timeline
+        scrub: 1, // Smooth interpolation
+        onUpdate: (self) => {
+            // 1. Calculate vertical position (Timeline line height minus the bear badge height 50px)
+            const maxTravel = timelineLine.offsetHeight - 50; 
+            const moveY = self.progress * maxTravel; 
+            
+            // 2. Add Waddle Effect (Side to side rotation)
+            const waddleRotate = Math.sin(self.progress * 60) * 20; // Tilts up to 20 degrees
+            
+            // 3. Apply Y position directly to the badge container
+            gsap.set(bearBadge, { y: moveY });
+
+            // 4. Flip the inner SVG based on scroll direction
+            if(self.direction === 1) {
+                // Scrolling down -> Normal orientation + waddle
+                gsap.to(bearSvg, { scaleY: 1, rotation: waddleRotate, duration: 0.1 });
+            } else {
+                // Scrolling up -> Flipped Upside Down + waddle
+                gsap.to(bearSvg, { scaleY: -1, rotation: waddleRotate, duration: 0.1 });
+            }
+        }
     });
+
+    // Simple Entrance Animations
+    gsap.fromTo(".reveal-hero", 
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", delay: 0.2 }
+    );
+    gsap.fromTo(".reveal-hero-img", 
+        { y: 50, opacity: 0, scale: 0.95 },
+        { y: 0, opacity: 1, scale: 1, duration: 1.5, ease: "power3.out", delay: 0.4 }
+    );
+    gsap.fromTo(".reveal-bottom", 
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.8 }
+    );
+    
+    const revealElements = document.querySelectorAll('.reveal');
+    revealElements.forEach((el) => {
+        gsap.fromTo(el, 
+            { y: 30, opacity: 0 },
+            { y: 0, opacity: 1, duration: 1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 85%" } }
+        );
+    });
+
+    ScrollTrigger.batch(".reveal-stagger", {
+        onEnter: batch => gsap.fromTo(batch, 
+            { y: 40, opacity: 0 },
+            { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power3.out" }
+        ),
+        start: "top 85%"
+    });
+
 </script>
 </body>
 </html>
