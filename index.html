@@ -3,322 +3,367 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="description" content="Pradeep Mahlawat — Integrated Marketing & Social Strategy. 10+ years at Samsung India and JSW MG Motor India.">
+<meta name="description" content="Pradeep Mahlawat — Integrated Marketing & Social Strategy. 10+ years at Samsung India and JSW MG Motor India. Targeting Account Director roles.">
 <title>Pradeep Mahlawat — Integrated Marketing · Social Strategy</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* ── TOKENS ─────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════
+   DESIGN TOKENS
+   ═══════════════════════════════════════════════════ */
 :root {
-  --samsung:#1428A0; --samsung-s:rgba(20,40,160,.1); --samsung-d:#4f6fe8;
-  --mg:#CC0000;      --mg-s:rgba(204,0,0,.1);         --mg-d:#e06060;
-  --ease:cubic-bezier(.16,1,.3,1); --dur:320ms;
+  --samsung:#1428A0; --samsung-bg:rgba(20,40,160,.07); --samsung-tx:#3D52B0;
+  --mg:#CC0000;      --mg-bg:rgba(204,0,0,.07);         --mg-tx:#C03030;
   --ff-d:'Instrument Serif',Georgia,serif;
   --ff-b:'Helvetica Neue',Helvetica,-apple-system,sans-serif;
   --ff-m:'DM Mono','Courier New',monospace;
-  --gap:clamp(1.5rem,4vw,3rem); --max:1240px;
+  --max:1200px; --gap:clamp(1.5rem,4vw,3rem); --sec:5.5rem;
+  --ease:cubic-bezier(.16,1,.3,1); --dur:300ms;
 }
 [data-theme="light"] {
   --bg:#ffffff; --bg2:#F7F6F2; --bg3:#EDECEA;
-  --tx:#111111; --tx2:#5A5955; --tx3:#999590;
-  --ac:#0D1F3C; --bd:#E5E3DE; --bd2:#CECDC8; --sh:rgba(0,0,0,.08);
+  --tx:#111111; --tx2:#5A5955; --tx3:#9A9990;
+  --ac:#0D1F3C; --bd:#E5E3DE; --bd2:#CECDCA; --sh:rgba(0,0,0,.07);
 }
 [data-theme="dark"] {
-  --bg:#0D0D0D; --bg2:#161616; --bg3:#1F1F1F;
+  --bg:#0D0D0D; --bg2:#141414; --bg3:#1E1E1E;
   --tx:#F0EFEC; --tx2:#9A9990; --tx3:#55554F;
-  --ac:#8BA8D4; --bd:#252525; --bd2:#303030; --sh:rgba(0,0,0,.5);
+  --ac:#8BA8D4; --bd:#252525; --bd2:#333333; --sh:rgba(0,0,0,.45);
 }
 
-/* ── RESET ──────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════
+   RESET
+   ═══════════════════════════════════════════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
+::selection{background:var(--ac);color:#fff}
+::-webkit-scrollbar{width:5px} ::-webkit-scrollbar-track{background:transparent} ::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px}
 body{font-family:var(--ff-b);font-size:clamp(.9rem,1.05vw,1rem);line-height:1.65;color:var(--tx);background:var(--bg);-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background var(--dur),color var(--dur)}
-img{max-width:100%;display:block}
-a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block} a{color:inherit;text-decoration:none} button{font-family:inherit;cursor:pointer}
 
-/* ── THEME TOGGLE ───────────────────────────────── */
-.toggle{position:relative;width:52px;height:26px;border-radius:13px;cursor:pointer;border:none;background:var(--bg3);box-shadow:inset 0 2px 5px rgba(0,0,0,.18),inset 0 1px 2px rgba(0,0,0,.12),0 1px 0 rgba(255,255,255,.1);transition:background var(--dur)}
-.toggle::before{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--tx2);box-shadow:0 2px 5px rgba(0,0,0,.25);transition:transform var(--dur) var(--ease)}
-[data-theme="light"] .toggle::before{transform:translateX(26px);background:var(--ac)}
-.toggle-i{position:absolute;top:50%;transform:translateY(-50%);font-size:10px;pointer-events:none}
-.ti-moon{left:6px} .ti-sun{right:5px}
-[data-theme="light"] .ti-moon{opacity:.25} [data-theme="dark"] .ti-sun{opacity:.25}
+/* ═══════════════════════════════════════════════════
+   SECTION SHELL — one template, every section
+   ═══════════════════════════════════════════════════ */
+.s-wrap{border-top:1px solid var(--bd);background:var(--bg);transition:background var(--dur)}
+.s-wrap.alt{background:var(--bg2)}
+.s-inner{max-width:var(--max);margin:0 auto;padding:var(--sec) var(--gap)}
+.s-hd{display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid var(--bd);padding-bottom:1rem;margin-bottom:3rem}
+.s-lbl{font-family:var(--ff-m);font-size:10px;text-transform:uppercase;letter-spacing:.18em;color:var(--tx3)}
+.s-ttl{font-family:var(--ff-d);font-style:italic;font-size:clamp(1.25rem,2vw,1.8rem);color:var(--tx)}
 
-/* ── CONTACT BAR ────────────────────────────────── */
-.cbar{background:var(--bg2);border-bottom:1px solid var(--bd);padding:.4rem var(--gap);display:flex;justify-content:space-between;align-items:center;font-family:var(--ff-m);font-size:10.5px;color:var(--tx3);letter-spacing:.04em;transition:background var(--dur)}
+/* ═══════════════════════════════════════════════════
+   THEME TOGGLE
+   ═══════════════════════════════════════════════════ */
+.toggle{position:relative;width:50px;height:25px;border-radius:13px;border:none;outline:none;background:var(--bd2);box-shadow:inset 0 2px 5px rgba(0,0,0,.16),inset 0 1px 2px rgba(0,0,0,.1);transition:background var(--dur);flex-shrink:0}
+.toggle::before{content:'';position:absolute;top:3px;left:3px;width:19px;height:19px;border-radius:50%;background:var(--tx2);box-shadow:0 2px 4px rgba(0,0,0,.2);transition:transform var(--dur) var(--ease),background var(--dur)}
+[data-theme="light"] .toggle::before{transform:translateX(25px);background:var(--ac)}
+.ti{position:absolute;top:50%;transform:translateY(-50%);font-size:10px;pointer-events:none;line-height:1}
+.ti-m{left:6px} .ti-s{right:5px}
+[data-theme="light"] .ti-m{opacity:.2} [data-theme="dark"] .ti-s{opacity:.2}
+
+/* ═══════════════════════════════════════════════════
+   CONTACT BAR
+   ═══════════════════════════════════════════════════ */
+.cbar{background:var(--bg);border-bottom:1px solid var(--bd);padding:.42rem var(--gap);display:flex;justify-content:space-between;align-items:center;font-family:var(--ff-m);font-size:10.5px;color:var(--tx3);letter-spacing:.04em;transition:background var(--dur)}
 .cbar a{color:var(--tx2);transition:color .2s} .cbar a:hover{color:var(--tx)}
-.cb-l,.cb-r{display:flex;gap:1.4rem;align-items:center}
-.cb-sep{width:1px;height:12px;background:var(--bd2)}
-.social-icon{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:4px;color:var(--tx2);transition:color .2s,background .2s}
-.social-icon:hover{color:var(--tx);background:var(--bg3)}
-.social-icon svg{width:14px;height:14px;display:block}
+.cb-l,.cb-r{display:flex;gap:1.5rem;align-items:center}
+.cb-sep{width:1px;height:11px;background:var(--bd2)}
+.soc-ic{display:inline-flex;align-items:center;justify-content:center;width:21px;height:21px;color:var(--tx3);transition:color .2s}
+.soc-ic:hover{color:var(--tx)} .soc-ic svg{width:13px;height:13px;display:block}
 
-/* ── NAV ────────────────────────────────────────── */
-.nav{display:flex;justify-content:space-between;align-items:center;padding:.85rem var(--gap);background:var(--bg);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:200;transition:background var(--dur)}
-[data-theme="dark"] .nav{background:rgba(13,13,13,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
-.nav-name{font-weight:700;font-size:.97rem;letter-spacing:-.02em;color:var(--tx)}
+/* ═══════════════════════════════════════════════════
+   NAV
+   ═══════════════════════════════════════════════════ */
+.nav{display:flex;justify-content:space-between;align-items:center;padding:.88rem var(--gap);background:var(--bg);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:200;transition:background var(--dur)}
+[data-theme="dark"] .nav{background:rgba(13,13,13,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.nav-name{font-weight:700;font-size:.96rem;letter-spacing:-.02em;color:var(--tx)}
 .nav-r{display:flex;align-items:center;gap:1.2rem}
-.nav-links{display:flex;gap:1.4rem;list-style:none;align-items:center}
-.nav-links a{font-size:.82rem;font-weight:500;color:var(--tx3);transition:color .2s;letter-spacing:.01em}
-.nav-links a:hover{color:var(--tx)}
-.nav-cta{background:var(--ac);color:var(--bg)!important;padding:.3rem .9rem;border-radius:3px;font-size:.79rem;font-weight:700;transition:opacity .2s}
-.nav-cta:hover{opacity:.85}
-.nav-hbg{display:none;background:none;border:none;cursor:pointer;padding:.35rem}
+.nav-list{display:flex;gap:1.5rem;list-style:none;align-items:center}
+.nav-list a{font-size:.79rem;font-weight:500;color:var(--tx3);letter-spacing:.01em;padding-bottom:2px;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+.nav-list a:hover{color:var(--tx);border-color:var(--tx)}
+.nav-cta{background:var(--ac);color:#fff!important;padding:.3rem .9rem;font-size:.78rem;font-weight:700;border-bottom:none!important;transition:opacity .2s}
+.nav-cta:hover{opacity:.84}
+.nav-hbg{display:none;background:none;border:none;padding:.35rem}
 .nav-hbg span{display:block;width:20px;height:1.5px;background:var(--tx);margin:4px 0;transition:all .28s}
 
-/* ── HERO ───────────────────────────────────────── */
-.hero{padding:6rem var(--gap) 5rem;border-bottom:1px solid var(--bd);max-width:var(--max);margin:0 auto}
-.hero-eye{font-family:var(--ff-m);font-size:10px;text-transform:uppercase;letter-spacing:.22em;color:var(--tx3);margin-bottom:2rem;display:flex;align-items:center;gap:.75rem}
+/* ═══════════════════════════════════════════════════
+   HERO — entrance animation, strong editorial scale
+   ═══════════════════════════════════════════════════ */
+.hero{max-width:var(--max);margin:0 auto;padding:6.5rem var(--gap) var(--sec)}
+.hero-eye{font-family:var(--ff-m);font-size:10px;text-transform:uppercase;letter-spacing:.22em;color:var(--tx3);display:flex;align-items:center;gap:.75rem;margin-bottom:2.5rem;opacity:0;animation:fadeUp .7s var(--ease) .1s forwards}
 .hero-eye::before{content:'';width:32px;height:1px;background:var(--bd2)}
-.hero-hl{font-family:var(--ff-d);font-size:clamp(2.4rem,5.2vw,4.8rem);line-height:1.04;letter-spacing:-.03em;max-width:20ch;margin-bottom:1.75rem}
-.hero-sub{max-width:580px;color:var(--tx2);line-height:1.82;margin-bottom:2.5rem;font-size:.97rem}
-.awards-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2.5rem}
-.aw{display:inline-flex;align-items:center;gap:.4rem;padding:4px 11px;border:1px solid var(--bd2);border-radius:2px;font-size:10px;font-weight:500;color:var(--tx2);white-space:nowrap;transition:border-color .2s,color .2s}
-.aw svg{opacity:.55;flex-shrink:0;width:10px;height:10px}
-.aw:hover{border-color:var(--ac);color:var(--tx)}
-.brand-strip{display:flex;flex-wrap:wrap;gap:2rem;padding-top:2rem;border-top:1px solid var(--bd)}
-.brand-strip span{font-family:var(--ff-m);font-size:9.5px;color:var(--tx3);text-transform:uppercase;letter-spacing:.12em}
+.hero-hl{font-family:var(--ff-d);font-size:clamp(2.2rem,4.8vw,4.6rem);line-height:1.04;letter-spacing:-.03em;max-width:22ch;margin-bottom:.5rem;color:var(--tx);opacity:0;animation:fadeUp .8s var(--ease) .22s forwards}
+.hero-rule{width:48px;height:2px;background:var(--ac);margin:1.5rem 0;opacity:0;animation:fadeUp .6s var(--ease) .34s forwards}
+.hero-sub{max-width:580px;color:var(--tx2);line-height:1.82;margin-bottom:2.5rem;font-size:.97rem;opacity:0;animation:fadeUp .7s var(--ease) .42s forwards}
+.award-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;outline:1px solid var(--bd);margin-bottom:2.5rem;opacity:0;animation:fadeUp .6s var(--ease) .52s forwards}
+.award-item{padding:.9rem 1rem;border:1px solid var(--bd);transition:background var(--dur)}
+.award-item:hover{background:var(--bg2)}
+.award-name{font-size:.8rem;font-weight:700;color:var(--tx);margin-bottom:.2rem;line-height:1.3}
+.award-cat{font-family:var(--ff-m);font-size:8.5px;color:var(--tx3);letter-spacing:.08em;text-transform:uppercase}
+.brand-strip{display:flex;flex-wrap:wrap;gap:2rem;padding-top:2rem;border-top:1px solid var(--bd);opacity:0;animation:fadeUp .6s var(--ease) .6s forwards}
+.brand-strip span{font-family:var(--ff-m);font-size:9.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--tx3)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
-/* ── SECTION SHELL ──────────────────────────────── */
-.section{padding:5rem var(--gap);max-width:var(--max);margin:0 auto}
-.sec-hd{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:3rem;border-bottom:1px solid var(--bd);padding-bottom:1rem}
-.sec-lbl{font-family:var(--ff-m);font-size:10px;text-transform:uppercase;letter-spacing:.18em;color:var(--tx3)}
-.sec-ttl{font-family:var(--ff-d);font-size:clamp(1.25rem,2vw,1.8rem);font-style:italic;color:var(--tx)}
+/* ═══════════════════════════════════════════════════
+   WHAT I BRING — 3-pillar editorial section
+   ═══════════════════════════════════════════════════ */
+.pillars-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;outline:1px solid var(--bd)}
+.pillar{padding:2.5rem 2rem;border:1px solid var(--bd);position:relative;transition:background var(--dur)}
+.pillar:hover{background:var(--bg2)}
+.pillar-num{font-family:var(--ff-d);font-size:5rem;line-height:1;letter-spacing:-.05em;color:var(--bd2);margin-bottom:.5rem;display:block;transition:color var(--dur)}
+.pillar:hover .pillar-num{color:var(--bd)}
+.pillar-title{font-weight:700;font-size:.97rem;color:var(--tx);margin-bottom:.6rem;padding-bottom:.6rem;border-bottom:1px solid var(--bd)}
+.pillar-body{font-size:.83rem;color:var(--tx2);line-height:1.75}
+.pillar-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:1rem}
+.ptag{padding:2px 8px;background:var(--bg3);border:1px solid var(--bd);font-family:var(--ff-m);font-size:8.5px;color:var(--tx3);letter-spacing:.04em}
 
-/* ── CASE CARDS ─────────────────────────────────── */
-.cases-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--bd)}
-.case-card{background:var(--bg);cursor:pointer;position:relative;transition:background var(--dur)}
-.case-card:hover{background:var(--bg2)}
+/* ═══════════════════════════════════════════════════
+   CASE CARDS — refined hover with brand border
+   ═══════════════════════════════════════════════════ */
+.cases-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bd);outline:1px solid var(--bd)}
+.case-card{background:var(--bg);cursor:pointer;display:flex;flex-direction:column;position:relative;border-left:3px solid transparent;transition:background var(--dur),border-color .2s,box-shadow .22s}
 .case-card:focus-visible{outline:2px solid var(--ac);outline-offset:-2px}
-.case-top-line{height:3px;width:100%}
-.case-card.samsung .case-top-line{background:var(--samsung)}
-.case-card.mg .case-top-line{background:var(--mg)}
-.case-img-wrap{overflow:hidden;aspect-ratio:16/9}
-.case-img{width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.04);transition:opacity .65s var(--ease),transform .5s var(--ease)}
-.case-img.loaded{opacity:1;transform:scale(1)}
-.case-card:hover .case-img.loaded{transform:scale(1.025)}
-.case-body{padding:1.5rem}
-.case-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
-.case-brand{font-family:var(--ff-m);font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;font-weight:500}
-.case-card.samsung .case-brand{color:var(--samsung-d)}
-.case-card.mg .case-brand{color:var(--mg-d)}
-.case-year{font-family:var(--ff-m);font-size:9.5px;color:var(--tx3)}
-.case-ttl{font-family:var(--ff-d);font-size:clamp(1rem,1.5vw,1.2rem);line-height:1.22;margin-bottom:.55rem;color:var(--tx)}
-.case-scope{font-size:.83rem;color:var(--tx2);line-height:1.62;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:.85rem}
-.case-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:1rem}
-.tag{padding:2px 9px;border-radius:2px;font-size:9.5px;font-weight:500}
-.tag.samsung{background:var(--samsung-s);color:var(--samsung-d)}
-.tag.mg{background:var(--mg-s);color:var(--mg-d)}
-.case-stats{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;padding-top:.9rem;border-top:1px solid var(--bd)}
+.case-card.samsung:hover{background:var(--bg2);border-left-color:var(--samsung);box-shadow:2px 0 14px rgba(20,40,160,.1)}
+.case-card.mg:hover{background:var(--bg2);border-left-color:var(--mg);box-shadow:2px 0 14px rgba(204,0,0,.1)}
+/* top brand rule — always visible */
+.case-card.samsung{border-top:3px solid var(--samsung)}
+.case-card.mg{border-top:3px solid var(--mg)}
+
+.c-img-box{overflow:hidden;aspect-ratio:16/9;flex-shrink:0}
+.c-img{width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.04);transition:opacity .65s var(--ease),transform .5s var(--ease)}
+.c-img.loaded{opacity:1;transform:scale(1)}
+.case-card:hover .c-img.loaded{transform:scale(1.025)}
+.c-body{padding:1.5rem;flex:1;display:flex;flex-direction:column}
+.c-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
+.c-brand{font-family:var(--ff-m);font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;font-weight:500}
+.case-card.samsung .c-brand{color:var(--samsung-tx)} .case-card.mg .c-brand{color:var(--mg-tx)}
+.c-year{font-family:var(--ff-m);font-size:9.5px;color:var(--tx3)}
+.c-challenge{font-size:.79rem;color:var(--tx3);font-style:italic;margin-bottom:.5rem;line-height:1.55;border-left:2px solid var(--bd2);padding-left:.65rem}
+.c-title{font-family:var(--ff-d);font-size:clamp(1rem,1.5vw,1.22rem);line-height:1.22;margin-bottom:.5rem;color:var(--tx)}
+.c-scope{font-size:.82rem;color:var(--tx2);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:.85rem}
+.c-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:1rem}
+.tag{padding:2px 9px;font-size:9.5px;font-weight:500}
+.tag.samsung{background:var(--samsung-bg);color:var(--samsung-tx)} .tag.mg{background:var(--mg-bg);color:var(--mg-tx)}
+.c-stats{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;padding-top:.85rem;border-top:1px solid var(--bd);margin-top:auto}
 .sv{font-family:var(--ff-d);font-size:1.2rem;line-height:1.1;letter-spacing:-.02em;color:var(--tx)}
 .sl{font-size:9.5px;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;font-family:var(--ff-m);margin-top:1px}
-.case-cta{display:inline-flex;align-items:center;gap:.35rem;margin-top:.9rem;font-size:.8rem;font-weight:600;color:var(--tx3);transition:color .2s;border-bottom:1px solid transparent;padding-bottom:1px}
-.case-card.samsung:hover .case-cta{color:var(--samsung-d);border-color:var(--samsung-d)}
-.case-card.mg:hover .case-cta{color:var(--mg-d);border-color:var(--mg-d)}
-.a-svg{transition:transform .2s}
-.case-card:hover .a-svg{transform:translateX(4px)}
+.c-cta{display:inline-flex;align-items:center;gap:.35rem;margin-top:.9rem;font-size:.79rem;font-weight:600;color:var(--tx3);border-bottom:1px solid transparent;padding-bottom:1px;transition:color .2s,border-color .2s}
+.case-card.samsung:hover .c-cta{color:var(--samsung-tx);border-color:var(--samsung-tx)}
+.case-card.mg:hover .c-cta{color:var(--mg-tx);border-color:var(--mg-tx)}
+.a-svg{transition:transform .2s} .case-card:hover .a-svg{transform:translateX(4px)}
 
-/* ── SOCIAL STRATEGY STRIP ──────────────────────── */
-.ss-strip{background:var(--ac);color:#fff;padding:5rem var(--gap);transition:background var(--dur)}
-[data-theme="dark"] .ss-strip{background:#0D1F3C}
-.ss-inner{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
-.ss-label{font-family:var(--ff-m);font-size:9.5px;text-transform:uppercase;letter-spacing:.2em;opacity:.55;margin-bottom:1.25rem}
-.ss-quote{font-family:var(--ff-d);font-size:clamp(1.6rem,3vw,2.5rem);line-height:1.18;font-style:italic;margin-bottom:1.5rem;opacity:.97}
-.ss-desc{font-size:.88rem;line-height:1.78;opacity:.7;max-width:440px}
-.ss-stats{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
-.ss-stat-val{font-family:var(--ff-d);font-size:clamp(2.8rem,5vw,4.5rem);line-height:1;letter-spacing:-.04em;margin-bottom:.3rem}
-.ss-stat-lbl{font-family:var(--ff-m);font-size:9.5px;text-transform:uppercase;letter-spacing:.14em;opacity:.55}
-.ss-platforms{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2rem}
-.ss-chip{padding:4px 12px;border:1px solid rgba(255,255,255,.25);border-radius:2px;font-family:var(--ff-m);font-size:10px;letter-spacing:.04em;opacity:.75}
+/* ═══════════════════════════════════════════════════
+   SOCIAL STRATEGY — pull quote, same canvas
+   ═══════════════════════════════════════════════════ */
+.ss-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.ss-quote{font-family:var(--ff-d);font-style:italic;font-size:clamp(1.5rem,2.6vw,2.1rem);line-height:1.22;color:var(--tx);margin-bottom:1.5rem;border-left:3px solid var(--ac);padding-left:1.5rem}
+.ss-body{font-size:.9rem;color:var(--tx2);line-height:1.82;margin-bottom:1.5rem}
+.ss-plat{display:flex;flex-wrap:wrap;gap:.4rem}
+.ss-chip{padding:3px 11px;border:1px solid var(--bd2);font-family:var(--ff-m);font-size:9.5px;color:var(--tx3);letter-spacing:.04em;transition:border-color .2s,color .2s}
+.ss-chip:hover{border-color:var(--ac);color:var(--tx)}
+.ss-stats{display:grid;grid-template-columns:1fr 1fr;gap:0;outline:1px solid var(--bd)}
+.ss-stat{padding:2rem 1.75rem;border:1px solid var(--bd);transition:background var(--dur)}
+.ss-stat:hover{background:var(--bg2)}
+.ss-val{font-family:var(--ff-d);font-size:clamp(2.5rem,4.5vw,4rem);line-height:1;letter-spacing:-.04em;color:var(--tx);margin-bottom:.4rem}
+.ss-lbl{font-family:var(--ff-m);font-size:9.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--tx3);line-height:1.5}
 
-/* ── CREATIVE WALL ──────────────────────────────── */
-.wall-wrap{background:var(--bg2);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);transition:background var(--dur)}
-.wall-inner{max-width:var(--max);margin:0 auto;padding:5rem var(--gap)}
-.wall-filters{display:flex;gap:.4rem;margin-bottom:2.5rem;overflow-x:auto;padding-bottom:.3rem;scrollbar-width:none}
-.wall-filters::-webkit-scrollbar{display:none}
-.wf{padding:4px 13px;border:1px solid var(--bd2);background:transparent;color:var(--tx3);cursor:pointer;font-family:var(--ff-m);font-size:10px;letter-spacing:.06em;white-space:nowrap;transition:all .2s;border-radius:2px}
-.wf.active,.wf:hover{background:var(--tx);color:var(--bg);border-color:var(--tx)}
-
-/* masonry grid — intentional size variation */
-.wall-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  grid-auto-rows:auto;
-  gap:.75rem;
-}
-.wi{position:relative;overflow:hidden;border:1px solid var(--bd);background:var(--bg);transition:border-color .2s;display:block}
-.wi:hover{border-color:var(--bd2)}
-.wi.wide{grid-column:span 2}
+/* ═══════════════════════════════════════════════════
+   CREATIVE WALL
+   ═══════════════════════════════════════════════════ */
+.wall-note{font-size:.82rem;color:var(--tx3);font-style:italic;margin-bottom:2rem;padding-left:.65rem;border-left:2px solid var(--bd2)}
+.wf-row{display:flex;gap:.4rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.wf-btn{padding:4px 13px;border:1px solid var(--bd2);background:transparent;color:var(--tx3);font-family:var(--ff-m);font-size:9.5px;letter-spacing:.06em;white-space:nowrap;transition:all .2s}
+.wf-btn.on,.wf-btn:hover{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.wall-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bd);outline:1px solid var(--bd)}
+.wi{background:var(--bg);overflow:hidden;display:block;transition:background var(--dur)}
+.wi:hover{background:var(--bg2)}
+.wi.span2{grid-column:span 2}
+.wi-media{aspect-ratio:16/9;overflow:hidden;position:relative;background:#000}
 .wi.tall .wi-media{aspect-ratio:4/5}
-.wi-media{aspect-ratio:16/9;overflow:hidden;background:#000;position:relative}
-.wi-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s var(--ease)}
+.wi-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s var(--ease)}
 .wi:hover .wi-media img{transform:scale(1.03)}
-.wi-media iframe{width:100%;height:100%;border:0;display:block}
-.wi-info{padding:.65rem .75rem;background:var(--bg2);transition:background var(--dur)}
+.wi-media iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.wi-info{padding:.65rem .8rem;border-top:1px solid var(--bd);transition:background var(--dur)}
 .wi-t{font-size:.8rem;font-weight:600;color:var(--tx);margin-bottom:1px}
-.wi-s{font-size:10.5px;color:var(--tx3)}
+.wi-s{font-size:9.5px;color:var(--tx3)}
 
-/* ── TIMELINE ───────────────────────────────────── */
-.tl-wrap{padding:5rem var(--gap);max-width:var(--max);margin:0 auto}
-.tl-track{position:relative;padding-bottom:2rem}
-.tl-line{position:absolute;top:18px;left:0;right:0;height:1px;background:var(--bd)}
-.tl-nodes{display:flex;justify-content:space-between;position:relative;overflow-x:auto;gap:0;padding-bottom:.5rem;scrollbar-width:none}
-.tl-nodes::-webkit-scrollbar{display:none}
-.tl-node{flex:1;min-width:140px;cursor:pointer;text-align:center;padding-top:0;position:relative}
-.tl-dot{width:14px;height:14px;border-radius:50%;background:var(--bd2);border:2px solid var(--bg);box-shadow:0 0 0 2px var(--bd2);margin:12px auto .85rem;transition:transform .2s var(--ease),box-shadow .2s}
-.tl-node.active .tl-dot{transform:scale(1.3)}
-.tl-node.mg .tl-dot{background:var(--mg);box-shadow:0 0 0 2px var(--mg)}
-.tl-node.samsung .tl-dot{background:var(--samsung);box-shadow:0 0 0 2px var(--samsung)}
-.tl-node.mg.active .tl-dot{box-shadow:0 0 0 3px var(--mg),0 0 12px rgba(204,0,0,.3)}
-.tl-node.samsung.active .tl-dot{box-shadow:0 0 0 3px var(--samsung),0 0 12px rgba(20,40,160,.3)}
-.tl-co{font-size:.78rem;font-weight:700;color:var(--tx);line-height:1.3;margin-bottom:2px}
-.tl-date{font-family:var(--ff-m);font-size:9px;color:var(--tx3);letter-spacing:.08em}
-.tl-detail{overflow:hidden;max-height:0;transition:max-height .45s var(--ease),opacity .35s ease;opacity:0}
-.tl-detail.open{max-height:300px;opacity:1}
-.tl-detail-inner{background:var(--bg2);border:1px solid var(--bd);border-top:3px solid var(--bd2);padding:1.5rem 2rem;margin-top:1.5rem;transition:background var(--dur)}
-.tl-node.mg .tl-detail-inner{border-top-color:var(--mg)}
-.tl-node.samsung .tl-detail-inner{border-top-color:var(--samsung)}
-.tl-d-role{font-weight:700;font-size:.95rem;color:var(--tx);margin-bottom:.2rem}
-.tl-d-co{font-size:.84rem;color:var(--tx2);margin-bottom:.75rem}
-.tl-d-note{font-size:.83rem;color:var(--tx2);line-height:1.68}
-.tl-hint{font-family:var(--ff-m);font-size:9.5px;color:var(--tx3);text-align:center;margin-top:1rem;letter-spacing:.08em}
+/* ═══════════════════════════════════════════════════
+   TIMELINE — vertical, click to expand
+   ═══════════════════════════════════════════════════ */
+.tl{position:relative}
+.tl::before{content:'';position:absolute;left:5px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--bd) 8%,var(--bd) 92%,transparent)}
+.tl-item{display:flex;gap:2rem;cursor:pointer;position:relative}
+.tl-dot{width:11px;height:11px;border-radius:50%;flex-shrink:0;background:var(--ac);border:2px solid var(--bg);box-shadow:0 0 0 1.5px var(--ac);margin-top:.35rem;position:relative;z-index:1;transition:transform .2s var(--ease),box-shadow .2s}
+.tl-item.samsung .tl-dot{background:var(--samsung);box-shadow:0 0 0 1.5px var(--samsung)}
+.tl-item.mg      .tl-dot{background:var(--mg);box-shadow:0 0 0 1.5px var(--mg)}
+.tl-item.active  .tl-dot{transform:scale(1.35)}
+.tl-item.samsung.active .tl-dot{box-shadow:0 0 0 2.5px var(--samsung),0 0 10px rgba(20,40,160,.2)}
+.tl-item.mg.active      .tl-dot{box-shadow:0 0 0 2.5px var(--mg),0 0 10px rgba(204,0,0,.2)}
+.tl-card{flex:1;border-top:1px solid var(--bd);padding:1.25rem 0 1.5rem;transition:background var(--dur)}
+.tl-item:first-child .tl-card{border-top:none}
+.tl-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.25rem}
+.tl-role{font-weight:700;font-size:.95rem;color:var(--tx)}
+.tl-date{font-family:var(--ff-m);font-size:9px;color:var(--tx3);letter-spacing:.08em;text-transform:uppercase}
+.tl-co{font-size:.83rem;color:var(--tx2);margin-bottom:.35rem}
+.tl-scope{font-family:var(--ff-m);font-size:9px;color:var(--tx3);letter-spacing:.04em;margin-bottom:.35rem}
+.tl-note{font-size:.83rem;color:var(--tx2);line-height:1.7;max-height:0;overflow:hidden;transition:max-height .45s var(--ease),opacity .35s ease,margin .35s ease;opacity:0;margin-top:0}
+.tl-item.active .tl-note{max-height:250px;opacity:1;margin-top:.7rem}
+.tl-toggle{font-family:var(--ff-m);font-size:9px;color:var(--tx3);letter-spacing:.08em;margin-top:.4rem;display:inline-block;transition:color .2s}
+.tl-item:hover .tl-toggle{color:var(--tx)}
+.tl-item.active .tl-toggle::after{content:'↑ collapse'}
+.tl-item:not(.active) .tl-toggle::after{content:'↓ expand'}
 
-/* ── ABOUT ──────────────────────────────────────── */
-.about-section{background:var(--bg2);border-top:1px solid var(--bd);transition:background var(--dur);padding:5rem var(--gap)}
-.about-inner{max-width:var(--max);margin:0 auto}
+/* ═══════════════════════════════════════════════════
+   ABOUT
+   ═══════════════════════════════════════════════════ */
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
-.about-bio{font-size:1rem;color:var(--tx2);line-height:1.88;margin-bottom:2.5rem}
-.skill-pills{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2.5rem}
-.sp-group h4{font-size:.82rem;font-weight:700;color:var(--tx);margin-bottom:.6rem;padding-bottom:.5rem;border-bottom:1px solid var(--bd)}
-.sp-group p{font-size:.8rem;color:var(--tx3);line-height:1.72}
-.tools-block{margin-bottom:2rem}
-.tools-block h4{font-size:.82rem;font-weight:700;color:var(--tx);margin-bottom:.75rem}
-.tool-row{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.6rem}
-.tool-chip{padding:3px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:2px;font-family:var(--ff-m);font-size:9.5px;color:var(--tx2);transition:border-color .2s}
-.tool-chip:hover{border-color:var(--bd2)}
-.certs-block{margin-bottom:2rem}
-.certs-block h4{font-size:.82rem;font-weight:700;color:var(--tx);margin-bottom:.75rem}
-.cert-item{display:flex;align-items:center;gap:.6rem;font-size:.8rem;color:var(--tx2);padding:.5rem 0;border-bottom:1px solid var(--bd)}
-.cert-item:last-child{border-bottom:none}
-.cert-dot{width:5px;height:5px;border-radius:50%;background:var(--ac);flex-shrink:0}
-.edu-block h4{font-size:.82rem;font-weight:700;color:var(--tx);margin-bottom:.75rem}
-.edu-item{font-size:.83rem;color:var(--tx2);margin-bottom:.5rem;line-height:1.6}
-.edu-item strong{color:var(--tx)}
+.about-pull{font-family:var(--ff-d);font-style:italic;font-size:clamp(1.2rem,2vw,1.6rem);line-height:1.3;color:var(--tx);border-left:3px solid var(--ac);padding-left:1.5rem;margin-bottom:2rem}
+.about-bio{font-size:.95rem;color:var(--tx2);line-height:1.85;margin-bottom:2.5rem}
+.about-bio p+p{margin-top:1rem}
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2.5rem}
+.sg h4{font-size:.8rem;font-weight:700;color:var(--tx);margin-bottom:.55rem;padding-bottom:.5rem;border-bottom:1px solid var(--bd)}
+.sg p{font-size:.79rem;color:var(--tx3);line-height:1.72}
+.tools-section h4,.certs-section h4,.edu-section h4{font-size:.8rem;font-weight:700;color:var(--tx);margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:1px solid var(--bd)}
+/* Tool logo grid */
+.tool-cat{margin-bottom:1.75rem}
+.tool-cat-lbl{font-family:var(--ff-m);font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.7rem;padding-bottom:.4rem;border-bottom:1px solid var(--bd)}
+.tool-logo-row{display:flex;flex-wrap:wrap;gap:.65rem}
+.tool-logo{display:flex;flex-direction:column;align-items:center;gap:.35rem}
+.tool-logo-icon{width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;transition:transform .18s var(--ease),box-shadow .18s;flex-shrink:0}
+.tool-logo:hover .tool-logo-icon{transform:translateY(-3px);box-shadow:0 6px 14px var(--sh)}
+.tool-logo-icon svg{width:22px;height:22px;display:block;flex-shrink:0}
+.tool-logo-name{font-family:var(--ff-m);font-size:8.5px;color:var(--tx3);letter-spacing:.03em;text-align:center;max-width:52px;line-height:1.3}
+.cert-row{display:flex;align-items:center;gap:.65rem;font-size:.8rem;color:var(--tx2);padding:.5rem 0;border-bottom:1px solid var(--bd)}
+.cert-row:last-child{border-bottom:none}
+.cert-dot{width:4px;height:4px;border-radius:50%;background:var(--ac);flex-shrink:0}
+.edu-row{font-size:.82rem;color:var(--tx2);margin-bottom:.5rem;line-height:1.6}
+.edu-row strong{color:var(--tx)}
 
-/* ── CONTACT SECTION ────────────────────────────── */
-.contact-section{padding:5rem var(--gap);border-top:1px solid var(--bd)}
-.contact-inner{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:300px 1fr;gap:5rem;align-items:start}
-.contact-photo-wrap{}
-.contact-photo{width:100%;aspect-ratio:4/5;overflow:hidden;border:1px solid var(--bd)}
-.contact-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(14%) contrast(1.04);display:block}
-.contact-info-wrap{padding-top:1rem}
-.ci-name{font-family:var(--ff-d);font-size:clamp(2rem,3.5vw,3rem);line-height:1.08;letter-spacing:-.025em;margin-bottom:.35rem}
-.ci-title{font-size:.88rem;color:var(--tx2);margin-bottom:2.5rem}
-.ci-row{display:flex;align-items:center;gap:.75rem;font-size:.88rem;color:var(--tx2);margin-bottom:.85rem;transition:color .2s}
-.ci-row a{color:var(--tx2);transition:color .2s}
-.ci-row:hover,.ci-row a:hover{color:var(--tx)}
-.ci-icon{width:18px;height:18px;flex-shrink:0;color:var(--tx3)}
-.ci-social{display:flex;gap:.75rem;margin-top:2rem;padding-top:2rem;border-top:1px solid var(--bd)}
-.ci-soc-link{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;border:1px solid var(--bd2);border-radius:2px;font-size:.8rem;font-weight:600;color:var(--tx2);transition:all .2s}
-.ci-soc-link:hover{background:var(--ac);color:#fff;border-color:var(--ac)}
-.ci-soc-link svg{width:15px;height:15px}
-.ci-dl{display:inline-flex;align-items:center;gap:.5rem;padding:.55rem 1.25rem;background:var(--ac);color:#fff;border-radius:2px;font-size:.82rem;font-weight:700;transition:opacity .2s;margin-top:1.25rem}
-.ci-dl:hover{opacity:.85}
+/* ═══════════════════════════════════════════════════
+   CONTACT
+   ═══════════════════════════════════════════════════ */
+.contact-grid{display:grid;grid-template-columns:280px 1fr;gap:5rem;align-items:start}
+.c-photo{width:100%;aspect-ratio:4/5;overflow:hidden;outline:1px solid var(--bd)}
+.c-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(12%) contrast(1.04);display:block;opacity:0;transition:opacity .7s var(--ease)}
+.c-photo img.loaded{opacity:1}
+.c-name{font-family:var(--ff-d);font-size:clamp(2rem,3.2vw,2.8rem);line-height:1.08;letter-spacing:-.025em;margin-bottom:.3rem;color:var(--tx)}
+.c-title{font-size:.87rem;color:var(--tx2);margin-bottom:2.5rem;line-height:1.55}
+.c-row{display:flex;align-items:center;gap:.75rem;font-size:.87rem;color:var(--tx2);padding:.6rem 0;border-bottom:1px solid var(--bd);transition:color .2s}
+.c-row a{color:var(--tx2);transition:color .2s} .c-row:hover,.c-row a:hover{color:var(--tx)}
+.c-ico{width:17px;height:17px;flex-shrink:0;color:var(--tx3)}
+.c-social{display:flex;gap:.65rem;margin-top:1.75rem}
+.c-soc-btn{display:inline-flex;align-items:center;gap:.45rem;padding:.42rem 1rem;border:1px solid var(--bd2);color:var(--tx2);font-size:.79rem;font-weight:600;transition:all .2s}
+.c-soc-btn svg{width:13px;height:13px} .c-soc-btn:hover{background:var(--ac);color:#fff;border-color:var(--ac)}
+.c-dl{display:inline-flex;align-items:center;gap:.4rem;padding:.45rem 1.1rem;background:var(--ac);color:#fff;font-size:.8rem;font-weight:700;margin-top:1.25rem;transition:opacity .2s}
+.c-dl:hover{opacity:.82}
 
-/* ── FOOTER ─────────────────────────────────────── */
-.footer{background:var(--bg2);border-top:1px solid var(--bd);padding:1.5rem var(--gap);transition:background var(--dur)}
-.footer-inner{max-width:var(--max);margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
-.footer-copy{font-family:var(--ff-m);font-size:9.5px;color:var(--tx3)}
-.footer-links{display:flex;gap:1.5rem}
-.footer-links a{font-family:var(--ff-m);font-size:9.5px;color:var(--tx3);transition:color .2s}
-.footer-links a:hover{color:var(--tx)}
+/* ═══════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════ */
+.footer{background:var(--bg2);border-top:1px solid var(--bd);padding:1.4rem var(--gap);transition:background var(--dur)}
+.footer-in{max-width:var(--max);margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.fc{font-family:var(--ff-m);font-size:9.5px;color:var(--tx3)}
+.fl{display:flex;gap:1.5rem}
+.fl a{font-family:var(--ff-m);font-size:9.5px;color:var(--tx3);transition:color .2s} .fl a:hover{color:var(--tx)}
 
-/* ── MODAL ──────────────────────────────────────── */
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);z-index:400;opacity:0;pointer-events:none;transition:opacity .28s ease}
+/* ═══════════════════════════════════════════════════
+   MODAL
+   ═══════════════════════════════════════════════════ */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.58);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);z-index:400;opacity:0;pointer-events:none;transition:opacity .28s ease}
 .modal-bg.open{opacity:1;pointer-events:all}
-.modal{position:fixed;inset:0;background:var(--bg);z-index:401;overflow-y:auto;transform:translateY(20px) scale(.97);opacity:0;pointer-events:none;transition:transform .42s var(--ease),opacity .3s ease;scrollbar-width:thin;scrollbar-color:var(--bd) transparent;transition:transform .42s var(--ease),opacity .3s ease,background var(--dur)}
-.modal::-webkit-scrollbar{width:4px} .modal::-webkit-scrollbar-thumb{background:var(--bd);border-radius:2px}
+.modal{position:fixed;inset:0;background:var(--bg);z-index:401;overflow-y:auto;transform:translateY(16px) scale(.97);opacity:0;pointer-events:none;transition:transform .42s var(--ease),opacity .3s ease,background var(--dur);scrollbar-width:thin;scrollbar-color:var(--bd) transparent}
+.modal::-webkit-scrollbar{width:4px} .modal::-webkit-scrollbar-thumb{background:var(--bd)}
 .modal.open{transform:none;opacity:1;pointer-events:all}
 .m-head{display:flex;justify-content:space-between;align-items:center;padding:.85rem var(--gap);border-bottom:1px solid var(--bd);position:sticky;top:0;background:var(--bg);z-index:10;transition:background var(--dur)}
 [data-theme="dark"] .m-head{background:rgba(13,13,13,.97);backdrop-filter:blur(20px)}
-.m-brand{font-family:var(--ff-m);font-size:9.5px;text-transform:uppercase;letter-spacing:.15em}
-.m-brand.samsung{color:var(--samsung-d)} .m-brand.mg{color:var(--mg-d)}
-.m-x{width:36px;height:36px;border-radius:2px;display:flex;align-items:center;justify-content:center;background:var(--bg3);border:1px solid var(--bd);cursor:pointer;color:var(--tx);font-size:.9rem;transition:background .2s,transform .22s}
-.m-x:hover{background:var(--bg2);transform:rotate(90deg)}
+.m-brand{font-family:var(--ff-m);font-size:9.5px;text-transform:uppercase;letter-spacing:.14em}
+.m-brand.samsung{color:var(--samsung-tx)} .m-brand.mg{color:var(--mg-tx)}
+.m-x{width:34px;height:34px;display:flex;align-items:center;justify-content:center;background:var(--bg3);border:1px solid var(--bd);color:var(--tx);font-size:.88rem;transition:background .2s,transform .22s}
+.m-x:hover{background:var(--bd2);transform:rotate(90deg)}
 .m-body{max-width:800px;margin:0 auto;padding:3rem var(--gap) 6rem}
-.m-ttl{font-family:var(--ff-d);font-size:clamp(1.6rem,3.2vw,2.5rem);line-height:1.1;letter-spacing:-.025em;margin-bottom:.35rem;color:var(--tx)}
-.m-sub{font-family:var(--ff-m);font-size:9.5px;color:var(--tx3);letter-spacing:.1em;margin-bottom:3rem}
+.m-ttl{font-family:var(--ff-d);font-size:clamp(1.6rem,3vw,2.4rem);line-height:1.1;letter-spacing:-.025em;margin-bottom:.35rem;color:var(--tx)}
+.m-sub{font-family:var(--ff-m);font-size:9.5px;color:var(--tx3);letter-spacing:.1em;margin-bottom:.85rem}
+/* Business challenge block — most prominent element in modal */
+.m-challenge{background:var(--bg2);border-left:3px solid var(--ac);padding:1rem 1.25rem;margin-bottom:2.5rem;transition:background var(--dur)}
+.m-challenge-lbl{font-family:var(--ff-m);font-size:9px;text-transform:uppercase;letter-spacing:.16em;color:var(--tx3);margin-bottom:.4rem}
+.m-challenge-txt{font-size:.97rem;color:var(--tx);font-style:italic;line-height:1.65}
 .m-sec{margin-bottom:2.5rem}
 .m-sec-l{font-family:var(--ff-m);font-size:9.5px;text-transform:uppercase;letter-spacing:.18em;color:var(--tx3);border-bottom:1px solid var(--bd);padding-bottom:.65rem;margin-bottom:1rem}
 .m-text{font-size:.95rem;color:var(--tx2);line-height:1.82}
-.m-role-box{background:var(--bg2);border-left:3px solid var(--bd2);padding:.9rem 1.2rem;font-size:.93rem;color:var(--tx2);line-height:1.75;transition:background var(--dur)}
+/* Decision callout */
+.m-decision{background:var(--bg3);border:1px solid var(--bd2);padding:.9rem 1.2rem;margin-top:.85rem;transition:background var(--dur)}
+.m-decision-lbl{font-family:var(--ff-m);font-size:9px;text-transform:uppercase;letter-spacing:.14em;color:var(--tx3);margin-bottom:.35rem}
+.m-decision-txt{font-size:.9rem;color:var(--tx);line-height:1.7;font-weight:500}
+.m-role-box{background:var(--bg2);border-left:3px solid var(--ac);padding:.9rem 1.2rem;font-size:.93rem;color:var(--tx2);line-height:1.75;transition:background var(--dur)}
+/* Scale badge */
+.m-scale{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem .9rem;background:var(--bg3);border:1px solid var(--bd);font-family:var(--ff-m);font-size:9px;color:var(--tx2);letter-spacing:.04em;margin-top:.75rem}
 .m-chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.85rem}
-.chip{padding:3px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:2px;font-size:9.5px;color:var(--tx2);font-family:var(--ff-m);letter-spacing:.04em}
-.m-vids{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.75rem}
-.m-vid-wrap{border:1px solid var(--bd);overflow:hidden;background:#000}
-.m-vid-wrap .vi-aspect{aspect-ratio:16/9;position:relative}
-.m-vid-wrap .vi-aspect iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.m-vid-lbl{padding:.6rem .75rem;background:var(--bg2);font-size:.79rem;font-weight:600;color:var(--tx);transition:background var(--dur)}
-.m-vid-sub{font-size:10px;color:var(--tx3)}
-.m-metrics{display:grid;grid-template-columns:repeat(auto-fill,minmax(125px,1fr));gap:1px;background:var(--bd);border:1px solid var(--bd)}
-.m-met{background:var(--bg2);padding:1rem .85rem;text-align:center;transition:background var(--dur)}
-.m-met:hover{background:var(--bg3)}
-.m-met-v{font-family:var(--ff-d);font-size:1.8rem;line-height:1;letter-spacing:-.025em;margin-bottom:.2rem;color:var(--tx)}
+.chip{padding:3px 10px;background:var(--bg2);border:1px solid var(--bd);font-size:9.5px;color:var(--tx2);font-family:var(--ff-m);letter-spacing:.04em}
+.m-vids{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1px;background:var(--bd);outline:1px solid var(--bd)}
+.m-vid{background:var(--bg)} .m-vid-asp{aspect-ratio:16/9;position:relative;overflow:hidden;background:#000}
+.m-vid-asp iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.m-vid-lbl{padding:.6rem .75rem;border-top:1px solid var(--bd);font-size:.79rem;font-weight:600;color:var(--tx)} .m-vid-sub{font-size:9.5px;color:var(--tx3)}
+.m-metrics{display:grid;grid-template-columns:repeat(auto-fill,minmax(125px,1fr));gap:1px;background:var(--bd);outline:1px solid var(--bd)}
+.m-met{background:var(--bg2);padding:1rem .85rem;text-align:center;transition:background var(--dur)} .m-met:hover{background:var(--bg3)}
+.m-met-v{font-family:var(--ff-d);font-size:1.75rem;line-height:1;letter-spacing:-.025em;margin-bottom:.2rem;color:var(--tx)}
 .m-met-l{font-family:var(--ff-m);font-size:9.5px;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;line-height:1.4}
-.m-award-box{display:inline-flex;align-items:center;gap:.65rem;padding:.65rem 1rem;background:var(--bg2);border:1px solid var(--bd);border-radius:2px;font-size:.83rem;color:var(--tx2)}
+.m-award{display:inline-flex;align-items:center;gap:.65rem;padding:.65rem 1rem;background:var(--bg2);border:1px solid var(--bd);font-size:.83rem;color:var(--tx2)}
 .m-prs{display:flex;flex-direction:column}
-.m-pr{display:inline-flex;align-items:center;gap:.5rem;font-size:.83rem;color:var(--tx2);padding:.65rem 0;border-bottom:1px solid var(--bd);transition:color .2s}
-.m-pr:hover{color:var(--tx)}
+.m-pr{display:inline-flex;align-items:center;gap:.5rem;font-size:.82rem;color:var(--tx2);padding:.65rem 0;border-bottom:1px solid var(--bd);transition:color .2s} .m-pr:hover{color:var(--tx)}
 
-/* ── SCROLL BUTTON ──────────────────────────────── */
-.scroll-btn{position:fixed;bottom:1.5rem;right:1.5rem;width:50px;height:50px;z-index:300;cursor:pointer;opacity:0;transform:scale(.7);transition:opacity .35s var(--ease),transform .35s var(--ease);pointer-events:none;background:none;border:none;padding:0}
-.scroll-btn.vis{opacity:1;transform:scale(1);pointer-events:all}
-.scroll-btn svg{width:50px;height:50px;position:absolute;inset:0;transform:rotate(-90deg)}
+/* ═══════════════════════════════════════════════════
+   SCROLL CIRCLE
+   ═══════════════════════════════════════════════════ */
+.sb{position:fixed;bottom:1.5rem;right:1.5rem;width:50px;height:50px;z-index:300;background:none;border:none;padding:0;opacity:0;transform:scale(.7);pointer-events:none;transition:opacity .35s var(--ease),transform .35s var(--ease)}
+.sb.vis{opacity:1;transform:scale(1);pointer-events:all}
+.sb svg{width:50px;height:50px;position:absolute;inset:0;transform:rotate(-90deg)}
 .sb-track{fill:none;stroke:var(--bd2);stroke-width:2.5}
 .sb-prog{fill:none;stroke:var(--ac);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:133.52;stroke-dashoffset:133.52;transition:stroke-dashoffset .1s linear}
-.sb-face{position:absolute;inset:7px;background:var(--bg3);border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid var(--bd);box-shadow:inset 0 2px 4px var(--sh)}
-.scroll-btn:hover .sb-face{background:var(--bg2)}
-.sb-arrow{color:var(--tx);font-size:.8rem;position:relative;z-index:1;transition:transform .18s}
-.scroll-btn:hover .sb-arrow{transform:translateY(-2px)}
+.sb-face{position:absolute;inset:7px;background:var(--bg2);border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid var(--bd);box-shadow:inset 0 2px 4px var(--sh);transition:background var(--dur)}
+.sb:hover .sb-face{background:var(--bd)}
+.sb-arr{color:var(--tx);font-size:.8rem;position:relative;z-index:1;transition:transform .18s} .sb:hover .sb-arr{transform:translateY(-2px)}
 
-/* ── ANIMATIONS ─────────────────────────────────── */
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s var(--ease),transform .65s var(--ease)}
+/* ═══════════════════════════════════════════════════
+   ANIMATIONS & UTILITIES
+   ═══════════════════════════════════════════════════ */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .65s var(--ease),transform .65s var(--ease)}
 .reveal.vis{opacity:1;transform:none}
-.lazy{opacity:0;transition:opacity .6s var(--ease)}
-.lazy.loaded{opacity:1}
+.lazy{opacity:0;transition:opacity .6s var(--ease)} .lazy.loaded{opacity:1}
 
-/* ── RESPONSIVE ─────────────────────────────────── */
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════ */
 @media(max-width:1024px){
   .cases-grid{grid-template-columns:1fr}
-  .ss-inner{grid-template-columns:1fr;gap:2.5rem}
-  .wall-grid{grid-template-columns:repeat(3,1fr)}
+  .ss-grid{grid-template-columns:1fr;gap:3rem}
+  .wall-grid{grid-template-columns:repeat(2,1fr)}
+  .wi.span2{grid-column:span 1}
   .about-grid{grid-template-columns:1fr}
-  .contact-inner{grid-template-columns:1fr}
-  .contact-photo{max-width:280px;aspect-ratio:3/4}
+  .contact-grid{grid-template-columns:1fr}
+  .c-photo{max-width:260px;aspect-ratio:3/4}
+  .pillars-grid{grid-template-columns:1fr}
+  .award-grid{grid-template-columns:repeat(3,1fr)}
 }
 @media(max-width:768px){
-  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;padding:1rem var(--gap);gap:.85rem;background:var(--bg);border-bottom:1px solid var(--bd)}
-  .nav-links.open{display:flex}
+  .nav-list{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;padding:1rem var(--gap);gap:.85rem;background:var(--bg);border-bottom:1px solid var(--bd)}
+  .nav-list.open{display:flex}
   .nav-hbg{display:block}
-  .wall-grid{grid-template-columns:repeat(2,1fr)}
-  .wi.wide{grid-column:span 1}
-  .ss-stats{grid-template-columns:1fr 1fr}
-  .tl-nodes{gap:0;min-width:600px}
-  .skill-pills{grid-template-columns:1fr}
-  .footer-inner{flex-direction:column;align-items:flex-start}
   .cb-r{display:none}
+  .skills-grid{grid-template-columns:1fr}
+  .ss-stats{grid-template-columns:1fr 1fr}
+  .footer-in{flex-direction:column;align-items:flex-start}
+  .award-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:480px){
   .wall-grid{grid-template-columns:1fr}
   .m-vids{grid-template-columns:1fr}
-  .scroll-btn{bottom:.85rem;right:.85rem}
 }
 </style>
 </head>
 <body>
 
-<!-- ── CONTACT BAR ───────────────────────────────── -->
-<div class="cbar" role="complementary" aria-label="Contact">
+<!-- CONTACT BAR -->
+<div class="cbar" role="complementary">
   <div class="cb-l">
     <a href="tel:+918901255012">+91 89012 55012</a>
     <div class="cb-sep"></div>
@@ -327,473 +372,398 @@ a{color:inherit;text-decoration:none}
   <div class="cb-r">
     <span>Gurugram, India</span>
     <div class="cb-sep"></div>
-    <a href="https://linkedin.com/in/pradeepmahlawat/" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn profile">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+    <a href="https://linkedin.com/in/pradeepmahlawat/" target="_blank" rel="noopener" class="soc-ic" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
     </a>
-    <a href="https://www.instagram.com/pradeep.mahlawat/" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram profile">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    <a href="https://www.instagram.com/pradeep.mahlawat/" target="_blank" rel="noopener" class="soc-ic" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none"/></svg>
     </a>
   </div>
 </div>
 
-<!-- ── NAV ──────────────────────────────────────── -->
-<nav class="nav" role="navigation" aria-label="Main navigation">
+<!-- NAV -->
+<nav class="nav" role="navigation" aria-label="Main">
   <div class="nav-name">Pradeep Mahlawat</div>
-  <button class="nav-hbg" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+  <button class="nav-hbg" aria-label="Toggle menu" onclick="document.querySelector('.nav-list').classList.toggle('open')">
     <span></span><span></span><span></span>
   </button>
   <div class="nav-r">
-    <ul class="nav-links">
+    <ul class="nav-list">
       <li><a href="#work">Work</a></li>
-      <li><a href="#social-strategy">Social</a></li>
-      <li><a href="#creative-wall">Creative</a></li>
-      <li><a href="#timeline">Career</a></li>
+      <li><a href="#social">Social Strategy</a></li>
+      <li><a href="#creative">Creative</a></li>
+      <li><a href="#career">Career</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
     </ul>
     <button class="toggle" id="theme-btn" aria-label="Toggle theme">
-      <span class="toggle-i ti-moon" aria-hidden="true">🌙</span>
-      <span class="toggle-i ti-sun" aria-hidden="true">☀️</span>
+      <span class="ti ti-m" aria-hidden="true">🌙</span>
+      <span class="ti ti-s" aria-hidden="true">☀️</span>
     </button>
   </div>
 </nav>
 
-<!-- ── HERO ──────────────────────────────────────── -->
-<header role="banner" style="border-bottom:1px solid var(--bd)">
-  <div class="hero">
+<!-- HERO -->
+<div class="s-wrap" style="border-top:none">
+  <header class="hero" role="banner">
     <p class="hero-eye">Integrated Marketing · Social Strategy · Account Management</p>
     <h1 class="hero-hl">Integrated marketing built on strategy, social intelligence, and the craft of brand storytelling.</h1>
-    <p class="hero-sub">10+ years building campaigns that grow brands, create platform communities, and drive meaningful conversations — for Samsung India and JSW MG Motor India.</p>
-    <div class="awards-row" aria-label="Industry awards">
-      <span class="aw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>Guinness World Record 2022</span>
-      <span class="aw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>Asia Book of Records 2025</span>
-      <span class="aw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>ICMA 2025 · Content Marketing</span>
-      <span class="aw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>E4M 2025 · Celebrity Partnership</span>
-      <span class="aw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>SCREENXX 2025 · Influencer Collab</span>
+    <div class="hero-rule"></div>
+    <p class="hero-sub">For 10+ years, I've been the account lead brands call when a launch needs to matter — from flagship Samsung Galaxy campaigns to MG Motor's EV category creation. I translate strategy into execution, build social systems that grow communities, and lead the cross-functional coordination that makes campaigns land.</p>
+    <div class="award-grid" aria-label="Industry Awards">
+      <div class="award-item"><div class="award-name">Guinness World Record</div><div class="award-cat">Most People Unboxing · 2022</div></div>
+      <div class="award-item"><div class="award-name">Asia Book of Records</div><div class="award-cat">CarKalam Activation · 2025</div></div>
+      <div class="award-item"><div class="award-name">ICMA Awards × 2</div><div class="award-cat">Content Marketing · 2025</div></div>
+      <div class="award-item"><div class="award-name">E4M Auto Marketing</div><div class="award-cat">Celebrity Partnership · 2025</div></div>
+      <div class="award-item"><div class="award-name">AdGully SCREENXX</div><div class="award-cat">Influencer Collab · 2025</div></div>
     </div>
     <div class="brand-strip">
       <span>Samsung India</span><span>JSW MG Motor India</span><span>Google</span><span>Audi · Skoda · Airtel · Reckitt</span>
     </div>
-  </div>
-</header>
+  </header>
+</div>
 
-<!-- ── CASE STUDIES ──────────────────────────────── -->
-<section id="work" aria-labelledby="work-lbl">
-  <div class="section">
-    <div class="sec-hd">
-      <span class="sec-lbl" id="work-lbl">Selected Work</span>
-      <span class="sec-ttl">Case Studies</span>
+<!-- WHAT I BRING -->
+<div class="s-wrap" id="expertise">
+  <div class="s-inner">
+    <div class="s-hd"><span class="s-lbl">Core Competencies</span><span class="s-ttl">What I Bring</span></div>
+    <div class="pillars-grid">
+      <div class="pillar reveal">
+        <span class="pillar-num">01</span>
+        <div class="pillar-title">Brand Strategy &amp; GTM</div>
+        <p class="pillar-body">Product positioning to full launch architecture — I've run 5 Galaxy F-Series SKUs simultaneously, each with a distinct RTB ladder to avoid cannibalisation. End-to-end GTM across 7+ channels: social, e-commerce, paid media, tech publishers, and retail POSM at national scale.</p>
+        <div class="pillar-tags"><span class="ptag">Product Positioning</span><span class="ptag">Launch Architecture</span><span class="ptag">Channel Strategy</span><span class="ptag">GTM Planning</span></div>
+      </div>
+      <div class="pillar reveal" style="transition-delay:80ms">
+        <span class="pillar-num">02</span>
+        <div class="pillar-title">Social Intelligence &amp; Platform Strategy</div>
+        <p class="pillar-body">Platform-specific content systems, community architecture, and weekly performance analytics. Grew MG Motor's LinkedIn by 50K organic followers in 6 months — by shifting away from product content, the counter-intuitive call that drove 10.5% engagement against a 2–3% industry benchmark.</p>
+        <div class="pillar-tags"><span class="ptag">Content Systems</span><span class="ptag">Community Building</span><span class="ptag">Performance Analytics</span><span class="ptag">Employer Branding</span></div>
+      </div>
+      <div class="pillar reveal" style="transition-delay:160ms">
+        <span class="pillar-num">03</span>
+        <div class="pillar-title">Campaign Orchestration &amp; Client Leadership</div>
+        <p class="pillar-body">Agency briefing, production oversight, celebrity management, media partners, and client reporting — I own the process from brief to results. EV Sahi Hai: coordinated 4 agency and partner teams across 5 platforms → 65M+ views and an E4M Award.</p>
+        <div class="pillar-tags"><span class="ptag">Agency Management</span><span class="ptag">Production Oversight</span><span class="ptag">Stakeholder Reporting</span><span class="ptag">Cross-functional Coordination</span></div>
+      </div>
     </div>
+  </div>
+</div>
+
+<!-- CASE STUDIES -->
+<div class="s-wrap" id="work">
+  <div class="s-inner">
+    <div class="s-hd"><span class="s-lbl">Selected Work</span><span class="s-ttl">Case Studies</span></div>
     <div class="cases-grid" id="cases-grid"></div>
   </div>
-</section>
+</div>
 
-<!-- ── SOCIAL STRATEGY STRIP ─────────────────────── -->
-<section class="ss-strip" id="social-strategy" aria-label="Social strategy expertise">
-  <div class="ss-inner">
-    <div>
-      <div class="ss-label">Platform Strategy &amp; Community Building</div>
-      <blockquote class="ss-quote">"I don't just manage platforms — I architect the content systems that make brands grow organically."</blockquote>
-      <p class="ss-desc">From building MG Motor's LinkedIn community by 50K organic followers in six months to developing Samsung's influencer-led social frameworks — my approach combines platform intelligence, performance analytics, and a clear editorial point of view to drive sustained engagement.</p>
-      <div class="ss-platforms">
-        <span class="ss-chip">LinkedIn</span><span class="ss-chip">Instagram</span><span class="ss-chip">Meta</span><span class="ss-chip">X / Twitter</span><span class="ss-chip">YouTube</span><span class="ss-chip">Sprinklr</span><span class="ss-chip">Sprout Social</span>
+<!-- SOCIAL STRATEGY -->
+<div class="s-wrap" id="social">
+  <div class="s-inner">
+    <div class="s-hd"><span class="s-lbl">Platform Strategy</span><span class="s-ttl">Social Intelligence</span></div>
+    <div class="ss-grid">
+      <div>
+        <blockquote class="ss-quote">"I don't just manage platforms — I architect the content systems that make brands grow organically."</blockquote>
+        <p class="ss-body">From growing MG Motor's LinkedIn by 50K organic followers in 6 months, to developing Samsung's influencer-led social frameworks recognised as Global Best Practice by Samsung HQ — my approach combines platform intelligence, performance analytics, and a clear editorial point of view across the full content lifecycle. I use weekly data to refine direction, not just report results.</p>
+        <div class="ss-plat">
+          <span class="ss-chip">LinkedIn</span><span class="ss-chip">Instagram</span><span class="ss-chip">Meta</span><span class="ss-chip">X / Twitter</span><span class="ss-chip">YouTube</span><span class="ss-chip">Sprinklr</span><span class="ss-chip">Sprout Social</span><span class="ss-chip">Meta Ads Manager</span>
+        </div>
       </div>
-    </div>
-    <div class="ss-stats">
-      <div class="reveal">
-        <div class="ss-stat-val">50K</div>
-        <div class="ss-stat-lbl">Organic LinkedIn followers grown in 6 months</div>
-      </div>
-      <div class="reveal" style="transition-delay:80ms">
-        <div class="ss-stat-val">10.5%</div>
-        <div class="ss-stat-lbl">Avg organic engagement rate vs 2–3% industry</div>
-      </div>
-      <div class="reveal" style="transition-delay:160ms">
-        <div class="ss-stat-val">40.9M</div>
-        <div class="ss-stat-lbl">Annual impressions across MG Motor platforms</div>
-      </div>
-      <div class="reveal" style="transition-delay:240ms">
-        <div class="ss-stat-val">1.5×</div>
-        <div class="ss-stat-lbl">Higher engagement vs category standards — Samsung, adopted as global best practice</div>
+      <div class="ss-stats reveal">
+        <div class="ss-stat"><div class="ss-val">50K</div><div class="ss-lbl">Organic LinkedIn followers grown in 6 months — MG Motor India</div></div>
+        <div class="ss-stat"><div class="ss-val">10.5%</div><div class="ss-lbl">Average organic engagement rate vs 2–3% industry benchmark</div></div>
+        <div class="ss-stat"><div class="ss-val">40.9M</div><div class="ss-lbl">Annual impressions across MG Motor India platforms</div></div>
+        <div class="ss-stat"><div class="ss-val">1.5×</div><div class="ss-lbl">Higher engagement vs category — Samsung social frameworks, adopted as Global Best Practice</div></div>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ── CREATIVE WALL ──────────────────────────────── -->
-<section class="wall-wrap" id="creative-wall" aria-labelledby="wall-lbl">
-  <div class="wall-inner">
-    <div class="sec-hd">
-      <span class="sec-lbl" id="wall-lbl">Creative Wall</span>
-      <span class="sec-ttl">Work Samples</span>
-    </div>
-    <div class="wall-filters" role="group" aria-label="Filter">
-      <button class="wf active" onclick="filterWall('all',this)">All</button>
-      <button class="wf" onclick="filterWall('film',this)">Films &amp; Reels</button>
-      <button class="wf" onclick="filterWall('kv',this)">Key Visuals</button>
-      <button class="wf" onclick="filterWall('social',this)">Social</button>
+<!-- CREATIVE WALL -->
+<div class="s-wrap" id="creative">
+  <div class="s-inner">
+    <div class="s-hd"><span class="s-lbl">Creative Wall</span><span class="s-ttl">Work Samples</span></div>
+    <p class="wall-note">Work I commissioned, briefed, and led — not work I designed.</p>
+    <div class="wf-row" role="group" aria-label="Filter">
+      <button class="wf-btn on" onclick="filterWall('all',this)">All</button>
+      <button class="wf-btn" onclick="filterWall('film',this)">Films &amp; Reels</button>
+      <button class="wf-btn" onclick="filterWall('kv',this)">Key Visuals</button>
+      <button class="wf-btn" onclick="filterWall('social',this)">Social Formats</button>
     </div>
     <div class="wall-grid" id="wall-grid">
-
-      <!-- Wide hero embed -->
-      <div class="wi wide" data-cat="film">
-        <div class="wi-media">
-          <iframe src="https://www.youtube.com/embed/cQabpYrMO1M" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="EV Sahi Hai — Charging Everywhere"></iframe>
-        </div>
-        <div class="wi-info"><div class="wi-t">EV Sahi Hai — Charging Everywhere</div><div class="wi-s">MG Motor · Pulkit Samrat × Varun Sharma · Celebrity Film 1</div></div>
-      </div>
-
-      <!-- Standard tall KV -->
-      <div class="wi tall" data-cat="kv">
-        <div class="wi-media"><img src="assets/galaxy-s23-lime.jpg" alt="Galaxy S23 Lime Edition teaser key visual" loading="lazy" class="lazy"></div>
-        <div class="wi-info"><div class="wi-t">Galaxy S23 Lime — Launch KV</div><div class="wi-s">"Epic has a new shade" · Samsung India</div></div>
-      </div>
-
-      <!-- Standard embed -->
-      <div class="wi" data-cat="film">
-        <div class="wi-media">
-          <iframe src="https://www.youtube.com/embed/3JCPGAnYzkA" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="EV Sahi Hai — The Long Drive"></iframe>
-        </div>
-        <div class="wi-info"><div class="wi-t">EV Sahi Hai — The Long Drive</div><div class="wi-s">MG Motor · Celebrity Film 2</div></div>
-      </div>
-
-      <!-- Standard KV -->
-      <div class="wi" data-cat="kv">
-        <div class="wi-media"><img src="assets/f-series-festive.jpg" alt="Galaxy F-Series festive Diwali campaign banner" loading="lazy" class="lazy"></div>
-        <div class="wi-info"><div class="wi-t">Galaxy F-Series — Festive KV</div><div class="wi-s">Samsung India · Diwali 2024</div></div>
-      </div>
-
-      <!-- Wide embed -->
-      <div class="wi wide" data-cat="film">
-        <div class="wi-media">
-          <iframe src="https://www.youtube.com/embed/8vw0COlZ7NI" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="#FunKeFundae Reel 1"></iframe>
-        </div>
-        <div class="wi-info"><div class="wi-t">#FunKeFundae — Influencer Reel 1</div><div class="wi-s">Samsung × FilterCopy · Galaxy F16 5G · SCREENXX Award Winner</div></div>
-      </div>
-
-      <!-- Standard image tall -->
-      <div class="wi tall" data-cat="social">
-        <div class="wi-media"><img src="assets/grid-s24-delhi.png" alt="Galaxy S24 launch Instagram GRID — Delhi event" loading="lazy" class="lazy"></div>
-        <div class="wi-info"><div class="wi-t">Galaxy S24 Launch — IG GRID</div><div class="wi-s">Samsung India · Delhi Event</div></div>
-      </div>
-
-      <!-- Standard embed -->
-      <div class="wi" data-cat="film">
-        <div class="wi-media">
-          <iframe src="https://www.youtube.com/embed/OhrWpFWKuSo" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="#FunKeFundae Reel 2"></iframe>
-        </div>
-        <div class="wi-info"><div class="wi-t">#FunKeFundae — Reel 2</div><div class="wi-s">Samsung × FilterCopy · Galaxy F16 5G</div></div>
-      </div>
-
-      <!-- Standard KV -->
-      <div class="wi" data-cat="kv">
-        <div class="wi-media"><img src="assets/f05-leather.jpg" alt="Galaxy F05 Leather Edition banner" loading="lazy" class="lazy"></div>
-        <div class="wi-info"><div class="wi-t">Galaxy F05 — Leather Edition</div><div class="wi-s">Samsung India · Samsung.com</div></div>
-      </div>
-
-      <!-- Wide in-house film -->
-      <div class="wi wide" data-cat="film">
-        <div class="wi-media">
-          <iframe src="https://www.youtube.com/embed/3TeBUeFkx5s" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Galaxy F-Series Product Film — In House"></iframe>
-        </div>
-        <div class="wi-info"><div class="wi-t">Galaxy F-Series — Product Film</div><div class="wi-s">Scripted &amp; Produced In-House · Samsung Studio</div></div>
-      </div>
-
-      <!-- Standard embed -->
-      <div class="wi" data-cat="film">
-        <div class="wi-media">
-          <iframe src="https://www.youtube.com/embed/IQSKnOGwA2s" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="#FunKeFundae Reel 3"></iframe>
-        </div>
-        <div class="wi-info"><div class="wi-t">#FunKeFundae — Reel 3</div><div class="wi-s">Samsung × FilterCopy · Galaxy F16 5G</div></div>
-      </div>
-
-      <!-- Standard KV -->
-      <div class="wi" data-cat="kv">
-        <div class="wi-media"><img src="assets/edge-season9.jpg" alt="Samsung EDGE Season 9.0 campus program" loading="lazy" class="lazy"></div>
-        <div class="wi-info"><div class="wi-t">Samsung E.D.G.E Season 9.0</div><div class="wi-s">Campus Program · CRM + Social</div></div>
-      </div>
-
-      <!-- Wide F56 film -->
-      <div class="wi wide" data-cat="film">
-        <div class="wi-media">
-          <iframe src="https://www.youtube.com/embed/4W6CBBpvFVc" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Galaxy F56 5G Product Film"></iframe>
-        </div>
-        <div class="wi-info"><div class="wi-t">Galaxy F56 5G — Product Film</div><div class="wi-s">Samsung India · Launch Content</div></div>
-      </div>
-
-      <!-- Standard social -->
-      <div class="wi" data-cat="social">
-        <div class="wi-media"><img src="assets/grid-flip4-bengaluru.png" alt="Galaxy Z Flip4 event GRID Bengaluru" loading="lazy" class="lazy"></div>
-        <div class="wi-info"><div class="wi-t">Galaxy Z Flip4 — Event GRID</div><div class="wi-s">Samsung India · Bengaluru Launch</div></div>
-      </div>
-
-      <!-- Standard embed BIK2 -->
-      <div class="wi" data-cat="film">
-        <div class="wi-media">
-          <iframe src="https://www.youtube.com/embed/BIK2TtdzN1Q" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Galaxy F-Series Feature Film"></iframe>
-        </div>
-        <div class="wi-info"><div class="wi-t">Galaxy F-Series — Feature Film</div><div class="wi-s">Samsung Studio · In-House Production</div></div>
-      </div>
-
+      <div class="wi span2" data-cat="film"><div class="wi-media"><iframe src="https://www.youtube.com/embed/cQabpYrMO1M" loading="lazy" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="EV Sahi Hai — Charging Everywhere"></iframe></div><div class="wi-info"><div class="wi-t">EV Sahi Hai — Charging Everywhere</div><div class="wi-s">MG Motor · Celebrity Film 1 · Pulkit Samrat × Varun Sharma</div></div></div>
+      <div class="wi tall" data-cat="kv"><div class="wi-media"><img src="assets/galaxy-s23-lime.jpg" alt="Galaxy S23 Lime Edition launch KV" loading="lazy" class="lazy"></div><div class="wi-info"><div class="wi-t">Galaxy S23 Lime — Launch KV</div><div class="wi-s">"Epic has a new shade" · Samsung India</div></div></div>
+      <div class="wi tall" data-cat="kv"><div class="wi-media"><img src="assets/f-series-festive.jpg" alt="Galaxy F-Series festive campaign" loading="lazy" class="lazy"></div><div class="wi-info"><div class="wi-t">Galaxy F-Series — Festive KV</div><div class="wi-s">Samsung India · Diwali 2024</div></div></div>
+      <div class="wi" data-cat="film"><div class="wi-media"><iframe src="https://www.youtube.com/embed/3JCPGAnYzkA" loading="lazy" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="EV Sahi Hai — The Long Drive"></iframe></div><div class="wi-info"><div class="wi-t">EV Sahi Hai — The Long Drive</div><div class="wi-s">MG Motor · Celebrity Film 2</div></div></div>
+      <div class="wi" data-cat="film"><div class="wi-media"><iframe src="https://www.youtube.com/embed/8vw0COlZ7NI" loading="lazy" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="#FunKeFundae Reel 1"></iframe></div><div class="wi-info"><div class="wi-t">#FunKeFundae — Reel 1</div><div class="wi-s">Samsung × FilterCopy · Galaxy F16 5G · SCREENXX Award</div></div></div>
+      <div class="wi" data-cat="film"><div class="wi-media"><iframe src="https://www.youtube.com/embed/OhrWpFWKuSo" loading="lazy" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="#FunKeFundae Reel 2"></iframe></div><div class="wi-info"><div class="wi-t">#FunKeFundae — Reel 2</div><div class="wi-s">Samsung × FilterCopy · Galaxy F16 5G</div></div></div>
+      <div class="wi span2" data-cat="film"><div class="wi-media"><iframe src="https://www.youtube.com/embed/3TeBUeFkx5s" loading="lazy" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="Galaxy F-Series Product Film"></iframe></div><div class="wi-info"><div class="wi-t">Galaxy F-Series — Product Film</div><div class="wi-s">Scripted &amp; Produced In-House · Samsung Studio</div></div></div>
+      <div class="wi" data-cat="kv"><div class="wi-media"><img src="assets/f05-leather.jpg" alt="Galaxy F05 Leather Edition banner" loading="lazy" class="lazy"></div><div class="wi-info"><div class="wi-t">Galaxy F05 — Leather Edition</div><div class="wi-s">Samsung India · Samsung.com</div></div></div>
+      <div class="wi" data-cat="social"><div class="wi-media"><img src="assets/grid-s24-delhi.png" alt="Galaxy S24 Launch IG GRID Delhi" loading="lazy" class="lazy"></div><div class="wi-info"><div class="wi-t">Galaxy S24 Launch — IG GRID</div><div class="wi-s">Samsung India · Delhi Event</div></div></div>
+      <div class="wi" data-cat="film"><div class="wi-media"><iframe src="https://www.youtube.com/embed/IQSKnOGwA2s" loading="lazy" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="#FunKeFundae Reel 3"></iframe></div><div class="wi-info"><div class="wi-t">#FunKeFundae — Reel 3</div><div class="wi-s">Samsung × FilterCopy · Galaxy F16 5G</div></div></div>
+      <div class="wi" data-cat="film"><div class="wi-media"><iframe src="https://www.youtube.com/embed/BIK2TtdzN1Q" loading="lazy" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="Galaxy F-Series Feature Film"></iframe></div><div class="wi-info"><div class="wi-t">Galaxy F-Series — Feature Film</div><div class="wi-s">Samsung Studio · In-House</div></div></div>
+      <div class="wi span2" data-cat="film"><div class="wi-media"><iframe src="https://www.youtube.com/embed/4W6CBBpvFVc" loading="lazy" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="Galaxy F56 5G Product Film"></iframe></div><div class="wi-info"><div class="wi-t">Galaxy F56 5G — Product Film</div><div class="wi-s">Samsung India · Launch Content</div></div></div>
+      <div class="wi" data-cat="kv"><div class="wi-media"><img src="assets/edge-season9.jpg" alt="Samsung EDGE Season 9" loading="lazy" class="lazy"></div><div class="wi-info"><div class="wi-t">Samsung E.D.G.E Season 9.0</div><div class="wi-s">Campus Program · CRM + Social</div></div></div>
+      <div class="wi" data-cat="social"><div class="wi-media"><img src="assets/grid-flip4-bengaluru.png" alt="Galaxy Z Flip4 GRID Bengaluru" loading="lazy" class="lazy"></div><div class="wi-info"><div class="wi-t">Galaxy Z Flip4 — Event GRID</div><div class="wi-s">Samsung India · Bengaluru Launch</div></div></div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ── TIMELINE ───────────────────────────────────── -->
-<section id="timeline" aria-labelledby="tl-lbl">
-  <div class="tl-wrap">
-    <div class="sec-hd"><span class="sec-lbl" id="tl-lbl">Career</span><span class="sec-ttl">Click a role to expand</span></div>
-    <div class="tl-track" id="tl-track">
-      <div class="tl-line" aria-hidden="true"></div>
-      <div class="tl-nodes" id="tl-nodes" role="list"></div>
-    </div>
-    <div class="tl-detail" id="tl-detail" role="region" aria-live="polite">
-      <div class="tl-detail-inner" id="tl-detail-inner"></div>
-    </div>
-    <p class="tl-hint">← scroll to see full career →</p>
+<!-- CAREER -->
+<div class="s-wrap" id="career">
+  <div class="s-inner">
+    <div class="s-hd"><span class="s-lbl">Career</span><span class="s-ttl">Timeline — click to expand</span></div>
+    <div class="tl" id="tl" role="list"></div>
   </div>
-</section>
+</div>
 
-<!-- ── ABOUT ─────────────────────────────────────── -->
-<section class="about-section" id="about" aria-labelledby="about-lbl">
-  <div class="about-inner">
-    <div class="sec-hd"><span class="sec-lbl" id="about-lbl">About</span><span class="sec-ttl">Profile &amp; Expertise</span></div>
+<!-- ABOUT -->
+<div class="s-wrap" id="about">
+  <div class="s-inner">
+    <div class="s-hd"><span class="s-lbl">About</span><span class="s-ttl">Profile &amp; Expertise</span></div>
     <div class="about-grid">
       <div>
-        <p class="about-bio">Account management and social media strategy professional with 10+ years driving marketing communications for high-value consumer brands. Currently leading social strategy and digital content for MG Motor India across EV and ICE categories — managing platform-specific content, performance analytics, and cross-functional campaign coordination.<br><br>Before MG Motor, spent six years at Samsung India (via Cheil) directing flagship GTM strategies for the Galaxy portfolio — from social frameworks and influencer campaigns to retail and e-commerce integration. Comfortable working across strategy, execution, and analytics in fast-paced, high-visibility campaign environments. Increasingly using AI tools (ChatGPT, Claude, Gemini) to improve creative efficiency and turnaround.</p>
-        <div class="skill-pills">
-          <div class="sp-group">
-            <h4>Account Management &amp; Strategy</h4>
-            <p>Key Account Management · Integrated Marketing · Go-to-Market Strategy · Account Planning · Stakeholder Management · Business Development · Client Servicing</p>
-          </div>
-          <div class="sp-group">
-            <h4>Social Media &amp; Content</h4>
-            <p>Social Media Strategy · Content Strategy · Influencer Marketing · Brand Management · Content Development · Campaign Management · Social Listening</p>
-          </div>
-          <div class="sp-group">
-            <h4>Analytics &amp; Optimisation</h4>
-            <p>Social Media Analytics · Google Analytics · Performance Analytics · Data Analysis · Audience Insights · Posting Schedule Optimisation</p>
-          </div>
-          <div class="sp-group">
-            <h4>Operations &amp; Production</h4>
-            <p>Project Management · Agency Management · Cross-functional Leadership · Vendor Management · Print &amp; POSM Production · Quality Assurance</p>
-          </div>
+        <p class="about-pull">"The best account leaders don't just manage campaigns — they manage the thinking behind them."</p>
+        <div class="about-bio">
+          <p>Integrated marketing and social strategy professional with 10+ years managing Samsung India and JSW MG Motor India — across the full lifecycle from strategic brief to client reporting.</p>
+          <p>I brief agencies, shape creative direction, manage production budgets, and coordinate celebrity talent, media partners, and cross-functional teams. The Samsung hyperlocal program — pilot to 450+ retailer pages, adopted as Global Best Practice by Samsung HQ — is the work I point to most. Systems thinking at national scale. That's what I bring to a Director role.</p>
+        </div>
+        <div class="skills-grid">
+          <div class="sg"><h4>Account Management &amp; Strategy</h4><p>Key Account Management · Integrated Marketing · Go-to-Market Strategy · Account Planning · Stakeholder Management · Business Development · Client Servicing</p></div>
+          <div class="sg"><h4>Social Media &amp; Content</h4><p>Social Media Strategy · Content Strategy · Influencer Marketing · Brand Management · Content Development · Campaign Management · Social Listening</p></div>
+          <div class="sg"><h4>Analytics &amp; Optimisation</h4><p>Social Media Analytics · Google Analytics · Performance Analytics · Data Analysis · Audience Insights · Posting Schedule Optimisation</p></div>
+          <div class="sg"><h4>Operations &amp; Production</h4><p>Project Management · Agency Management · Cross-functional Leadership · Vendor Management · Print &amp; POSM Production · Budget Oversight</p></div>
         </div>
       </div>
       <div>
-        <div class="tools-block">
+        <div class="tools-section" style="margin-bottom:2rem">
           <h4>Tools &amp; Platforms</h4>
-          <div style="margin-bottom:.5rem;font-family:var(--ff-m);font-size:9.5px;color:var(--tx3);letter-spacing:.1em;text-transform:uppercase">Social &amp; Analytics</div>
-          <div class="tool-row">
-            <span class="tool-chip">Sprinklr</span><span class="tool-chip">Sprout Social</span><span class="tool-chip">Meta Ads Manager</span><span class="tool-chip">YouTube Studio</span><span class="tool-chip">LinkedIn Analytics</span>
-          </div>
-          <div style="margin-bottom:.5rem;margin-top:.75rem;font-family:var(--ff-m);font-size:9.5px;color:var(--tx3);letter-spacing:.1em;text-transform:uppercase">AI &amp; Productivity</div>
-          <div class="tool-row">
-            <span class="tool-chip">ChatGPT</span><span class="tool-chip">Claude</span><span class="tool-chip">Perplexity</span><span class="tool-chip">Google Gemini</span><span class="tool-chip">Notion AI</span><span class="tool-chip">Microsoft 365</span><span class="tool-chip">Google Suite</span>
-          </div>
+          <div class="tool-cat"><div class="tool-cat-lbl">Social Platforms</div><div class="tool-logo-row">
+            <div class="tool-logo"><div class="tool-logo-icon" style="background:#0A66C2"><svg viewBox="0 0 24 24" fill="white"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div><span class="tool-logo-name">LinkedIn</span></div>
+            <div class="tool-logo"><div class="tool-logo-icon" style="background:radial-gradient(circle at 30% 110%,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="white" stroke="none"/></svg></div><span class="tool-logo-name">Instagram</span></div>
+            <div class="tool-logo"><div class="tool-logo-icon" style="background:#1877F2"><svg viewBox="0 0 24 24" fill="white"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div><span class="tool-logo-name">Facebook</span></div>
+            <div class="tool-logo"><div class="tool-logo-icon" style="background:#000"><svg viewBox="0 0 24 24" fill="white"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div><span class="tool-logo-name">X / Twitter</span></div>
+            <div class="tool-logo"><div class="tool-logo-icon" style="background:#FF0000"><svg viewBox="0 0 24 24" fill="white"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon fill="#FF0000" points="9.75 15.02 15.5 12 9.75 8.98"/></svg></div><span class="tool-logo-name">YouTube</span></div>
+          </div></div>
+          <div class="tool-cat"><div class="tool-cat-lbl">Management &amp; Analytics</div><div class="tool-logo-row">
+            <div class="tool-logo"><div class="tool-logo-icon" style="background:#0F4FDB"><svg viewBox="0 0 24 24" fill="white"><circle cx="5" cy="5" r="2"/><circle cx="12" cy="3" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="7" cy="12" r="2"/><circle cx="17" cy="12" r="2"/><circle cx="12" cy="19" r="2"/><line x1="5" y1="5" x2="12" y2="3" stroke="rgba(255,255,255,.5)" stroke-width="1.2"/><line x1="12" y1="3" x2="19" y2="6" stroke="rgba(255,255,255,.5)" stroke-width="1.2"/><line x1="5" y1="5" x2="7" y2="12" stroke="rgba(255,255,255,.5)" stroke-width="1.2"/><line x1="19" y1="6" x2="17" y2="12" stroke="rgba(255,255,255,.5)" stroke-width="1.2"/><line x1="7" y1="12" x2="12" y2="19" stroke="rgba(255,255,255,.5)" stroke-width="1.2"/><line x1="17" y1="12" x2="12" y2="19" stroke="rgba(255,255,255,.5)" stroke-width="1.2"/></svg></div><span class="tool-logo-name">Sprinklr</span></div>
+            <div class="tool-logo"><div class="tool-logo-icon" style="background:#59B22A"><svg viewBox="0 0 24 24" fill="white"><path d="M12 22V12M12 12C12 7 7 4 3 5c0 4 3 8 9 7M12 12C12 7 17 4 21 5c0 4-3 8-9 7"/></svg></div><span class="tool-logo-name">Sprout Social</span></div>
+            <div class="tool-logo"><div class="tool-logo-icon" style="background:#0668E1"><svg viewBox="0 0 24 24" fill="white"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><span class="tool-logo-name">Meta Ads</span></div>
+            <div class="tool-logo"><div class="tool-logo-icon" style="background:#282828"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="7" width="13" height="10" rx="1"/><path d="M17 9.5l4-2.5v10l-4-2.5"/></svg></div><span class="tool-logo-name">YouTube Studio</span></div>
+            <div class="tool-logo"><div class="tool-logo-icon" style="background:#0A66C2"><svg viewBox="0 0 24 24" fill="white"><rect x="2" y="14" width="4" height="7" rx="1" opacity=".6"/><rect x="9" y="9" width="4" height="12" rx="1" opacity=".8"/><rect x="16" y="4" width="4" height="17" rx="1"/></svg></div><span class="tool-logo-name">LI Analytics</span></div>
+          </div></div>
+          <div class="tool-cat"><div class="tool-cat-lbl">AI Tools</div><div class="tool-logo-row">
+            <div class="tool-logo"><div class="tool-logo-icon" style="background:#10A37F"><svg viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="9" fill="none" stroke="white" stroke-width="1.5"/><path d="M12 8v4M12 12l3 2M12 12l-3 2" stroke="white" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg></div><span class="tool-logo-name">ChatGPT</span></div>
+            <div class="tool-logo"><div class="tool-logo-icon" style="background:#CC785C"><svg viewBox="0 0 24 24" fill="white"><path d="M12 3L20 19H4Z" opacity=".9"/><path d="M12 9L17 17H7Z" fill="#CC785C"/></svg></div><span class="tool-logo-name">Claude</span></div>
+            <div class="tool-logo"><div class="tool-logo-icon" style="background:#1A1A2E"><svg viewBox="0 0 24 24" fill="white"><path d="M12 2l2.5 7.5H22l-6.5 4.5 2.5 7.5L12 17l-6 4.5 2.5-7.5L3 9.5h7.5z"/></svg></div><span class="tool-logo-name">Perplexity</span></div>
+            <div class="tool-logo"><div class="tool-logo-icon" style="background:#4285F4"><svg viewBox="0 0 24 24"><path d="M12 3c-4 3-4 9 0 9s4-6 0-9z" fill="white" opacity=".9"/><path d="M12 21c4-3 4-9 0-9s-4 6 0 9z" fill="white" opacity=".6"/></svg></div><span class="tool-logo-name">Gemini</span></div>
+            <div class="tool-logo"><div class="tool-logo-icon" style="background:#000"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3" fill="white"/><path d="M8 8h8v2H8zM8 11h8v2H8zM8 14h5v2H8z" fill="#000"/></svg></div><span class="tool-logo-name">Notion AI</span></div>
+          </div></div>
+          <div class="tool-cat" style="margin-bottom:0"><div class="tool-cat-lbl">Productivity</div><div class="tool-logo-row">
+            <div class="tool-logo"><div class="tool-logo-icon" style="background:#fff;border:1px solid var(--bd)"><svg viewBox="0 0 24 24" width="22" height="22"><rect x="2" y="2" width="9" height="9" fill="#F25022"/><rect x="13" y="2" width="9" height="9" fill="#7FBA00"/><rect x="2" y="13" width="9" height="9" fill="#00A4EF"/><rect x="13" y="13" width="9" height="9" fill="#FFB900"/></svg></div><span class="tool-logo-name">Microsoft 365</span></div>
+            <div class="tool-logo"><div class="tool-logo-icon" style="background:#fff;border:1px solid var(--bd)"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M21.35 11.1H12.18V13.83H18.69C18.36 17.64 15.19 19.27 12.19 19.27C8.36 19.27 5 16.25 5 12C5 7.9 8.2 4.73 12.2 4.73C15.29 4.73 17.1 6.7 17.1 6.7L19 4.72C19 4.72 16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12C2.03 17.05 6.16 22 12.25 22C17.6 22 21.5 18.33 21.5 12.91C21.5 11.76 21.35 11.1 21.35 11.1Z" fill="#4285F4"/></svg></div><span class="tool-logo-name">Google Workspace</span></div>
+            <div class="tool-logo"><div class="tool-logo-icon" style="background:#000"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3" fill="white"/><path d="M8 7h8M8 7v10l4-4 4 4V7" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tool-logo-name">Notion</span></div>
+          </div></div>
         </div>
-        <div class="certs-block">
+        <div class="certs-section" style="margin-bottom:2rem">
           <h4>Certifications</h4>
-          <div class="cert-item"><div class="cert-dot"></div>Career Essentials in Generative AI — Microsoft &amp; LinkedIn</div>
-          <div class="cert-item"><div class="cert-dot"></div>Facebook Certified Digital Marketing Associate — Meta</div>
-          <div class="cert-item"><div class="cert-dot"></div>Google Ads Video Certification — Google</div>
-          <div class="cert-item"><div class="cert-dot"></div>Google Ads Search Certification — Google</div>
+          <div class="cert-row"><div class="cert-dot"></div>Career Essentials in Generative AI — Microsoft &amp; LinkedIn</div>
+          <div class="cert-row"><div class="cert-dot"></div>Facebook Certified Digital Marketing Associate — Meta</div>
+          <div class="cert-row"><div class="cert-dot"></div>Google Ads Video Certification — Google</div>
+          <div class="cert-row"><div class="cert-dot"></div>Google Ads Search Certification — Google</div>
         </div>
-        <div class="edu-block">
+        <div class="edu-section">
           <h4>Education</h4>
-          <div class="edu-item"><strong>PG Diploma — Advertising &amp; Public Relations</strong> · 2019–2020<br>Guru Jambheshwar University of Science &amp; Technology (GJUST), Hisar</div>
-          <div class="edu-item"><strong>B.Tech / B.E.</strong> · 2009–2013<br>Guru Jambheshwar University of Science &amp; Technology (GJUST), Hisar</div>
+          <div class="edu-row"><strong>PG Diploma — Advertising &amp; Public Relations</strong> · 2019–2020<br>Guru Jambheshwar University of Science &amp; Technology (GJUST), Hisar</div>
+          <div class="edu-row"><strong>B.Tech / B.E.</strong> · 2009–2013<br>Guru Jambheshwar University of Science &amp; Technology (GJUST), Hisar</div>
         </div>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ── CONTACT SECTION ───────────────────────────── -->
-<section class="contact-section" id="contact" aria-labelledby="contact-lbl">
-  <div class="contact-inner">
-    <div class="contact-photo-wrap">
-      <div class="contact-photo">
-        <img src="assets/1776157280508.png" alt="Pradeep Mahlawat — Integrated Marketing Professional, Gurugram" loading="lazy" class="lazy">
+<!-- CONTACT -->
+<div class="s-wrap alt" id="contact">
+  <div class="s-inner">
+    <div class="s-hd"><span class="s-lbl">Contact</span><span class="s-ttl">Get in Touch</span></div>
+    <div class="contact-grid">
+      <div class="c-photo"><img src="assets/1776157280508.png" alt="Pradeep Mahlawat — Integrated Marketing Professional, Gurugram" loading="lazy" class="lazy"></div>
+      <div>
+        <h2 class="c-name">Pradeep Mahlawat</h2>
+        <p class="c-title">Integrated Marketing &amp; Social Strategy · Currently: CheilX / JSW MG Motor India<br>Targeting Account Director roles · Gurugram, India</p>
+        <div class="c-row"><svg class="c-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 5.61 5.61l.27-.18a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+918901255012">(+91) 89012 55012</a></div>
+        <div class="c-row"><svg class="c-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:er.mahlawat@gmail.com">er.mahlawat@gmail.com</a></div>
+        <div class="c-row"><svg class="c-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Gurugram, Haryana, India</span></div>
+        <div class="c-social">
+          <a href="https://linkedin.com/in/pradeepmahlawat/" target="_blank" rel="noopener" class="c-soc-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</a>
+          <a href="https://www.instagram.com/pradeep.mahlawat/" target="_blank" rel="noopener" class="c-soc-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none"/></svg>Instagram</a>
+        </div>
+        <a href="assets/Pradeep_Mahlawat_Resume_2025.pdf" download class="c-dl">↓ Download Resume</a>
       </div>
-    </div>
-    <div class="contact-info-wrap">
-      <p class="sec-lbl" id="contact-lbl" style="margin-bottom:1rem">Get in Touch</p>
-      <h2 class="ci-name">Pradeep Mahlawat</h2>
-      <p class="ci-title">Assistant Manager — Integrated Marketing &amp; Social Strategy · CheilX / JSW MG Motor India · Gurugram</p>
-      <div class="ci-row">
-        <svg class="ci-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 5.61 5.61l.27-.18a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        <a href="tel:+918901255012">(+91) 89012 55012</a>
-      </div>
-      <div class="ci-row">
-        <svg class="ci-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        <a href="mailto:er.mahlawat@gmail.com">er.mahlawat@gmail.com</a>
-      </div>
-      <div class="ci-row">
-        <svg class="ci-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        <span>Gurugram, Haryana, India</span>
-      </div>
-      <div class="ci-social">
-        <a href="https://linkedin.com/in/pradeepmahlawat/" target="_blank" rel="noopener" class="ci-soc-link" aria-label="LinkedIn profile">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-          LinkedIn
-        </a>
-        <a href="https://www.instagram.com/pradeep.mahlawat/" target="_blank" rel="noopener" class="ci-soc-link" aria-label="Instagram profile">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          Instagram
-        </a>
-      </div>
-      <a href="assets/Pradeep_Mahlawat_Resume_2025.pdf" download class="ci-dl" aria-label="Download resume">↓ Download Resume</a>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ── FOOTER ─────────────────────────────────────── -->
+<!-- FOOTER -->
 <footer class="footer" role="contentinfo">
-  <div class="footer-inner">
-    <span class="footer-copy">© 2025 Pradeep Mahlawat · Work shown represents campaigns managed, not design authorship.</span>
-    <div class="footer-links">
-      <a href="#work">Work</a>
-      <a href="#social-strategy">Social</a>
-      <a href="#timeline">Career</a>
-      <a href="#contact">Contact</a>
-    </div>
+  <div class="footer-in">
+    <span class="fc">© 2025 Pradeep Mahlawat · Work shown represents campaigns managed, not design authorship.</span>
+    <div class="fl"><a href="#work">Work</a><a href="#social">Social</a><a href="#career">Career</a><a href="#contact">Contact</a></div>
   </div>
 </footer>
 
-<!-- ── MODAL ─────────────────────────────────────── -->
+<!-- MODAL -->
 <div class="modal-bg" id="modal-bg" aria-hidden="true"></div>
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
-  <div class="m-head">
-    <span class="m-brand" id="m-brand"></span>
-    <button class="m-x" id="m-x" aria-label="Close">✕</button>
-  </div>
+  <div class="m-head"><span class="m-brand" id="m-brand"></span><button class="m-x" id="m-x" aria-label="Close">✕</button></div>
   <div class="m-body" id="m-body"></div>
 </div>
 
-<!-- ── SCROLL CIRCLE ─────────────────────────────── -->
-<button class="scroll-btn" id="scroll-btn" aria-label="Back to top">
+<!-- SCROLL CIRCLE -->
+<button class="sb" id="sb" aria-label="Back to top">
   <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <circle class="sb-track" cx="25" cy="25" r="21.25"/>
     <circle class="sb-prog" id="sb-prog" cx="25" cy="25" r="21.25"/>
   </svg>
-  <div class="sb-face"><span class="sb-arrow">↑</span></div>
+  <div class="sb-face"><span class="sb-arr">↑</span></div>
 </button>
 
 <script>
-/* ── DATA ─────────────────────────────────────── */
-const CAMPAIGNS=[
+/* ── DATA — enhanced with challenge, decision, scale ── */
+const C=[
   {id:'ev-sahi-hai',brand:'MG Motor India',bk:'mg',year:'2025',
    title:'EV Sahi Hai — Category Creation Campaign',
-   scope:'Multi-phase awareness campaign across 5 platforms. Content calendar planning, celebrity rollout, 10 customer testimonials, UGC activations, weekly performance reporting.',
+   cardChallenge:'Consumer anxieties — not awareness — were blocking EV adoption.',
+   challenge:'EV adoption in India was stalling — not from lack of awareness, but from deep consumer anxieties around range, charging infrastructure, and cost of ownership that product campaigns alone couldn\'t address.',
+   decision:'Rather than leading with celebrity to build mass awareness (the instinct for a Phase 1), the strategy was to lead with real EV owners addressing real anxieties first — so that celebrity amplification in Phase 2 landed on already-shifted perception, not scepticism.',
+   scale:'Coordinated celebrity management teams (Pulkit Samrat × Varun Sharma), UGC creator network, production agency, media partners, and platform analytics across 5 channels simultaneously over 2 phases.',
+   scope:'Multi-phase awareness campaign across 5 platforms. Celebrity rollout, 10 customer testimonials, UGC activations, weekly performance reporting to client leadership.',
    tags:['Campaign Orchestration','Celebrity Management','Performance Analytics'],
    stats:[{v:'65M+',l:'Views'},{v:'107K+',l:'Engagement'},{v:'52M+',l:'Reach'},{v:"E4M '25",l:'Award'}],
    img:'assets/ev-sahi-hai-hero.png',alt:'EV Sahi Hai campaign',
-   brief:'MG Motor India needed to build consumer trust in EVs among a sceptical Indian market — shift perception from "EVs are risky" to "EVs are the right choice" without a hard sell.',
-   approach:'Two-phase strategy: Phase 1 used 10 real EV owner testimonials to address buyer anxieties around range, charging, and cost. Phase 2 scaled with celebrity films (Varun Sharma × Pulkit Samrat) for mass awareness. Platform decisions were data-driven — video on Instagram, Facebook, YouTube; static carousels on X and LinkedIn where longer video underperforms.',
+   approach:'Phase 1 used 10 real EV owner testimonials — platform-specific formats per channel (long-form video on YouTube, carousels on LinkedIn and X, short reels on Instagram and Facebook) — to establish authenticity and address category barriers. Phase 2 scaled with Varun Sharma × Pulkit Samrat celebrity films for mass awareness. All platform decisions were validated against weekly performance data.',
    platforms:['Instagram','Facebook','X (Twitter)','LinkedIn','YouTube'],
-   videos:[{id:'cQabpYrMO1M',t:'EV Sahi Hai — Charging Everywhere',s:'Celebrity Film 1 · Pulkit Samrat × Varun Sharma'},{id:'3JCPGAnYzkA',t:'EV Sahi Hai — The Long Drive',s:'Celebrity Film 2 · Pulkit Samrat × Varun Sharma'}],
+   vids:[{id:'cQabpYrMO1M',t:'EV Sahi Hai — Charging Everywhere',s:'Celebrity Film 1'},{id:'3JCPGAnYzkA',t:'EV Sahi Hai — The Long Drive',s:'Celebrity Film 2'}],
    metrics:[{v:'65M+',l:'Cross-Platform Views'},{v:'52M+',l:'Reach (IG + FB)'},{v:'107K+',l:'Total Engagement'},{v:'90+',l:'Content Pieces'},{v:'716K',l:'Top YT Short Views'},{v:'6.4%',l:'Top FB ER'}],
    award:'E4M Auto Marketing Awards 2025 — Best Partnership with a Celebrity / Influencer',
-   prs:[{t:'afaqs! — Phase 1 Coverage',u:'https://www.afaqs.com/news/advertising/cheil-x-launches-ev-sahi-hai-campaign-to-promote-jsw-mg-electric-vehicles-9659781'},{t:'afaqs! — Phase 2 Coverage',u:'https://www.afaqs.com/news/advertising/varun-sharma-pulkit-samrat-bust-ev-myths-in-jsw-mgs-ev-sahi-hai-campaign-9762089'}],
-   role:'Devised digital amplification strategy, managed content calendar across 5 platforms, oversaw celebrity rollout and UGC coordination, owned weekly performance reporting to leadership.'},
+   prs:[{t:'afaqs! — Phase 1 Coverage (Pradeep cited by name)',u:'https://www.afaqs.com/news/advertising/cheil-x-launches-ev-sahi-hai-campaign-to-promote-jsw-mg-electric-vehicles-9659781'},{t:'afaqs! — Phase 2 Coverage',u:'https://www.afaqs.com/news/advertising/varun-sharma-pulkit-samrat-bust-ev-myths-in-jsw-mgs-ev-sahi-hai-campaign-9762089'}],
+   role:'Led strategy and end-to-end execution — campaign architecture, content calendar across 5 platforms, celebrity rollout coordination, UGC programme management, and weekly performance reporting to client leadership.'},
+
   {id:'filtercopy',brand:'Samsung India',bk:'samsung',year:'2024–25',
    title:'Samsung × FilterCopy — #FunKeFundae',
-   scope:'E2E production management for 8 branded short films with FilterCopy. Also managed in-house product films at Samsung Studio from scripting through final cut.',
+   cardChallenge:'Gen Z rejects brand content that doesn\'t belong culturally.',
+   challenge:'Galaxy F16 5G needed cultural relevance with Gen Z — a segment that immediately detects and dismisses brand content that doesn\'t belong. A conventional product-led campaign would actively undermine brand perception.',
+   decision:'The brief to FilterCopy was to make Samsung invisible inside the story — the brand could only appear where the narrative had earned it, never forced. This required briefing against the instinct to include more product shots.',
+   scale:'Managed FilterCopy production agency, 8 influencer talent teams and their representatives, Samsung Studio in-house production pipeline, media partner relationships, and production budget — concurrently across two production tracks.',
+   scope:'End-to-end production management for 8 branded short films with FilterCopy. Managed in-house product films at Samsung Studio from scripting through final cut.',
    tags:['Video Production (E2E)','Influencer Marketing','Script Development'],
    stats:[{v:'~20M',l:'Views'},{v:'8',l:'Films'},{v:'SCREENXX',l:'Award'},{v:'E2E',l:'Production'}],
    img:'assets/filtercopy-award.jpg',alt:'SCREENXX Awards — Samsung × FilterCopy',
-   brief:'Galaxy F16 5G needed to break through to Gen Z and millennial audiences without feeling like a corporate product ad — entertainment-first, platform-native content.',
-   approach:"Partnered with FilterCopy for 8 branded films where the brand story lived inside the humour. Managed briefing, script finalisation, PPMs, on-shoot coordination, and budget. In parallel, managed in-house product film production at Samsung Studio (scripting through final cut).",
+   approach:'Partnered with FilterCopy for 8 branded films where the brand story lived inside the humour. Managed briefing, script finalisation, PPMs, on-shoot coordination across multiple shoot days, and budget. In parallel, managed in-house product film production at Samsung Studio from scripting through final cut — two production tracks running simultaneously.',
    platforms:['Instagram','YouTube','Facebook'],
-   videos:[{id:'8vw0COlZ7NI',t:'#FunKeFundae — Reel 1',s:'Samsung × FilterCopy · Galaxy F16 5G'},{id:'OhrWpFWKuSo',t:'#FunKeFundae — Reel 2',s:'Samsung × FilterCopy · Galaxy F16 5G'},{id:'IQSKnOGwA2s',t:'#FunKeFundae — Reel 3',s:'Samsung × FilterCopy · Galaxy F16 5G'},{id:'3TeBUeFkx5s',t:'Galaxy F-Series — Product Film',s:'In-House · Samsung Studio'}],
-   metrics:[{v:'~20M',l:'Total Views'},{v:'8',l:'Films Produced'},{v:'E2E',l:'Production'},{v:'SCREENXX',l:'Award Won'}],
+   vids:[{id:'8vw0COlZ7NI',t:'#FunKeFundae — Reel 1',s:'Samsung × FilterCopy'},{id:'OhrWpFWKuSo',t:'#FunKeFundae — Reel 2',s:'Samsung × FilterCopy'},{id:'IQSKnOGwA2s',t:'#FunKeFundae — Reel 3',s:'Samsung × FilterCopy'},{id:'3TeBUeFkx5s',t:'Galaxy F-Series — Product Film',s:'In-House · Samsung Studio'}],
+   metrics:[{v:'~20M',l:'Total Views'},{v:'8',l:'Films Produced'},{v:'E2E',l:'Production Ownership'},{v:'SCREENXX',l:'Award Won'}],
    award:'AdGully SCREENXX Awards 2025 — Best Influencer Collaboration / Social Media Promotion',
-   role:'End-to-end production — briefing, script finalisation, PPMs, on-shoot coordination. Budget management and agency relationships. In-house product film production (scripting → final cut).'},
+   role:'End-to-end production ownership — briefing, script finalisation, PPMs, on-shoot coordination for 8 branded films. Budget management and media partner relationships. In-house product film production (scripting → final cut) at Samsung Studio, concurrently.'},
+
   {id:'linkedin-growth',brand:'MG Motor India',bk:'mg',year:'2025–26',
    title:'LinkedIn Community — 50K Organic Growth',
-   scope:'Built a multi-pillar content system from scratch — #LifeAtMG, executive thought leadership, employer branding — achieving 50K organic followers in 6 months.',
+   cardChallenge:'No employer brand voice — low engagement, no community identity.',
+   challenge:'MG Motor\'s LinkedIn was product-announcement-led with no employer brand voice — creating a follower base with low engagement and no community identity in an automotive category where LinkedIn presence signals brand credibility to trade and commercial audiences.',
+   decision:'Deprioritised product content (the default instinct for an auto brand) and shifted the content mix to 60% culture and people stories. The counter-intuitive call that drove engagement from category average to 10.5% — more than 3× the industry benchmark.',
+   scale:'Built the entire content system from scratch: 4 content pillars, visual templates for 6 content formats, weekly analytics review process, cross-department content coordination with HR, leadership, and brand teams.',
+   scope:'Built a multi-pillar content system from scratch — #LifeAtMG, executive thought leadership, employer branding — 50K organic followers in 6 months, 10.5% avg engagement rate.',
    tags:['Platform Strategy','Community Building','Employer Branding'],
    stats:[{v:'50K',l:'Followers Added'},{v:'10.5%',l:'Avg ER'},{v:'40.9M',l:'Impressions'},{v:'600K',l:'Milestone'}],
    img:'assets/mg-linkedin-600k.jpg',alt:'MG Motor India LinkedIn 600K milestone',
-   brief:"MG Motor India's LinkedIn had no consistent employer brand narrative. Goal: build a community-driven content strategy that organically grows followers while positioning MG as an employer of choice in Indian auto.",
-   approach:'Multi-pillar content architecture: #LifeAtMG (employee stories), executive thought leadership, awards and recognitions, GET welcome posts, HR activity coverage — layered on regular product and campaign content. Used weekly performance reviews to refine content direction. Built visual templates and standardised format decisions per content type.',
+   approach:'Multi-pillar content architecture: #LifeAtMG (employee stories), executive thought leadership, awards and recognitions, GET welcome posts, HR activity coverage — layered on regular product and campaign content. Weekly performance reviews used to refine content direction, not just report it. Visual templates designed for 6 content formats to ensure consistency across teams.',
    platforms:['LinkedIn'],
    metrics:[{v:'50K',l:'Organic Followers (~6 mo.)'},{v:'600K',l:'Total Followers Milestone'},{v:'40.9M',l:'Annual Impressions'},{v:'892K+',l:'Annual Engagement'},{v:'10.5%',l:'Avg Organic ER'},{v:'~2–3%',l:'Industry Benchmark'}],
    award:'ICMA Awards 2025 — Content Marketing of the Year (Automobile) & Trendsetter of the Year',
-   role:'Built content pillars from scratch, designed visual templates, standardised format decisions per content type, managed all execution and monthly performance reporting.'},
-  {id:'galaxy-f-series',brand:'Samsung India',bk:'samsung',year:'2024–25',
+   role:'Built content pillars from scratch, designed visual templates for 6 content formats, standardised format decisions per content type, managed all execution and monthly performance reporting to client leadership.'},
+
+  {id:'galaxy-f',brand:'Samsung India',bk:'samsung',year:'2024–25',
    title:'Galaxy F-Series — Integrated GTM Strategy',
-   scope:'Led positioning, launch frameworks, and cross-channel execution for Galaxy F55, F56, F05, F06, F16 across 7+ channels simultaneously.',
+   cardChallenge:'Five launches, 12 months — distinct positioning per SKU, no cannibalisation.',
+   challenge:'Five product launches across 12 months in a fiercely competitive mid-range segment — each needing distinct positioning while maintaining coherent brand architecture, and reaching Gen Z buyers who research across 4+ touchpoints before purchase.',
+   decision:'Rather than treating F-Series as a single campaign, built a distinct RTB ladder per SKU to avoid internal cannibalisation — Galaxy F55 vs F56 vs F05 each had a clear lane in the market. Channel-specific messaging hierarchy ensured the right story was told in the right place.',
+   scale:'Coordinated positioning strategy, creative briefing, media planning, e-commerce integration teams (Flipkart + Samsung E-store), social teams, retail POSM production, and tech publisher outreach — simultaneously across 5 SKUs and 7+ channels.',
+   scope:'Led positioning, launch frameworks, and cross-channel execution for Galaxy F55, F56, F05, F06, F16 across 7+ channels.',
    tags:['GTM Strategy','Cross-Channel','E-Commerce'],
    stats:[{v:'5',l:'Products'},{v:'7+',l:'Channels'},{v:'Gen MZ',l:'Segment'},{v:'E2E',l:'Ownership'}],
    img:'assets/f-series-festive.jpg',alt:'Samsung Galaxy F-Series campaign',
-   brief:"Galaxy F-Series needed to own the 'value flagship' position in a competitive mid-range segment, reaching Gen Z and millennial first-smartphone buyers across online and offline India.",
-   approach:"Distinct RTB ladder and channel-specific messaging hierarchy per SKU. Execution spanned Flipkart (e-commerce pages, A+ content, sale banners), Samsung E-store microsites, social media (organic + paid), tech publisher seeding, and retail POSM across India.",
+   approach:'Distinct RTB ladder and channel-specific messaging hierarchy per SKU. Execution: Flipkart (e-commerce pages, A+ content, sale banners), Samsung E-store microsites, organic and paid social, tech publisher seeding, and retail POSM across India. Each launch followed a defined positioning framework briefed to creative, media, and retail teams.',
    platforms:['Flipkart','Samsung E-Store','Instagram','Facebook','YouTube','Retail POSM','Tech Publishers'],
-   videos:[{id:'TGJNl1w-or0',t:'Galaxy F-Series — Launch Film',s:'Samsung India'},{id:'4W6CBBpvFVc',t:'Galaxy F56 5G — Product Film',s:'Samsung India'}],
+   vids:[{id:'TGJNl1w-or0',t:'Galaxy F-Series — Launch Film',s:'Samsung India'},{id:'4W6CBBpvFVc',t:'Galaxy F56 5G — Product Film',s:'Samsung India'}],
    metrics:[{v:'5',l:'SKUs Launched'},{v:'7+',l:'Channels Executed'},{v:'Pan-India',l:'Coverage'},{v:'E2E',l:'Ownership'}],
-   role:'Led positioning, launch frameworks, channel briefs, and execution oversight across Flipkart, Samsung E-store, social, paid media, tech publishers, and retail POSM.'},
-  {id:'galaxy-s23-lime',brand:'Samsung India',bk:'samsung',year:'2023',
+   role:'Led positioning frameworks, channel briefs, and execution oversight across Flipkart, Samsung E-store, social, paid media, tech publishers, and retail POSM. Coordinated creative, media, and e-commerce teams across 5 concurrent launches.'},
+
+  {id:'s23-lime',brand:'Samsung India',bk:'samsung',year:'2023',
    title:'Galaxy S23 "Lime" — Zero-Spend Viral Launch',
-   scope:'Tease → Launch → Sustain organic campaign for a new colorway. 1M+ engagements, $0 media spend, 100% in-house production.',
+   cardChallenge:'Launch a colorway with zero paid media budget, post-campaign cycle.',
+   challenge:'Launch a new colorway for the Galaxy S23 Ultra with zero paid media budget — at a point in the launch cycle when the flagship campaign had already run and organic attention is hardest to earn.',
+   decision:'Replace Samsung India\'s entire social identity with lime green for 48 hours before any product mention — a cryptic tease that created urgency to understand what was happening before the reveal. The risk was brand confusion; the result was genuine curiosity.',
+   scale:'Fully in-house execution — briefed design team, planned the 3-phase content calendar across 4 platforms, managed posting schedules, community moderation, and IG highlight covers and profile updates.',
+   scope:'Tease → Launch → Sustain organic campaign for a new colorway. 1M+ engagements, $0 media spend, 100% in-house.',
    tags:['Organic Social','Launch Strategy','Zero Budget'],
    stats:[{v:'1M+',l:'Engagements'},{v:'$0',l:'Paid Media'},{v:'3',l:'Phases'},{v:'100%',l:'In-House'}],
    img:'assets/galaxy-s23-lime.jpg',alt:'Galaxy S23 Lime Edition',
-   brief:'A new Lime colorway for the Galaxy S23 Ultra needed to generate excitement with no paid media budget — make a colour feel like a launch event.',
-   approach:'Three-phase organic: Tease — cryptic lime-green content replacing the Samsung India social aesthetic to build curiosity. Launch — "Epic has a new shade" reveal simultaneously across all platforms with lifestyle KVs and studio flatlays. Sustain — community content, UGC encouragement, highlight covers, pinned posts. All assets produced in-house.',
+   approach:'Three-phase organic: Tease — cryptic lime-green content replacing the Samsung India social aesthetic across all platforms for 48 hours to build curiosity before any product mention. Launch — "Epic has a new shade" reveal simultaneously across Instagram, Facebook, X, and YouTube with lifestyle KVs and studio flatlays. Sustain — community content, UGC encouragement, highlight covers, and pinned posts. All assets produced in-house.',
    platforms:['Instagram','Facebook','X (Twitter)','YouTube'],
    metrics:[{v:'1M+',l:'Total Engagements'},{v:'$0',l:'Media Spend'},{v:'3',l:'Campaign Phases'},{v:'12+',l:'Posts Produced'}],
-   role:'Planned and executed the full 3-phase campaign strategy. Briefed design, approved creative, managed posting schedule and community engagement. All assets in-house.'},
+   role:'Planned and executed the full 3-phase strategy. Briefed design team, approved all creative, managed posting schedule and community engagement across 4 platforms. All production in-house.'},
+
   {id:'hyperlocal',brand:'Samsung India',bk:'samsung',year:'2019–25',
    title:'Hyperlocal Retail — 450+ Page Scaling Program',
-   scope:'Scaled a pilot into a nationwide social media engine across 450+ retailer-managed pages. 2.5× SOV lift. Global Best Practice recognition by Samsung HQ.',
-   tags:['Scale Operations','Retail Social','Regional Strategy'],
+   cardChallenge:'National campaigns can\'t capture local purchase intent.',
+   challenge:'Samsung\'s national social strategy couldn\'t capture local purchase intent — someone walking into a specific authorised store in Jaipur or Coimbatore needed a reason to buy there, not just a reason to buy Samsung.',
+   decision:'Decentralise publishing while centralising brand standards — a framework where 450+ retailers could localise content within guardrails, creating authentic local presence at national scale without a central publishing team.',
+   scale:'Built and managed a governance framework for 450+ retailer-managed social pages — content template library, calendar system, localisation guidelines, retailer training coordination, and performance benchmarking across regions. Recognised as Global Best Practice by Samsung HQ leadership.',
+   scope:'Scaled a pilot into a nationwide social engine across 450+ retailer pages. 2.5× SOV lift. Global Best Practice by Samsung HQ.',
+   tags:['Scale Operations','Retail Social','Systems Thinking'],
    stats:[{v:'450+',l:'Pages'},{v:'2.5×',l:'SOV Lift'},{v:'Pan-India',l:'Coverage'},{v:'Global BP',l:'Recognition'}],
    img:'assets/grid-s24-delhi.png',alt:'Samsung hyperlocal retailer program',
-   brief:"National brand campaigns don't capture local purchase intent. Opportunity: activate Samsung's authorised retailer network as a distributed, always-on social media channel.",
-   approach:"Built a scalable content and governance framework for 450+ retailer social pages — template library, content calendar system, localisation guidelines, performance benchmarking — all without centralised publishing control. Pilot proven, scaled, and recognised by Samsung HQ as Global Best Practice.",
+   approach:'Built a scalable content and governance framework for 450+ retailer social pages — template library, content calendar system, localisation guidelines, and performance benchmarking — all without centralised publishing control. Retailers could personalise content within brand guardrails. Pilot proven, scaled to national rollout, and adopted as Global Best Practice by Samsung HQ.',
    platforms:['Facebook','Instagram','WhatsApp Broadcast'],
    metrics:[{v:'450+',l:'Retailer Pages'},{v:'2.5×',l:'SOV Lift'},{v:'Pan-India',l:'Coverage'},{v:'Global BP',l:'Samsung HQ Recognition'}],
-   award:'Recognised as Global Best Practice by Samsung HQ leadership. Consistently delivered 1.5× higher engagement vs category standards.',
-   role:'Built framework from pilot to 450+ pages — content governance, retailer training coordination, and performance benchmarking across regions.'}
+   award:'Recognised as Global Best Practice by Samsung HQ leadership. Influencer-led social frameworks from this program consistently delivered 1.5× higher engagement vs category standards.',
+   role:'Built framework from pilot to 450+ pages — content governance system, retailer training coordination, localisation guidelines, and performance benchmarking across regions. The systems thinking here is what earned Global Best Practice recognition.'}
 ];
 
-const TIMELINE=[
-  {cls:'mg',co:'CheilX · JSW MG Motor India',short:'MG Motor',date:'Jun 2025 — Present',role:'Key Account Manager · Asst. Manager (Social Media)',loc:'Gurugram',note:'Leading social strategy and digital content across EV and ICE portfolios. EV Sahi Hai (E4M Award), CarKalam Asia Book of Records, 50K LinkedIn organic follower growth in 6 months, ICMA 2025 × 2. Uses AI tools for creative efficiency and faster turnaround.'},
-  {cls:'samsung',co:'Cheil India · Samsung India',short:'Samsung India',date:'Apr 2019 — May 2025',role:'Key Account Manager · Asst. Manager (Social Media)',loc:'Gurgaon',note:'Galaxy F/S/Z Series GTM and social strategy, Samsung × FilterCopy (SCREENXX Award), Guinness World Record Galaxy S22 Ultra. 450+ hyperlocal retailer pages — Global Best Practice by Samsung HQ. Influencer-led social frameworks delivering 1.5× higher engagement.'},
-  {cls:'',co:'GlobalLogic · Google (Magazines & News)',short:'Google / GlobalLogic',date:'Nov 2017 — Apr 2019',role:'Digital Content Analyst',loc:'Gurgaon',note:'Content operations for Google Magazines and Google News. Publisher relations with The Times, Condé Nast. Primary escalation point for technical issues, maintaining high CSAT scores.'},
-  {cls:'',co:'HH Global',short:'HH Global',date:'Sep 2015 — Aug 2017',role:'Account Executive',loc:'Gurgaon',note:'Procurement and print production for Lendlease, Audi, Skoda (Australia), Airtel, Reckitt. Reduced Lendlease costs by 20% and delivery times by 50% via localised on-demand vendor model. Cross-border logistics and stakeholder management.'},
-  {cls:'',co:'Lustra Print Process',short:'Lustra Print',date:'Jun 2013 — Aug 2015',role:'Client Servicing Executive',loc:'Delhi',note:'Retail POSM and print production for Samsung, Sony, LG, ITC. End-to-end execution of retail display and print requirements for major consumer electronics and FMCG brands.'}
+const TL=[
+  {cls:'mg',role:'Key Account Manager · Asst. Manager — Social Media',co:'CheilX · JSW MG Motor India, Gurugram',date:'Jun 2025 — Present',scope:'EV + ICE categories · 5 social platforms · Multi-agency coordination · Production budget ownership',note:'Leading social strategy and digital content for MG Motor. Orchestrated EV Sahi Hai (E4M Award 2025, 65M+ views), CarKalam Asia Book of Records digital amplification, 50K organic LinkedIn follower growth in 6 months (600K milestone), ICMA Awards 2025 × 2. Uses AI tools to improve creative efficiency and turnaround.'},
+  {cls:'samsung',role:'Key Account Manager · Asst. Manager — Social Media',co:'Cheil India · Samsung India, Gurgaon',date:'Apr 2019 — May 2025',scope:'Galaxy F/S/Z portfolio · 6-year tenure · National scale launches · Production budget oversight',note:'Directed social strategy and GTM execution for the Galaxy portfolio. Samsung × FilterCopy SCREENXX Award. Guinness World Record — Galaxy S22 Ultra unboxing activation. Built 450+ retailer hyperlocal program adopted as Global Best Practice by Samsung HQ. Developed influencer-led social frameworks delivering 1.5× higher engagement vs category standards.'},
+  {cls:'',role:'Digital Content Analyst',co:'GlobalLogic Technologies · Google (Magazines & News), Gurgaon',date:'Nov 2017 — Apr 2019',scope:'Premium publisher relations · Google Magazines & News · Global CSAT accountability',note:'Led content operations for Google Magazines and Google News. Publisher relations with The Times and Condé Nast. Primary escalation point for technical issues across global markets, maintaining high CSAT scores consistently.'},
+  {cls:'',role:'Account Executive',co:'HH Global · Lendlease, Audi, Skoda (Australia), Airtel, Reckitt, Gurgaon',date:'Sep 2015 — Aug 2017',scope:'Multi-market procurement · 20% cost reduction · 50% delivery improvement achieved',note:'Managed procurement and print production for global accounts. Reduced Lendlease Australia costs by 20% and delivery times by 50% via a localised, on-demand vendor model across multiple Australian markets. Cross-border logistics coordination and stakeholder management across time zones.'},
+  {cls:'',role:'Client Servicing Executive',co:'Lustra Print Process · Samsung, Sony, LG, ITC, Delhi',date:'Jun 2013 — Aug 2015',scope:'Retail POSM execution · Samsung, Sony, LG, ITC · Full production lifecycle',note:'End-to-end retail POSM and print production for major consumer electronics and FMCG brands. Full execution of retail display and print requirements supporting account growth through production optimisation.'}
 ];
 
-/* ── SVGS ───────────────────────────────────────── */
-const TROPHY=`<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>`;
+const TROPHY=`<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>`;
 const EXT=`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
-const ARR=`<svg class="a-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
+const ARR=`<svg class="a-svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transition:transform .2s"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
 
-/* ── OBSERVERS ──────────────────────────────────── */
-const revObs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vis');revObs.unobserve(x.target)}})},{threshold:.07,rootMargin:'0px 0px -20px 0px'});
-const lazObs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){const i=x.target;if(i.dataset.src)i.src=i.dataset.src;i.classList.add('loaded');lazObs.unobserve(i)}})},{threshold:.01});
+const rObs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vis');rObs.unobserve(x.target)}})},{threshold:.07,rootMargin:'0px 0px -20px 0px'});
+const lObs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('loaded');lObs.unobserve(x.target)}})},{threshold:.01});
 
-/* ── CARDS ──────────────────────────────────────── */
+/* CARDS */
 function renderCards(){
   const g=document.getElementById('cases-grid');
-  g.innerHTML=CAMPAIGNS.map((c,i)=>`
-<article class="case-card ${c.bk} reveal" role="button" tabindex="0" aria-label="View: ${c.title}" data-id="${c.id}" style="transition-delay:${i*45}ms">
-  <div class="case-top-line"></div>
-  <div class="case-img-wrap"><img src="${c.img}" alt="${c.alt}" class="case-img lazy" loading="lazy"></div>
-  <div class="case-body">
-    <div class="case-meta"><span class="case-brand">${c.brand}</span><span class="case-year">${c.year}</span></div>
-    <div class="case-ttl">${c.title}</div>
-    <div class="case-scope">${c.scope}</div>
-    <div class="case-tags">${c.tags.map(t=>`<span class="tag ${c.bk}">${t}</span>`).join('')}</div>
-    <div class="case-stats">${c.stats.map(s=>`<div><div class="sv">${s.v}</div><div class="sl">${s.l}</div></div>`).join('')}</div>
-    <div class="case-cta">Read Case Study ${ARR}</div>
+  g.innerHTML=C.map((c,i)=>`
+<article class="case-card ${c.bk} reveal" role="button" tabindex="0" aria-label="View: ${c.title}" data-id="${c.id}" style="transition-delay:${i*40}ms">
+  <div class="c-img-box"><img src="${c.img}" alt="${c.alt}" class="c-img lazy" loading="lazy"></div>
+  <div class="c-body">
+    <div class="c-meta"><span class="c-brand">${c.brand}</span><span class="c-year">${c.year}</span></div>
+    <p class="c-challenge">${c.cardChallenge}</p>
+    <div class="c-title">${c.title}</div>
+    <div class="c-scope">${c.scope}</div>
+    <div class="c-tags">${c.tags.map(t=>`<span class="tag ${c.bk}">${t}</span>`).join('')}</div>
+    <div class="c-stats">${c.stats.map(s=>`<div><div class="sv">${s.v}</div><div class="sl">${s.l}</div></div>`).join('')}</div>
+    <div class="c-cta">Read case study ${ARR}</div>
   </div>
 </article>`).join('');
-  g.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
-  g.querySelectorAll('.lazy').forEach(img=>lazObs.observe(img));
+  g.querySelectorAll('.reveal').forEach(el=>rObs.observe(el));
+  g.querySelectorAll('.lazy').forEach(el=>lObs.observe(el));
   g.querySelectorAll('.case-card').forEach(card=>{
     const fn=()=>openModal(card.dataset.id);
     card.addEventListener('click',fn);
@@ -801,121 +771,117 @@ function renderCards(){
   });
 }
 
-/* ── MODAL ──────────────────────────────────────── */
-const mBg=document.getElementById('modal-bg'),mPanel=document.getElementById('modal'),mX=document.getElementById('m-x');
+/* MODAL */
+const mBg=document.getElementById('modal-bg'),mPan=document.getElementById('modal'),mX=document.getElementById('m-x');
 function openModal(id){
-  const c=CAMPAIGNS.find(x=>x.id===id);if(!c)return;
+  const c=C.find(x=>x.id===id);if(!c)return;
   const br=document.getElementById('m-brand');
   br.textContent=`${c.brand} · ${c.year}`;br.className=`m-brand ${c.bk}`;
   document.getElementById('m-body').innerHTML=`
 <h2 class="m-ttl" id="modal-title">${c.title}</h2>
 <div class="m-sub">${c.brand} · ${c.year}</div>
-<div class="m-sec"><div class="m-sec-l">The Brief</div><p class="m-text">${c.brief}</p></div>
-<div class="m-sec"><div class="m-sec-l">Approach</div><p class="m-text">${c.approach}</p>${c.platforms?`<div class="m-chips">${c.platforms.map(p=>`<span class="chip">${p}</span>`).join('')}</div>`:''}</div>
-<div class="m-sec"><div class="m-sec-l">My Role</div><div class="m-role-box">${c.role}</div></div>
-${c.videos?.length?`<div class="m-sec"><div class="m-sec-l">The Work</div><div class="m-vids">${c.videos.map(v=>`<div class="m-vid-wrap"><div class="vi-aspect"><iframe src="https://www.youtube.com/embed/${v.id}" loading="lazy" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="${v.t}"></iframe></div><div class="m-vid-lbl">${v.t}<div class="m-vid-sub">${v.s}</div></div></div>`).join('')}</div></div>`:''}
-<div class="m-sec"><div class="m-sec-l">Numbers</div><div class="m-metrics">${c.metrics.map(m=>`<div class="m-met"><div class="m-met-v">${m.v}</div><div class="m-met-l">${m.l}</div></div>`).join('')}</div></div>
-${c.award?`<div class="m-sec"><div class="m-sec-l">Recognition</div><div class="m-award-box">${TROPHY} ${c.award}</div></div>`:''}
-${c.prs?.length?`<div class="m-sec"><div class="m-sec-l">Press</div><div class="m-prs">${c.prs.map(p=>`<a href="${p.u}" target="_blank" rel="noopener" class="m-pr">${EXT} ${p.t}</a>`).join('')}</div></div>`:''}`;
-  mBg.setAttribute('aria-hidden','false');mPanel.setAttribute('aria-hidden','false');
-  mBg.classList.add('open');mPanel.classList.add('open');
-  mPanel.scrollTop=0;document.body.style.overflow='hidden';
+<div class="m-challenge"><div class="m-challenge-lbl">Business Challenge</div><div class="m-challenge-txt">${c.challenge}</div></div>
+<div class="m-sec">
+  <div class="m-sec-l">Approach</div>
+  <p class="m-text">${c.approach}</p>
+  <div class="m-decision"><div class="m-decision-lbl">The Strategic Decision</div><div class="m-decision-txt">${c.decision}</div></div>
+  ${c.platforms?`<div class="m-chips">${c.platforms.map(p=>`<span class="chip">${p}</span>`).join('')}</div>`:''}
+</div>
+<div class="m-sec">
+  <div class="m-sec-l">My Role &amp; Scope of Coordination</div>
+  <div class="m-role-box">${c.role}</div>
+  <div class="m-scale">📋 ${c.scale}</div>
+</div>
+${c.vids?.length?`<div class="m-sec"><div class="m-sec-l">The Work</div><div class="m-vids">${c.vids.map(v=>`<div class="m-vid"><div class="m-vid-asp"><iframe src="https://www.youtube.com/embed/${v.id}" loading="lazy" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen title="${v.t}"></iframe></div><div class="m-vid-lbl">${v.t}<div class="m-vid-sub">${v.s}</div></div></div>`).join('')}</div></div>`:''}
+<div class="m-sec"><div class="m-sec-l">Results</div><div class="m-metrics">${c.metrics.map(m=>`<div class="m-met"><div class="m-met-v">${m.v}</div><div class="m-met-l">${m.l}</div></div>`).join('')}</div></div>
+${c.award?`<div class="m-sec"><div class="m-sec-l">Recognition</div><div class="m-award">${TROPHY} ${c.award}</div></div>`:''}
+${c.prs?.length?`<div class="m-sec"><div class="m-sec-l">Press Coverage</div><div class="m-prs">${c.prs.map(p=>`<a href="${p.u}" target="_blank" rel="noopener" class="m-pr">${EXT} ${p.t}</a>`).join('')}</div></div>`:''}`;
+  [mBg,mPan].forEach(el=>{el.classList.add('open');el.setAttribute('aria-hidden','false')});
+  mPan.scrollTop=0;document.body.style.overflow='hidden';
   history.pushState({modal:id},'',`#case-${id}`);
   setTimeout(()=>mX.focus(),40);
 }
 function closeModal(){
-  mBg.classList.remove('open');mPanel.classList.remove('open');
-  mBg.setAttribute('aria-hidden','true');mPanel.setAttribute('aria-hidden','true');
+  [mBg,mPan].forEach(el=>{el.classList.remove('open');el.setAttribute('aria-hidden','true')});
   document.body.style.overflow='';
   if(location.hash.startsWith('#case-'))history.pushState({},'',location.pathname);
 }
-mX.addEventListener('click',closeModal);
-mBg.addEventListener('click',closeModal);
+mX.addEventListener('click',closeModal);mBg.addEventListener('click',closeModal);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
-window.addEventListener('popstate',e=>{if(!e.state?.modal&&mPanel.classList.contains('open'))closeModal()});
+window.addEventListener('popstate',e=>{if(!e.state?.modal&&mPan.classList.contains('open'))closeModal()});
 
-/* ── TIMELINE ───────────────────────────────────── */
-let activeTl=-1;
-function renderTimeline(){
-  const nodes=document.getElementById('tl-nodes');
-  nodes.innerHTML=TIMELINE.map((t,i)=>`
-<div class="tl-node ${t.cls}" role="listitem" data-i="${i}" tabindex="0" aria-label="${t.co}: ${t.date}">
+/* TIMELINE */
+let ai=-1;
+function renderTl(){
+  const el=document.getElementById('tl');
+  el.innerHTML=TL.map((t,i)=>`
+<div class="tl-item ${t.cls}" role="listitem" data-i="${i}" tabindex="0" aria-expanded="false">
   <div class="tl-dot" aria-hidden="true"></div>
-  <div class="tl-co">${t.short}</div>
-  <div class="tl-date">${t.date.split(' — ')[0]}</div>
+  <div class="tl-card">
+    <div class="tl-head"><div class="tl-role">${t.role}</div><div class="tl-date">${t.date}</div></div>
+    <div class="tl-co">${t.co}</div>
+    <div class="tl-scope">${t.scope}</div>
+    <div class="tl-note">${t.note}</div>
+    <span class="tl-toggle" aria-hidden="true"></span>
+  </div>
 </div>`).join('');
-  nodes.querySelectorAll('.tl-node').forEach(n=>{
-    n.addEventListener('click',()=>expandTl(parseInt(n.dataset.i),n));
-    n.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();expandTl(parseInt(n.dataset.i),n)}});
+  el.querySelectorAll('.tl-item').forEach(item=>{
+    const fn=()=>toggleTl(parseInt(item.dataset.i),item);
+    item.addEventListener('click',fn);
+    item.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();fn()}});
   });
 }
-function expandTl(i,node){
-  const detail=document.getElementById('tl-detail');
-  const inner=document.getElementById('tl-detail-inner');
-  const allNodes=document.querySelectorAll('.tl-node');
-  if(activeTl===i){
-    detail.classList.remove('open');activeTl=-1;
-    allNodes.forEach(n=>n.classList.remove('active'));
-    return;
-  }
-  activeTl=i;
-  const t=TIMELINE[i];
-  inner.className=`tl-detail-inner`;
-  const borderCls=t.cls;
-  // Pass brand class to detail
-  detail.querySelector('.tl-detail-inner')?.setAttribute('data-brand',borderCls);
-  inner.innerHTML=`<div class="tl-d-role">${t.role}</div><div class="tl-d-co">${t.co} · ${t.loc}</div><div style="font-family:var(--ff-m);font-size:9px;color:var(--tx3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.65rem">${t.date}</div><div class="tl-d-note">${t.note}</div>`;
-  allNodes.forEach(n=>n.classList.remove('active'));
-  node.classList.add('active');
-  // Apply brand class to detail border
-  const allDetailInner=document.getElementById('tl-detail-inner');
-  allDetailInner.className=`tl-detail-inner`;
-  // Use parent node brand for border color via CSS class trick
-  document.getElementById('tl-detail').className=`tl-detail open ${borderCls}`;
+function toggleTl(i,node){
+  const all=document.querySelectorAll('.tl-item');
+  if(ai===i){node.classList.remove('active');node.setAttribute('aria-expanded','false');ai=-1;return;}
+  all.forEach(n=>{n.classList.remove('active');n.setAttribute('aria-expanded','false')});
+  node.classList.add('active');node.setAttribute('aria-expanded','true');ai=i;
 }
 
-/* ── WALL FILTER ────────────────────────────────── */
+/* WALL FILTER */
 function filterWall(cat,btn){
-  document.querySelectorAll('.wf').forEach(f=>f.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.wi').forEach(i=>{i.style.display=(cat==='all'||i.dataset.cat===cat)?'':'none'});
+  document.querySelectorAll('.wf-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.wi').forEach(w=>{
+    const show=cat==='all'||w.dataset.cat===cat;
+    w.style.display=show?'':'none';
+    w.style.gridColumn=show?(w.classList.contains('span2')?'span 2':''):'';
+  });
 }
 
-/* ── THEME ──────────────────────────────────────── */
-const themeBtn=document.getElementById('theme-btn');
-const htmlEl=document.documentElement;
+/* THEME */
+const html=document.documentElement;
 const saved=localStorage.getItem('pm-theme');
-if(saved)htmlEl.dataset.theme=saved;
-themeBtn.addEventListener('click',()=>{
-  const next=htmlEl.dataset.theme==='dark'?'light':'dark';
-  htmlEl.dataset.theme=next;localStorage.setItem('pm-theme',next);
+if(saved)html.dataset.theme=saved;
+document.getElementById('theme-btn').addEventListener('click',()=>{
+  const next=html.dataset.theme==='dark'?'light':'dark';
+  html.dataset.theme=next;localStorage.setItem('pm-theme',next);
 });
 
-/* ── SCROLL CIRCLE ──────────────────────────────── */
-const sb=document.getElementById('scroll-btn'),prog=document.getElementById('sb-prog');
+/* SCROLL CIRCLE */
+const sb=document.getElementById('sb'),prog=document.getElementById('sb-prog');
 const CIRC=2*Math.PI*21.25;
 prog.style.strokeDasharray=CIRC;prog.style.strokeDashoffset=CIRC;
 window.addEventListener('scroll',()=>{
   const h=document.documentElement.scrollHeight-window.innerHeight;
-  const pct=h>0?window.scrollY/h:0;
-  prog.style.strokeDashoffset=CIRC*(1-pct);
-  sb.classList.toggle('vis',pct>0.05);
+  const p=h>0?window.scrollY/h:0;
+  prog.style.strokeDashoffset=CIRC*(1-p);
+  sb.classList.toggle('vis',p>0.05);
 },{passive:true});
 sb.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 
-/* ── SMOOTH SCROLL ──────────────────────────────── */
+/* SMOOTH SCROLL */
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
   a.addEventListener('click',e=>{
     const t=document.querySelector(a.getAttribute('href'));
-    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});document.querySelector('.nav-links')?.classList.remove('open')}
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});document.querySelector('.nav-list')?.classList.remove('open')}
   });
 });
 
-/* ── INIT ───────────────────────────────────────── */
-renderCards();
-renderTimeline();
-document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
-document.querySelectorAll('.lazy').forEach(img=>lazObs.observe(img));
+/* INIT */
+renderCards();renderTl();
+document.querySelectorAll('.reveal').forEach(el=>rObs.observe(el));
+document.querySelectorAll('.lazy').forEach(el=>lObs.observe(el));
 </script>
 </body>
 </html>
