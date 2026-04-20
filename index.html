@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio of Pradeep Mahlawat — Account Director bridging business objectives with award-winning creative for Samsung, MG Motor, and more." />
+  <title>Pradeep Mahlawat — Account Director</title>
+
+  <!-- Fonts: Playfair Display (serif, display) + Inter (sans, body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- =========================================================
+       SCROLL PROGRESS RING (fixed bottom-right, click = to top)
+  ========================================================== -->
+  <button class="scroll-progress" id="scrollProgress" aria-label="Scroll to top">
+    <svg viewBox="0 0 48 48" aria-hidden="true">
+      <circle class="progress-track" cx="24" cy="24" r="20" />
+      <circle class="progress-bar" cx="24" cy="24" r="20" />
+    </svg>
+    <i class="ph ph-arrow-up"></i>
+  </button>
+
+  <!-- =========================================================
+       NAVIGATION
+  ========================================================== -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#top" class="nav-brand" aria-label="Home">
+        <span class="nav-brand-name">Pradeep Mahlawat</span>
+        <span class="nav-brand-role">Account Director</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#work">Work</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#timeline">Journey</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
+          <i class="ph ph-sun icon-sun"></i>
+          <i class="ph ph-moon-stars icon-moon"></i>
+        </button>
+
+        <a href="./resume.pdf" download class="btn btn-primary">
+          <i class="ph ph-download-simple"></i>
+          <span>Resume</span>
+        </a>
+
+        <button class="icon-btn nav-menu-toggle" id="navMenuToggle" aria-label="Open menu">
+          <i class="ph ph-list"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <!-- =========================================================
+         HERO — split layout, editorial headline + portrait w/ badges
+    ========================================================== -->
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <span class="hero-eyebrow">
+            <span class="dot-indicator"></span>
+            Available for select opportunities
+          </span>
+
+          <h1 class="hero-title">
+            Bridging business objectives <br />
+            with <em>award-winning</em> creative.
+          </h1>
+
+          <p class="hero-summary">
+            Over a decade driving digital, social, and go-to-market strategies
+            for high-value consumer brands — including MG Motor, Samsung, and
+            Google. I lead cross-functional teams that turn briefs into culture.
+          </p>
+
+          <div class="hero-cta">
+            <a href="#work" class="btn btn-primary-lg">
+              Explore Work <i class="ph ph-arrow-right"></i>
+            </a>
+            <a href="mailto:er.mahlawat@gmail.com" class="btn btn-ghost">Get in touch</a>
+          </div>
+
+          <div class="hero-stats">
+            <div>
+              <strong>12+</strong>
+              <span>Years in advertising</span>
+            </div>
+            <div>
+              <strong>2</strong>
+              <span>Flagship brand accounts</span>
+            </div>
+            <div>
+              <strong>15+</strong>
+              <span>Award-winning campaigns</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-portrait">
+          <!-- REPLACE: swap this with your actual portrait photo -->
+          <img
+            src="https://picsum.photos/seed/portrait-pradeep/900/1200"
+            alt="Portrait of Pradeep Mahlawat"
+          />
+
+          <!-- Glassmorphic award badges floating over the portrait -->
+          <div class="award-badge award-badge-1">
+            <i class="ph-duotone ph-trophy"></i>
+            <div>
+              <span class="badge-year">2022</span>
+              <strong>Guinness World Record</strong>
+              <small>Samsung Galaxy S22 Ultra Launch</small>
+            </div>
+          </div>
+
+          <div class="award-badge award-badge-2">
+            <i class="ph-duotone ph-medal"></i>
+            <div>
+              <span class="badge-year">2025</span>
+              <strong>ICMA Awards</strong>
+              <small>Content Marketing of the Year</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         AWARDS / RECOGNITIONS STRIP — thin infinite marquee
+    ========================================================== -->
+    <section class="awards-strip" aria-label="Awards and recognitions">
+      <div class="awards-track">
+        <!-- Marquee content duplicated for seamless loop -->
+        <div class="awards-set">
+          <span>Guinness World Record 2022</span><em>◆</em>
+          <span>ICMA 2025 · Content Marketing of the Year</span><em>◆</em>
+          <span>E4M Auto Award · #EVSahiHai</span><em>◆</em>
+          <span>AdGully SCREENXX · Samsung × FilterCopy</span><em>◆</em>
+          <span>Cheil Worldwide Recognition</span><em>◆</em>
+        </div>
+        <div class="awards-set" aria-hidden="true">
+          <span>Guinness World Record 2022</span><em>◆</em>
+          <span>ICMA 2025 · Content Marketing of the Year</span><em>◆</em>
+          <span>E4M Auto Award · #EVSahiHai</span><em>◆</em>
+          <span>AdGully SCREENXX · Samsung × FilterCopy</span><em>◆</em>
+          <span>Cheil Worldwide Recognition</span><em>◆</em>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SELECTED WORKS — MG Motor + Samsung (4 cards each)
+         Cards injected by script.js into the two grids below
+    ========================================================== -->
+    <section class="work" id="work">
+      <header class="section-header">
+        <span class="section-label">01 — Selected Works</span>
+        <h2 class="section-title">Case Studies</h2>
+        <p class="section-intro">
+          Campaigns and strategic initiatives led end-to-end — from brief and
+          ideation through measurement and media scale.
+        </p>
+      </header>
+
+      <!-- MG MOTOR INDIA -->
+      <div class="brand-block">
+        <div class="brand-header">
+          <div>
+            <span class="brand-index">M / 01</span>
+            <h3 class="brand-name">MG Motor India</h3>
+          </div>
+          <span class="brand-meta">CheilX · June 2025 — Present</span>
+        </div>
+        <div class="case-grid" id="mgGrid"></div>
+      </div>
+
+      <!-- SAMSUNG INDIA -->
+      <div class="brand-block">
+        <div class="brand-header">
+          <div>
+            <span class="brand-index">S / 02</span>
+            <h3 class="brand-name">Samsung India</h3>
+          </div>
+          <span class="brand-meta">Cheil India · April 2019 — May 2025</span>
+        </div>
+        <div class="case-grid" id="samsungGrid"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         CREATIVE GALLERY — masonry w/ image, carousel, video tiles
+    ========================================================== -->
+    <section class="gallery" id="gallery">
+      <header class="section-header">
+        <span class="section-label">02 — The Archive</span>
+        <h2 class="section-title">Creative Gallery</h2>
+        <p class="section-intro">
+          Selected work across film, print, social, and experiential —
+          an archive of the details that made each campaign.
+        </p>
+      </header>
+
+      <!-- Masonry grid — items injected by script.js -->
+      <div class="masonry" id="masonry"></div>
+    </section>
+
+    <!-- =========================================================
+         PROFESSIONAL TIMELINE
+    ========================================================== -->
+    <section class="timeline-section" id="timeline">
+      <header class="section-header">
+        <span class="section-label">03 — The Journey</span>
+        <h2 class="section-title">Professional Timeline</h2>
+      </header>
+
+      <ol class="timeline">
+        <li class="timeline-item">
+          <div class="timeline-node"></div>
+          <div class="timeline-meta">
+            <span class="timeline-dates">June 2025 — Present</span>
+            <span class="timeline-location">Gurugram, India</span>
+          </div>
+          <div class="timeline-body">
+            <h4>Key Account Manager</h4>
+            <span class="timeline-company">CheilX · MG Motor India</span>
+            <p>
+              Leading digital, social, and GTM strategy for MG Motor's India
+              portfolio. Managing a cross-functional team across creative,
+              planning, and production on launches including Windsor EV and
+              Hector Facelift, plus the corporate LinkedIn strategy that
+              crossed 50K organic followers.
+            </p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-node"></div>
+          <div class="timeline-meta">
+            <span class="timeline-dates">April 2019 — May 2025</span>
+            <span class="timeline-location">Gurugram, India</span>
+          </div>
+          <div class="timeline-body">
+            <h4>Key Account Manager</h4>
+            <span class="timeline-company">Cheil India · Samsung</span>
+            <p>
+              Six years leading large-scale campaigns for Samsung Mobile —
+              including the Galaxy S22 Ultra launch that entered the Guinness
+              Book of World Records, the Samsung × FilterCopy SCREENXX winner,
+              and the hyperlocal retailer engagement engine that lifted
+              share-of-voice 2.5x.
+            </p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-node"></div>
+          <div class="timeline-meta">
+            <span class="timeline-dates">Nov 2017 — April 2019</span>
+            <span class="timeline-location">Noida, India</span>
+          </div>
+          <div class="timeline-body">
+            <h4>Content Operations Lead</h4>
+            <span class="timeline-company">GlobalLogic · Google</span>
+            <p>
+              Ran content operations for a Google services programme —
+              managing editorial workflows, QA, and vendor teams at scale.
+            </p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-node"></div>
+          <div class="timeline-meta">
+            <span class="timeline-dates">Sept 2015 — Aug 2017</span>
+            <span class="timeline-location">Gurugram, India</span>
+          </div>
+          <div class="timeline-body">
+            <h4>Account Executive</h4>
+            <span class="timeline-company">HH Global</span>
+            <p>
+              Client servicing across marketing production — working with
+              global brand teams on print, point-of-sale, and campaign rollout.
+            </p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-node"></div>
+          <div class="timeline-meta">
+            <span class="timeline-dates">June 2013 — Aug 2015</span>
+            <span class="timeline-location">Delhi, India</span>
+          </div>
+          <div class="timeline-body">
+            <h4>Client Servicing Executive</h4>
+            <span class="timeline-company">Lustra Print Process</span>
+            <p>
+              First chapter — owning client relationships and end-to-end
+              delivery on print production briefs.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- =========================================================
+         EDUCATION + TOOLS (grayscale logo grid, no text)
+    ========================================================== -->
+    <section class="edu-tools">
+      <div class="edu-tools-grid">
+        <div class="edu">
+          <span class="section-label">04 — Foundations</span>
+          <h3 class="edu-title">Education</h3>
+          <div class="edu-list">
+            <div class="edu-item">
+              <strong>Postgraduate Diploma in Management</strong>
+              <span>Guru Jambheshwar University of Science &amp; Technology</span>
+            </div>
+            <div class="edu-item">
+              <strong>B.Tech, Engineering</strong>
+              <span>Guru Jambheshwar University of Science &amp; Technology</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tools">
+          <span class="section-label">05 — Craft</span>
+          <h3 class="edu-title">Tools of the Trade</h3>
+          <!-- Grayscale SVG logo grid — no text, injected by script.js -->
+          <div class="tools-grid" id="toolsGrid"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================
+       FOOTER / CONTACT
+  ========================================================== -->
+  <footer class="footer" id="contact">
+    <div class="footer-top">
+      <h2 class="footer-name">
+        Pradeep<br />
+        <em>Mahlawat.</em>
+      </h2>
+      <p class="footer-tagline">
+        An Account Director who treats every brief like a business case —
+        and every campaign like a story worth telling.
+      </p>
+    </div>
+
+    <div class="footer-grid">
+      <div class="footer-col">
+        <span class="footer-label">Based in</span>
+        <p>Gurugram, India</p>
+      </div>
+      <div class="footer-col">
+        <span class="footer-label">Email</span>
+        <p><a href="mailto:er.mahlawat@gmail.com">er.mahlawat@gmail.com</a></p>
+      </div>
+      <div class="footer-col">
+        <span class="footer-label">Phone</span>
+        <!-- REPLACE with your real number -->
+        <p><a href="tel:+919999999999">+91 99999 99999</a></p>
+      </div>
+      <div class="footer-col">
+        <span class="footer-label">Sitemap</span>
+        <ul class="footer-links">
+          <li><a href="#work">Selected Works</a></li>
+          <li><a href="#gallery">Creative Gallery</a></li>
+          <li><a href="#timeline">Professional Timeline</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <a href="./resume.pdf" download class="btn btn-primary-lg">
+        <i class="ph ph-download-simple"></i> Download Resume
+      </a>
+      <div class="socials">
+        <!-- REPLACE with your real profile URLs -->
+        <a href="https://linkedin.com/in/YOUR_HANDLE" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <i class="ph ph-linkedin-logo"></i>
+        </a>
+        <a href="https://instagram.com/YOUR_HANDLE" target="_blank" rel="noopener" aria-label="Instagram">
+          <i class="ph ph-instagram-logo"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-copy">
+      <span>© 2026 Pradeep Mahlawat. All rights reserved.</span>
+      <span>Designed with intent.</span>
+    </div>
+  </footer>
+
+  <!-- =========================================================
+       CASE STUDY MODAL (content injected by script.js)
+  ========================================================== -->
+  <div class="modal" id="caseModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-panel" id="modalPanel" tabindex="-1">
+      <button class="modal-close" id="modalClose" aria-label="Close case study">
+        <i class="ph ph-x"></i>
+      </button>
+      <div class="modal-content" id="modalContent">
+        <!-- Filled by renderCaseStudy() -->
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
